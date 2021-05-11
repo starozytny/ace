@@ -12,6 +12,7 @@ import { Button }                                      from "@dashboardComponent
 import Validator    from "@dashboardComponents/functions/validateur";
 import Sanitaze     from "@dashboardComponents/functions/sanitaze";
 import Formulaire     from "@dashboardComponents/functions/Formulaire";
+import {Trumb} from "@dashboardComponents/Tools/Trumb";
 
 export class StyleguideForm extends Component {
     constructor(props) {
@@ -31,7 +32,8 @@ export class StyleguideForm extends Component {
             postalCode: "",
             arrayPostalCode: [],
             city: "",
-            fruit: ""
+            fruit: "",
+            faq: ""
         }
 
         this.inputAvatar = React.createRef();
@@ -42,6 +44,7 @@ export class StyleguideForm extends Component {
         this.handleChangeDateCreateAt = this.handleChangeDateCreateAt.bind(this);
         this.handleChangeDateCreateAt = this.handleChangeDateCreateAt.bind(this);
         this.handleChangeSelect = this.handleChangeSelect.bind(this);
+        this.handleChangeTrumb = this.handleChangeTrumb.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -85,6 +88,12 @@ export class StyleguideForm extends Component {
     handleChangeDateBirthday = (e) => { this.setState({ birthday: e }) }
     handleChangeDateCreateAt = (e) => { this.setState({ createAt: e }) }
     handleChangeDateArrived = (e) => { this.setState({ arrived: e }) }
+
+    handleChangeTrumb = (e) => {
+        const { faq } = this.state
+        // this.setState({faq: {value: (faq != null ? faq.content : ''), error: '', html: e.currentTarget.innerHTML}})
+        this.setState({ faq: (faq != null ? faq : '') })
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -143,7 +152,7 @@ export class StyleguideForm extends Component {
 
     render () {
         const { errors, username, email, message, roles, sexe, pays, birthday,
-                createAt, arrived, postalCode, city, fruit } = this.state;
+                createAt, arrived, postalCode, city, fruit, faq } = this.state;
 
         let checkboxItems = [
             { 'value': 'ROLE_USER', 'label': 'Utilisateur', 'identifiant': 'utilisateur' },
@@ -180,6 +189,10 @@ export class StyleguideForm extends Component {
 
                         <div className="line">
                             <TextArea identifiant="message" valeur={message} errors={errors} onChange={this.handleChange}>Message</TextArea>
+                        </div>
+
+                        <div className="line">
+                            <Trumb identifiant="faq" valeur={faq} errors={errors} onChange={this.handleChangeTrumb}>F.A.Q</Trumb>
                         </div>
 
                         <div className="line line-2">

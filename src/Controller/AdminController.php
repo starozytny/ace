@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -30,10 +32,13 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/styleguide/react", name="styleguide_react")
+     * @Route("/styleguide/react", options={"expose"=true}, name="styleguide_react")
      */
-    public function styleguideReact(): Response
+    public function styleguideReact(Request  $request): Response
     {
+        if($request->isMethod("POST")){
+            return new JsonResponse(['code' => true]);
+        }
         return $this->render('admin/pages/styleguide/react.html.twig');
     }
 
