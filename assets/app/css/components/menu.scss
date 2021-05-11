@@ -55,7 +55,7 @@
 //                     |__|                       |__|
 @media (min-width: 1024px) {
   nav{
-    background: lightblue;
+    background: var(--alpha);
   }
   .nav-container{
     @include flex(row, center, space-between);

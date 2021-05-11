@@ -79,7 +79,7 @@ export class User extends Component {
             })
         }
 
-        localStorage.setItem("user.pagination", "0")
+        sessionStorage.setItem("user.pagination", "0")
         this.page.current.pagination.current.handlePageOne();
         this.setState({ data: newData, currentData: newData.slice(0, perPage), filters: filters });
         return newData;

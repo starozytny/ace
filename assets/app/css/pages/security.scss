@@ -18,3 +18,20 @@
     }
   }
 }
+
+.see-password{
+  position: relative;
+
+  .btn-see-password{
+    position: absolute;
+    top: 0; right: 0;
+    padding: 8px;
+    color: var(--grey2);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover, .active{
+      color: var(--txt);
+    }
+  }
+}

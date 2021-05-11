@@ -36,7 +36,7 @@
             <div>
                 <h2>Destinataires des données</h2>
                 <p>
-                    Le responsable du traitement de ces données est {{ websiteName }} dont les coordonnées figurent dans la partie "Droits des utilisateurs concernés".
+                    Le responsable du traitement de ces données est {{ societyName }} dont les coordonnées figurent dans la partie "Droits des utilisateurs concernés".
                     <br><br>
                     Le traitement des données décrits ci-dessus, sont effectués uniquement par le personnel du site internet et les prestataires habilités. <br>
                     Type de prestataires habilités : éditeur de logiciel, hébergeur, développeur. <br>
@@ -47,7 +47,8 @@
             <div>
                 <h2>Droits des utilisateurs concernés</h2>
                 <p>
-                    Conformément à la réglementation concernant le traitement des données à caractère personnel, l'utilisateur possède les droits ci-après énumérés :
+                    Conformément au règlement RGPD 2016/679 et de la loi n°78-17 modifiée dite « Informatique et Libertés »
+                    concernant le traitement des données à caractère personnel, l'utilisateur possède les droits ci-après énumérés :
                 </p>
                 <ul>
                     <li>Droit d'accès et de rectification de vos données personnelles.</li>
@@ -58,11 +59,16 @@
                     <li>Droit de déterminer le sort des données après sa mort.</li>
                 </ul>
                 <p>
-                    Ces droits peuvent être exercés sur demande via le <a href="{{ path('app_rgpd') }}">formulaire de demande RGPD pour faire exercer ses droits.</a> ou par courrier à
+                    Ces droits peuvent être exercés sur demande par courrier à
                     l'adresse suivante : <br>
-                    {{ websiteName }} - {{ addressPostale }} - France
+                    {{ societyName }} - {{ addressPostale }} - France
+                    {% if websiteEmail %}
+                        <br><br>
+                        <u>ou</u> par courriel : {{ websiteEmail }}
+                    {% endif %}
                 </p>
                 <p>
+                    <br>
                     Dans le cas où le responsable du traitement des données décide de ne pas répondre à la demande de l'utilisateur,
                     et que l'utilisateur souhaite contester cette décision, ou, s'il pense qu'il est porté atteinte à l'un des
                     droits énumérés ci-dessus, il est en droit de saisir la CNIL (Commission Nationale de l'Informatique et des Libertés,

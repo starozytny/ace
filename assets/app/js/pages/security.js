@@ -19,3 +19,20 @@ el = document.getElementById("reinit");
 if(el){
     render(<Reinit {...el.dataset} />, el)
 }
+
+let btnSeePassword = document.querySelector('.btn-see-password');
+if(btnSeePassword){
+    let seePassword = false;
+    let inputSeePassword = document.querySelector('#inputPassword');
+    btnSeePassword.addEventListener('click', function (e){
+        if(seePassword){
+            seePassword = false;
+            inputSeePassword.type = "password";
+            btnSeePassword.classList.remove("active");
+        }else{
+            seePassword = true;
+            inputSeePassword.type = "text";
+            btnSeePassword.classList.add("active");
+        }
+    })
+}
