@@ -17,8 +17,8 @@ framework:
     php_errors:
         log: true
 
-    http_client:
-        scoped_clients:
-            api_immo:
-                base_uri: '%env(API_IMMO_URL)%'
-                auth_bearer: '%env(API_IMMO_BEAR)%'
+#    http_client:
+#        scoped_clients:
+#            api_immo:
+#                base_uri: '%env(API_IMMO_URL)%'
+#                auth_bearer: '%env(API_IMMO_BEAR)%'
