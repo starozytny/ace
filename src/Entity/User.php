@@ -103,7 +103,9 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable();
+        $createdAt = new \DateTime();
+        $createdAt->setTimezone(new \DateTimeZone("Europe/Paris"));
+        $this->createdAt = $createdAt;
         try {
             $this->setToken(bin2hex(random_bytes(32)));
         } catch (Exception $e) {

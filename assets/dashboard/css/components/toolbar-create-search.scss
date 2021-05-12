@@ -1,0 +1,30 @@
+
+.toolbar{
+  .filter-search{
+    width: 100%;
+
+    .search{
+      width: 100%;
+    }
+    input[type="search"]{
+      border-radius: 4px;
+    }
+  }
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .toolbar{
+    .create{
+      width: 170px;
+    }
+    .filter-search{
+      width: calc(100% - 170px - 24px);
+    }
+  }
+}
