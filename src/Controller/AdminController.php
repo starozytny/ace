@@ -51,6 +51,14 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/articles", name="blog_index")
+     */
+    public function blog(): Response
+    {
+        return $this->render('admin/pages/blog/index.html.twig');
+    }
+
+    /**
      * @Route("/parametres", name="settings_index")
      */
     public function settings(): Response
