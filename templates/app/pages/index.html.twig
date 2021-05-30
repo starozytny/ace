@@ -5,5 +5,17 @@
 {% block main_content %}
 <div class="main-content">
     <h1>Hello ! ✅</h1>
+    <br>
+    <p>
+        Le bouton menu en mobile ne fonctionne pas encore.
+    </p>
+    <br><br>
+    <p>Services</p>
+    <ul>
+        <li><a href="{{ path('app_services', {'slug': "etudiants-lyceens"}) }}">Etudiants/Lycéens</a></li>
+        <li><a href="{{ path('app_services', {'slug': "entreprises"}) }}">Entreprises</a></li>
+        <li><a href="{{ path('app_services', {'slug': "particuliers"}) }}">Particuliers</a></li>
+        <li><a href="{{ path('app_services', {'slug': "sportifs"}) }}">Sportifs</a></li>
+    </ul>
 </div>
 {% endblock %}
