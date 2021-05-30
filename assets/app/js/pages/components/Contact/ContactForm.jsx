@@ -4,7 +4,7 @@ import axios                from "axios";
 import toastr               from "toastr";
 import Routing              from "@publicFolder/bundles/fosjsrouting/js/router.min";
 
-import { Input, TextArea }  from "@dashboardComponents/Tools/Fields";
+import { Input, Select, TextArea } from "@dashboardComponents/Tools/Fields";
 import { Button }           from "@dashboardComponents/Tools/Button";
 import { Alert }            from "@dashboardComponents/Tools/Alert";
 import { RgpdInfo }         from "@appComponents/Tools/Rgpd";
@@ -22,6 +22,8 @@ export class ContactForm extends Component {
             critere: "",
             name: "",
             email: "",
+            phone: "",
+            subject: "",
             message: ""
         }
 
@@ -34,7 +36,7 @@ export class ContactForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        const { critere, name, email, message } = this.state;
+        const { critere, name, email, message, subject } = this.state;
 
         if(critere !== ""){
             toastr.error("Veuillez rafraichir la page.");
@@ -43,6 +45,7 @@ export class ContactForm extends Component {
                 {type: "text", id: 'name', value: name},
                 {type: "text", id: 'email', value: email},
                 {type: "text", id: 'message', value: message},
+                {type: "text", id: 'subject', value: subject},
             ])
 
             if(!validate.code) {
@@ -74,13 +77,25 @@ export class ContactForm extends Component {
     }
 
     render () {
-        const { errors, success, critere, name, email, message } = this.state;
+        const { errors, success, critere, name, email, message, phone, subject } = this.state;
+
+        let selectItems = [
+            { value: 0, label: 'Etudiants/Lycéens', identifiant: 'etudiants' },
+            { value: 1, label: 'Entreprises', identifiant: 'entreprises' },
+            { value: 2, label: 'Particuliers', identifiant: 'particuliers' },
+            { value: 3, label: 'Sportifs', identifiant: 'sportifs' },
+            { value: 4, label: 'Autre demande', identifiant: 'autre' },
+        ]
 
         return <form onSubmit={this.handleSubmit}>
             {success && <Alert type="info">{success}</Alert>}
             <div className="line line-2">
                 <Input identifiant="name" valeur={name} errors={errors} onChange={this.handleChange}>Nom / Raison sociale</Input>
                 <Input identifiant="email" valeur={email} errors={errors} onChange={this.handleChange} type="email">Adresse e-mail</Input>
+            </div>
+            <div className="line line-2">
+                <Input identifiant="phone" valeur={phone} errors={errors} onChange={this.handleChange}>Téléphone (facultatif)</Input>
+                <Select items={selectItems} identifiant="subject" valeur={subject} errors={errors} onChange={this.handleChange}>Sujet de votre demande ?</Select>
             </div>
             <div className="line line-critere">
                 <Input identifiant="critere" valeur={critere} errors={errors} onChange={this.handleChange}>Critère</Input>
