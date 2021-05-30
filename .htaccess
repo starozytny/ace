@@ -1,0 +1,100 @@
+<Files ".env">
+  Order Allow,Deny
+  Deny from all
+</Files>
+
+IndexIgnore *
+
+Options +FollowSymlinks
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 7200 seconds"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType text/html "access plus 7200 seconds"
+    ExpiresByType text/javascript "access plus 1 week"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/xhtml+xml "access plus 7200 seconds"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType application/x-javascript "access plus 1 week"
+
+# Webfonts
+  ExpiresByType application/vnd.ms-fontobject "access plus 1 month"
+  ExpiresByType application/x-font-ttf    "access plus 1 month"
+  ExpiresByType application/x-font-woff   "access plus 1 month"
+  ExpiresByType font/opentype             "access plus 1 month"
+
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\\.(ico|jpeg|png|gif|swf|svg|woff2|woff|ttf)$">
+        Header set Cache-Control "max-age=15768000, public"
+    </FilesMatch>
+    <FilesMatch "\\.(css)$">
+        Header set Cache-Control "max-age=15768000, public"
+
+    </FilesMatch>
+    <FilesMatch "\\.(js)$">
+        Header set Cache-Control "max-age=15768000, private"
+    </FilesMatch>
+    <FilesMatch "\\.(x?html?|php)$">
+        Header set Cache-Control "max-age=15768000, private, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# compress text, html, javascript, css, xml:
+
+<IfModule mod_gzip.c>
+  mod_gzip_on Yes
+  mod_gzip_can_negotiate Yes
+  mod_gzip_static_suffix .gz
+  AddEncoding gzip .gz
+  mod_gzip_update_static No
+  mod_gzip_command_version '/mod_gzip_status'
+  mod_gzip_temp_dir /tmp
+  mod_gzip_keep_workfiles No
+  mod_gzip_minimum_file_size 500
+  mod_gzip_maximum_file_size 500000
+  mod_gzip_maximum_inmem_size 60000
+  mod_gzip_min_http 1000
+  mod_gzip_handle_methods GET POST
+  mod_gzip_item_exclude reqheader "User-agent: Mozilla/4.0[678]"
+  mod_gzip_item_include file \.html$
+  mod_gzip_item_include file \.htm$
+  mod_gzip_item_include file \.php3$
+  mod_gzip_item_include file \.php$
+  mod_gzip_item_include file \.js$
+  mod_gzip_item_include file \.css$
+  mod_gzip_item_include mime ^text/
+  mod_gzip_item_exclude mime ^httpd/unix-directory
+  mod_gzip_item_exclude mime ^image/
+  mod_gzip_dechunk Yes
+  mod_gzip_add_header_count Yes
+  mod_gzip_send_vary Yes
+</IfModule>
+
+RewriteEngine on
+
+# ErrorDocument 404/ https://ace.chanbora-chhun.fr
+
+RewriteCond %{HTTP_HOST} ^www.ace.chanbora-chhun.fr$
+RewriteRule ^(.*) http://ace.chanbora-chhun.fr/$1 [QSA,L,R=301]
+
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+SetEnv SHORT_OPEN_TAGS 0
+SetEnv REGISTER_GLOBALS 0
+SetEnv MAGIC_QUOTES 0
+SetEnv SESSION_AUTOSTART 0
+SetEnv ZEND_OPTIMIZER 1
+
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L]
+
+Redirect 301 http://ace.chanbora-chhun.fr/ https://ace.chanbora-chhun.fr/
