@@ -1,0 +1,54 @@
+{% extends 'app/pages/services/template.html.twig' %}
+
+{% block title %}{{ service.title }}{% endblock %}
+
+{% block main_content %}
+    <div class="title-page">
+        <div class="title-page-content">
+            <p class="title">Seuls on va plus vite, <br> ensemble on va plus loin</p>
+        </div>
+    </div>
+    <div class="title-page-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60">
+            <path fill="#E7EDF1" fill-opacity="1" d="M0,0L120,10.7C240,21,480,43,720,42.7C960,43,1200,21,1320,10.7L1440,0L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path>
+        </svg>
+    </div>
+    <div class="main-content">
+        <h1>{{ service.title }}</h1>
+
+        <div class="service-content">
+            <div class="content">
+                <div class="content-text">
+                    {{ service.content | raw }}
+                </div>
+
+                <p class="seance">EN SÉANCE INDIVIDUELLE D’1H / POSSIBILITÉ DE GROUPES POUR LES ENTREPRISES</p>
+                <p class="nb-seance">LE NOMBRE DE SÉANCES EST À DÉFINIR APRÈS LE 1ER ENTRETIEN.</p>
+            </div>
+            <div class="illustrations">
+               <div class="illustrations-col-1">
+                   <div>
+                       <img class="img-1" src="{{ asset('build/app/images/' ~ service.file2) }}" alt="Illustration service">
+                   </div>
+                   <div>
+                       <img class="img-2" src="{{ asset('build/app/images/' ~ service.file3) }}" alt="Illustration service">
+                   </div>
+               </div>
+                <div class="illustrations-col-2">
+                    <div>
+                        <img class="img-3" src="{{ asset('build/app/images/' ~ service.file4) }}" alt="Illustration service">
+                    </div>
+                    <div>
+                        <img class="img-4" src="{{ asset('build/app/images/' ~ service.file5) }}" alt="Illustration service">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="question">
+            <h2>Vous avez des questions concernant ce service ?</h2>
+            <p>N’hésitez pas à me contacter pour plus d’informations.</p>
+            <a href="{{ path('app_contact') }}" class="btn btn-primary">Contactez-moi !</a>
+        </div>
+    </div>
+{% endblock %}

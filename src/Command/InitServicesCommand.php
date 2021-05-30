@@ -50,31 +50,37 @@ class InitServicesCommand extends Command
                                 pour faciliter votre développement stratégique et une
                                 meilleure gestion opérationnelle.
                 </p>
-                <ol>
+                <ul>
                     <li>Leadership</li>
                     <li>Changement</li>
                     <li>Développement</li>
-                </ol>
-                <p>EN SÉANCE INDIVIDUELLE D’1H / POSSIBILITÉ DE GROUPES POUR LES ENTREPRISES</p>
-                <p>LE NOMBRE DE SÉANCES EST À DÉFINIR APRÈS LE 1ER ENTRETIEN.</p>
+                </ul>
                 ";
 
         $data = [
             [
-                "title" => "L’un des facteurs clé de votre réussite : la préparation mentale",
-                "slug" => "etudiants-lyceens"
+                "title" => "Vous vous sentez perdus dans votre choix d’orientation ? Vous avez du mal à vous organiser, en manque de motivation ?",
+                "slug" => "etudiants-lyceens",
+                'bandeau' => "bandeau_service_etudiant.jpg",
+                'img1' => "etudiant_1", 'img2' => "etudiant_2", 'img3' => "etudiant_3", 'img4' => "etudiant_4"
             ],
             [
                 "title" => "Entrepreneurs, dirigeants, managers, vous souhaitez optimiser votre performance ?",
-                "slug" => "entreprises"
+                "slug" => "entreprises",
+                'bandeau' => "bandeau_service_entreprise.jpg",
+                'img1' => "entreprise_1", 'img2' => "entreprise_2", 'img3' => "entreprise_3", 'img4' => "entreprise_4"
             ],
             [
                 "title" => "Vous avez un projet professionnel ou personnel à réaliser qui vous tient à coeur ?",
-                "slug" => "particuliers"
+                "slug" => "particuliers",
+                'bandeau' => "bandeau_service_particulier.jpg",
+                'img1' => "particulier_1", 'img2' => "particulier_2", 'img3' => "particulier_3", 'img4' => "particulier_4"
             ],
             [
                 "title" => "Vous vous sentez perdus dans votre choix d’orientation ? Vous avez du mal à vous organiser, en manque de motivation ?",
-                "slug" => "sportifs"
+                "slug" => "sportifs",
+                'bandeau' => "bandeau_service_sportif.jpg",
+                'img1' => "sportif_1", 'img2' => "sportif_2", 'img3' => "sportif_3", 'img4' => "sportif_4"
             ],
         ];
 
@@ -83,10 +89,14 @@ class InitServicesCommand extends Command
             $slug = $item['slug'];
 
             $service = (new AcService())
-                ->setAccroche("Seuls on va plus vite, ensemble on va plus loin")
                 ->setContent($content)
                 ->setTitle($title)
                 ->setSlug($slug)
+                ->setFile1($item['bandeau'])
+                ->setFile2($item['img1'] . '.jpg')
+                ->setFile3($item['img2'] . '.jpg')
+                ->setFile4($item['img3'] . '.jpg')
+                ->setFile5($item['img4'] . '.jpg')
             ;
 
             $this->em->persist($service);

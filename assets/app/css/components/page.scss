@@ -5,12 +5,17 @@
   background-color: var(--color3);
   padding: 48px 12px;
 
-  h1, .subtitle{
+  .title, h1, .subtitle{
     text-align: center;
   }
 
-  h1{
+  h1, .title{
     color: var(--color0);
+  }
+
+  .title{
+    font-size: 2em;
+    @include fontBold();
   }
 
   .subtitle{
@@ -30,7 +35,7 @@
 //                     |__|                      |__|
 @media (min-width:1280px) {
   .title-page{
-    padding: 24px 32px;
+    padding: 48px 32px;
   }
 }
 

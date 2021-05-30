@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Ace\AcService;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class AppController extends AbstractController
 {
@@ -54,5 +58,17 @@ class AppController extends AbstractController
     public function contact(): Response
     {
         return $this->render('app/pages/contact/index.html.twig');
+    }
+
+    /**
+     * @Route("/services/{slug}", name="app_services")
+     */
+    public function service($slug): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $service = $em->getRepository(AcService::class)->findOneBy(['slug' => $slug]);
+        return $this->render('app/pages/services/index.html.twig', [
+            'service' => $service
+        ]);
     }
 }
