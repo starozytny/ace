@@ -48,6 +48,7 @@
 @import "components/aside";
 @import "components/exception";
 @import "components/legales";
+@import "components/page";
 
 html, body{
     scroll-behavior: smooth;
@@ -78,6 +79,8 @@ h1{
 h2{
     @include fontSemibold();
     text-transform: uppercase;
+    color: var(--color0);
+    margin-bottom: 12px;
 }
 
 main{
@@ -109,7 +112,7 @@ main{
 //                     | |  |_|\___/ \___/ \___/   | |
 //                     |__|                       |__|
 @media (min-width: 1600px){
-    .main-content{
+    .title-page-content{
         @include maxscreen();
     }
 }
