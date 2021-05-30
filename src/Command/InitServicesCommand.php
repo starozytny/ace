@@ -62,29 +62,32 @@ class InitServicesCommand extends Command
         $data = [
             [
                 "title" => "L’un des facteurs clé de votre réussite : la préparation mentale",
+                "slug" => "etudiants-lyceens"
             ],
             [
                 "title" => "Entrepreneurs, dirigeants, managers, vous souhaitez optimiser votre performance ?",
+                "slug" => "entreprises"
             ],
             [
                 "title" => "Vous avez un projet professionnel ou personnel à réaliser qui vous tient à coeur ?",
+                "slug" => "particuliers"
             ],
             [
                 "title" => "Vous vous sentez perdus dans votre choix d’orientation ? Vous avez du mal à vous organiser, en manque de motivation ?",
+                "slug" => "sportifs"
             ],
         ];
 
         foreach($data as $item){
             $title = $item['title'];
+            $slug = $item['slug'];
 
             $service = (new AcService())
                 ->setAccroche("Seuls on va plus vite, ensemble on va plus loin")
                 ->setContent($content)
                 ->setTitle($title)
+                ->setSlug($slug)
             ;
-
-            $slug = new AsciiSlugger();
-            $service->setSlug($slug->slug(trim($title)));
 
             $this->em->persist($service);
         }
