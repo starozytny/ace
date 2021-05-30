@@ -31,7 +31,7 @@ function axiosGetDataPagination(self, url, sorter = null, perPage=10){
             }
             self.setState({ dataImmuable: data, data: data, currentData: data.slice(0, perPage) });
         })
-        .catch(function () {
+        .catch(function (error) {
             self.setState({ loadPageError: true });
         })
         .then(function () {

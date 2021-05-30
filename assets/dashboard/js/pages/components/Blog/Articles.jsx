@@ -38,7 +38,7 @@ export class Articles extends Component {
         this.handleChangePublished = this.handleChangePublished.bind(this);
     }
 
-    componentDidMount() { Formulaire.axiosGetDataPagination(this, Routing.generate('api_articles_index'), this.state.perPage) }
+    componentDidMount() { Formulaire.axiosGetDataPagination(this, Routing.generate('api_articles_index'), null, this.state.perPage) }
 
     handleUpdateData = (data) => { this.setState({ currentData: data })  }
 
