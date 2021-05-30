@@ -1,3 +1,8 @@
+<div class="footer-background">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#064872" fill-opacity="1" d="M0,224L120,234.7C240,245,480,267,720,256C960,245,1200,203,1320,181.3L1440,160L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path>
+    </svg>
+</div>
 <footer>
     <div class="footer">
         <div class="footer-menu">
@@ -5,21 +10,36 @@
                 <a href="{{ path('app_homepage') }}" title="Logilink">
                     <img src="{{ asset('build/dashboard/images/logilink-logo.svg') }}" alt="Logo"/>
                 </a>
-                <span>Website </span>
+                <span>A.C.E - Connectez vos rêves à la réalité</span>
+            </div>
+            <div class="footer-items">
+                <div class="footer-items-col-1">
+                    <a href="">Accueil</a>
+                    <div class="footer-services">
+                        <span>Services</span>
+                        <div class="indent">
+                            <a href="">Etudiants/Lycéens</a>
+                            <a href="">Entreprises</a>
+                            <a href="">Particuliers</a>
+                            <a href="">Sportifs</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="footer-items-col-2">
+                    <a href="">A propos</a>
+                    <a href="">Ateliers</a>
+                    <a href="">Témoignages</a>
+                    <a href="">Actualités</a>
+                    <a href="{{ path('app_contact') }}">Contact</a>
+                </div>
             </div>
             <div class="footer-items">
                 <a rel="nofollow" href="{{ path('app_mentions') }}">Mentions légales</a>
                 <a rel="nofollow" href="{{ path('app_politique') }}">Politique de confidentialité</a>
                 <a rel="nofollow" href="{{ path('app_cookies') }}">Gestion des cookies</a>
-                <a rel="nofollow" href="{{ path('app_contact') }}">Nous contacter</a>
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <a rel="nofollow" href="{{ path('app_login') }}">Mon espace</a>
-                    <a rel="nofollow" href="{{ path('app_logout') }}">Me déconnecter</a>
-                {% else %}
-                    <a rel="nofollow" href="{{ path('app_login') }}">Mon espace</a>
-                {% endif %}
             </div>
         </div>
-        <div class="copyright">Copyright 2020 - <a href="https://logilink.fr" target="_blank">Logilink</a></div>
+        <div class="copyright">Copyright 2021 - <span>Valérie Ternay</span></div>
     </div>
 </footer>

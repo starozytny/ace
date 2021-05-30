@@ -1,3 +1,96 @@
 @import "../vars/vars";
 
 @import "../../../common/css/components/footer";
+
+footer{
+  background-color: var(--color0);
+
+  .footer{
+    .footer-logo{
+      color: var(--alpha);
+    }
+    .footer-items{
+      a, span{
+        color: var(--alpha);
+        opacity: 0.7;
+      }
+    }
+
+    .copyright{
+      color: var(--alpha);
+      opacity: 1;
+
+      a{
+        color: var(--alpha);
+      }
+    }
+  }
+
+  .indent{
+    @include flex(column, flex-start, flex-start);
+    margin-left: 12px;
+  }
+
+  .footer-items-col-1, .footer-items-col-2{
+    @include flex(column, flex-start, flex-start);
+  }
+
+  .footer-services{
+    margin-bottom: 5px;
+
+    span{
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.footer-background{
+  transform: translateY(16px);
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .footer{
+    .footer-items{
+      width: 100%;
+    }
+    .footer-items-col-1, .footer-items-col-2{
+      width: 50%;
+    }
+  }
+}
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
+  .footer-menu{
+    @include flex(row, flex-start, flex-start);
+  }
+
+  .footer{
+    .footer-logo{
+      @include flex(column, flex-start, flex-start);
+      margin-right: 48px;
+      min-width: 360px;
+
+      span{
+        display: block;
+        margin-top: 12px;
+      }
+    }
+
+    .footer-items:last-child{
+      @include flex(column, flex-start, flex-start);
+    }
+  }
+}
