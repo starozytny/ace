@@ -50,6 +50,16 @@ class Contact
      */
     private $isSeen;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $subject;
+
     public function __construct()
     {
         $createdAt = new \DateTime();
@@ -136,6 +146,30 @@ class Contact
     public function setIsSeen(bool $isSeen): self
     {
         $this->isSeen = $isSeen;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(string $subject): self
+    {
+        $this->subject = $subject;
 
         return $this;
     }

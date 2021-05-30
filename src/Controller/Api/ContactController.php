@@ -76,7 +76,7 @@ class ContactController extends AbstractController
         }
 
 
-        if (!isset($data->name) || !isset($data->email) || !isset($data->message)) {
+        if (!isset($data->name) || !isset($data->email) || !isset($data->message) || !isset($data->subject)) {
             return $apiResponse->apiJsonResponseBadRequest('Il manque des données.');
         }
 
@@ -84,6 +84,8 @@ class ContactController extends AbstractController
             ->setName(trim($data->name))
             ->setEmail($data->email)
             ->setMessage($data->message)
+            ->setSubject($data->subject)
+            ->setPhone($data->subject ?? null)
         ;
 
         $noErrors = $validator->validate($contact);
