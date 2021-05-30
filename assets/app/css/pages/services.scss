@@ -1,15 +1,13 @@
 @import "../vars/vars";
 
-.main-content{
-  min-height: 40vh;
-}
-
 .title-page .title, h1{
   font-size: 1.4em;
 }
 
 h1{
   text-align: center;
+  max-width: 768px;
+  margin: 0 auto;
 }
 
 h2{
@@ -78,6 +76,11 @@ h2{
 
 .question{
   text-align: center;
+
+  p{
+    font-size: 18px;
+    opacity: 0.8;
+  }
 
   a{
     margin-top: 24px;
