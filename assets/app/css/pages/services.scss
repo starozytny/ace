@@ -74,19 +74,6 @@ h2{
   }
 }
 
-.question{
-  text-align: center;
-
-  p{
-    font-size: 18px;
-    opacity: 0.8;
-  }
-
-  a{
-    margin-top: 24px;
-  }
-}
-
 //                      __   _____ __    ___    __
 //                     | _| |___  / /_  ( _ )  |_ |
 //    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
@@ -104,7 +91,6 @@ h2{
 
   .service-content{
     @include flex(row, flex-start, flex-start);
-    margin-bottom: 120px;
     margin-top: 48px;
 
     .content{

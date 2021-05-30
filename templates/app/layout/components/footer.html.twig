@@ -18,17 +18,17 @@
                     <div class="footer-services">
                         <span>Services</span>
                         <div class="indent">
-                            <a href="">Etudiants/Lycéens</a>
-                            <a href="">Entreprises</a>
-                            <a href="">Particuliers</a>
-                            <a href="">Sportifs</a>
+                            <a href="{{ path('app_services', {'slug': "etudiants-lyceens"}) }}">Etudiants/Lycéens</a>
+                            <a href="{{ path('app_services', {'slug': "entreprises"}) }}">Entreprises</a>
+                            <a href="{{ path('app_services', {'slug': "particuliers"}) }}">Particuliers</a>
+                            <a href="{{ path('app_services', {'slug': "sportifs"}) }}">Sportifs</a>
                         </div>
                     </div>
 
                 </div>
                 <div class="footer-items-col-2">
                     <a href="">A propos</a>
-                    <a href="">Ateliers</a>
+                    <a href="{{ path('app_ateliers') }}">Ateliers</a>
                     <a href="">Témoignages</a>
                     <a href="">Actualités</a>
                     <a href="{{ path('app_contact') }}">Contact</a>

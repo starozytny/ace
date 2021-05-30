@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Ace\AcAtelier;
 use App\Entity\Ace\AcService;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,6 +70,18 @@ class AppController extends AbstractController
         $service = $em->getRepository(AcService::class)->findOneBy(['slug' => $slug]);
         return $this->render('app/pages/services/index.html.twig', [
             'service' => $service
+        ]);
+    }
+
+    /**
+     * @Route("/ateliers", name="app_ateliers")
+     */
+    public function ateliers(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ateliers = $em->getRepository(AcAtelier::class)->findAll();
+        return $this->render('app/pages/ateliers/index.html.twig', [
+            'ateliers' => $ateliers
         ]);
     }
 }

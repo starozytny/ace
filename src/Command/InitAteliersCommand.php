@@ -44,13 +44,13 @@ class InitAteliersCommand extends Command
         $content = "<p>
                        Et si « avoir du temps » passait par une optimisation
                         de son organisation au quotidien, gérer ses tâches
-                        autrement ? <br>
+                        autrement ? <br><br>
                         Quel est votre rapport au temps, quelles sont les
                         possibilités pour améliorer votre méthodologie ?
                         C’est ce que je vous propose de découvrir au cours de
                         cet atelier. <br><br>
-                       <b> 1 inscription = 1h de coaching gratuite sur le sujet de
-                        votre choix</b>
+                       <i><b> 1 inscription = 1h de coaching gratuite sur le sujet de
+                        votre choix</b></i>
                 </p>
                 ";
 
@@ -62,6 +62,12 @@ class InitAteliersCommand extends Command
                 ->setMin(5)
                 ->setMax(12)
             ;
+
+            if($i % 2 == 0){
+                $atelier->setFile("atelier_1.jpg");
+            }else{
+                $atelier->setFile("atelier_2.jpg");
+            }
 
             $this->em->persist($atelier);
         }
