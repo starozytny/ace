@@ -44,7 +44,7 @@ class InitServicesCommand extends Command
                                 Dans vos différents rôles de leaders et/ou manager,
                                 entre objectifs stratégiques et opérations, l’amélioration
                                 et la gestion de la performance ont un impact significatif
-                                au quotidien. <br>
+                                au quotidien. <br><br>
                                 Je vous accompagne dans la mise en oeuvre de
                                 changements et l’adoption de nouveaux comportements
                                 pour faciliter votre développement stratégique et une
