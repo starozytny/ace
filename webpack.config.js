@@ -60,6 +60,7 @@ Encore
     .addEntry('dashboard_styleguide', './assets/dashboard/js/pages/styleguide.js')
     .addEntry('dashboard_user', './assets/dashboard/js/pages/user.js')
     .addEntry('dashboard_settings', './assets/dashboard/js/pages/settings.js')
+    .addEntry('dashboard_blog', './assets/dashboard/js/pages/blog.js')
     .addEntry('dashboard_contact', './assets/dashboard/js/pages/contact.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
