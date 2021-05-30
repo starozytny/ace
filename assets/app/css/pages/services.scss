@@ -1,5 +1,9 @@
 @import "../vars/vars";
 
+.main-content{
+  min-height: 40vh;
+}
+
 .title-page .title, h1{
   font-size: 1.4em;
 }
@@ -97,7 +101,7 @@ h2{
 
   .service-content{
     @include flex(row, flex-start, flex-start);
-    margin-bottom: 80px;
+    margin-bottom: 120px;
     margin-top: 48px;
 
     .content{
