@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Routing           from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
+
 export class ArticlesItem extends Component {
     render () {
         const { elem } = this.props
@@ -8,7 +10,7 @@ export class ArticlesItem extends Component {
 
             <div className="item-content">
                 <div className="item-body">
-                    <a href={location.origin + "/articles/" + elem.slug} className="infos">
+                    <a href={Routing.generate('app_article', {'slug': elem.slug})} className="infos">
                         <div className="image">
                             <div className="cat">
                                 <span>Catégorie</span>

@@ -93,4 +93,20 @@ class AppController extends AbstractController
     {
         return $this->render('app/pages/actualites/index.html.twig');
     }
+
+    /**
+     * @Route("/actualités/article/{slug}", options={"expose"=true}, name="app_article")
+     */
+    public function article($slug): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository(BoArticle::class)->findOneBy(['slug' => $slug]);
+        if(!$article){
+            throw new NotFoundHttpException();
+        }
+
+        return $this->render('app/pages/actualites/article.html.twig', [
+            'article' => $article
+        ]);
+    }
 }
