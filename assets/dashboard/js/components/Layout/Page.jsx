@@ -15,11 +15,13 @@ export class Page extends Component {
                 havePagination, perPage = "10", taille, data,
         } = this.props;
 
+        let hPagination = (havePagination && data && data.length !== 0);
+
         return <>
             {haveLoadPageError && <PageError />}
             <div className="main-content">
                 {children}
-                <Pagination ref={this.pagination} havePagination={havePagination} perPage={perPage} taille={taille} items={data}
+                <Pagination ref={this.pagination} havePagination={hPagination} perPage={perPage} taille={taille} items={data}
                             onUpdate={(items) => this.props.onUpdate(items)}/>
             </div>
 

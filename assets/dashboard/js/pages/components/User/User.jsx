@@ -37,7 +37,7 @@ export class User extends Component {
         this.handleDeleteGroup = this.handleDeleteGroup.bind(this);
     }
 
-    componentDidMount() { Formulaire.axiosGetDataPagination(this, Routing.generate('api_users_index'), this.state.perPage) }
+    componentDidMount() { Formulaire.axiosGetDataPagination(this, Routing.generate('api_users_index'), null, this.state.perPage) }
 
     handleUpdateData = (data) => { this.setState({ currentData: data })  }
 

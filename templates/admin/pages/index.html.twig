@@ -19,9 +19,35 @@
                     <p class="username">{{ app.user.firstname | capitalize }}</p>
                 </div>
             </div>
+            <div class="dash-line-1-col-2">
+                <div class="dash-card-1">
+                    <div class="icon">
+                        <span class="icon-settings"></span>
+                    </div>
+                    <div class="title">Paramètres du site</div>
+                    <div>
+                        {% if settings %}
+                            <div>{{ settings.websiteName }}</div>
+                            <div>{{ settings.emailContact }}</div>
+                        {% else %}
+                            <a class="maj-settings" href="{{ path('admin_settings_index') }}">
+                                <span class="icon-warning"></span>
+                                Veuillez mettre à jour les paramètres du site.
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="dash-card-1">
+                    <div class="icon">
+                        <span class="icon-user"></span>
+                    </div>
+                    <div class="title">Qui s'est connecté ?</div>
+                    <div class="number">{{ nbConnected }} / {{ totalUsers }}</div>
+                </div>
+            </div>
         </div>
-        <div class="dash-line-2">
-            Hello world
-        </div>
+{#        <div class="dash-line-2">#}
+{#            #}
+{#        </div>#}
     </div>
 {% endblock %}

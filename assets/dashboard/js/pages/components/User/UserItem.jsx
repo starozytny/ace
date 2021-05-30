@@ -36,8 +36,8 @@ export class UserItem extends Component {
                         <div className="actions">
                             {elem.highRoleCode !== 1 &&
                             <>
-                                <ButtonIcon icon={"pencil"} onClick={() => onChangeContext("update", elem)}>Modifier</ButtonIcon>
-                                <ButtonIcon icon={"trash"} onClick={() => onDelete(elem)}>Supprimer</ButtonIcon>
+                                <ButtonIcon icon="pencil" onClick={() => onChangeContext("update", elem)}>Modifier</ButtonIcon>
+                                <ButtonIcon icon="trash" onClick={() => onDelete(elem)}>Supprimer</ButtonIcon>
                                 <a href={url} target="_blank" className="btn-icon">
                                     <span className="icon-share" />
                                     <span className="tooltip">Imiter</span>

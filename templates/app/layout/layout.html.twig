@@ -24,14 +24,19 @@
                     <div class="items">
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <div class="item">
-                                <a href="{{ path('app_logout') }}">
+                                <a rel="nofollow" href="{{ path('app_login') }}">
+                                    <span>Mon espace</span>
+                                </a>
+                            </div>
+                            <div class="item">
+                                <a rel="nofollow" href="{{ path('app_logout') }}">
                                     <span>Déconnexion</span>
                                 </a>
                             </div>
                         {% else %}
                             <div class="item">
-                                <a href="{{ path('app_login') }}">
-                                    <span>Se connecter</span>
+                                <a rel="nofollow" href="{{ path('app_login') }}">
+                                    <span>Mon espace</span>
                                 </a>
                             </div>
                         {% endif %}

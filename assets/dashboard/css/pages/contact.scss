@@ -1,0 +1,49 @@
+@import "../vars/vars";
+
+.items-contact{
+  .infos{
+    div:first-child{
+      cursor: pointer;
+      width: 100%;
+    }
+  }
+}
+
+.item-contact-read{
+  background-color: var(--alpha);
+  border-radius: 8px;
+  padding: 12px;
+  max-width: 768px;
+
+  .name{
+    @include fontSemibold();
+    font-size: 18px;
+  }
+
+  .sub{
+    opacity: 0.7;
+  }
+
+  .sub-time{
+    font-size: 14px;
+    max-width: 768px;
+    text-align: right;
+  }
+
+  .sub-message{
+    margin-top: 12px;
+    max-width: 768px;
+  }
+}
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
+  .item-contact-read {
+    padding: 24px;
+  }
+}

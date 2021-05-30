@@ -31,6 +31,35 @@
   }
 }
 
+.dash-card-1{
+  background-color: var(--alpha);
+  box-shadow: 0 4px 12px var(--greyShadow);
+  border-radius: 12px;
+  padding: 12px;
+  width: 100%;
+  max-width: 272px;
+  transition: width 0.2s ease-in-out;
+
+  &:not(:last-child){
+    margin-bottom: 24px;
+  }
+
+  .icon{
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  .title{
+    opacity: 0.7;
+    margin-bottom: 24px;
+  }
+
+  .number{
+    font-size: 18px;
+    @include fontSemibold();
+  }
+}
+
 //                      __   _____ __    ___    __
 //                     | _| |___  / /_  ( _ )  |_ |
 //    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
@@ -39,8 +68,55 @@
 //                     |__|                    |__|
 @media (min-width:768px) {
   .dash-line-1{
+    @include flex(row, flex-start, flex-start);
+
     .welcome-back{
       width: 126px;
+    }
+  }
+
+  .dash-line-1-col-2{
+    @include flex(row, stretch, flex-start);
+    flex-wrap: wrap;
+    width: calc(100% - 126px - 48px);
+    margin-left: 48px;
+  }
+
+  .dash-card-1{
+    padding: 24px;
+    border-radius: 24px;
+    margin-bottom: 24px;
+    width: calc(50% - 48px - 12px);
+
+    &:nth-child(odd){
+      margin-right: 24px;
+    }
+  }
+}
+
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+  .dash-line-1-col-2{
+    width: calc(100% - 126px - 48px);
+  }
+  .dash-card-1{
+    max-width: 220px;
+    width: calc(33% - 48px - 14px);
+    margin-bottom: 0;
+
+    &:nth-child(even){
+      margin-right: 24px;
+    }
+    &:nth-child(odd){
+      margin-bottom: 0;
+    }
+    &:last-child{
+      margin-right: 0;
     }
   }
 }

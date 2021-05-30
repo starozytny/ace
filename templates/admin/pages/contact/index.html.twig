@@ -1,0 +1,17 @@
+{% extends 'admin/layout/layout.html.twig' %}
+
+{% set page_title %}Contacts{% endset %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('dashboard_contact') }}
+{% endblock %}
+
+{% block main_content %}
+    <div id="contact"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dashboard_contact') }}
+{% endblock %}
