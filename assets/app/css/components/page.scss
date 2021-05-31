@@ -74,7 +74,13 @@
 //                     | |  |_|\___/ \___/ \___/   | |
 //                     |__|                       |__|
 @media (min-width: 1600px){
-  .main-content{
+  .title-page-content{
     @include maxscreen();
+  }
+
+
+  .title-page{
+    padding: 24px 32px;
+    margin-top: 48px;
   }
 }

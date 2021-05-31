@@ -97,11 +97,6 @@ main{
     z-index: 10;
 }
 
-<<<<<<< HEAD
-.title-page{
-    padding: 24px 12px 12px 12px;
-}
-
 .custom-shape-divider {
     width: 100%;
     overflow: hidden;
@@ -120,15 +115,6 @@ main{
     fill: var(--fondContent);
 }
 
-//                      __   _ ____  ___   ___    __
-//                     | _| / |___ \( _ ) / _ \  |_ |
-//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
-//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
-//                     | |  |_|_____\___/ \___/   | |
-//                     |__|                      |__|
-@media (min-width:1280px) {
-    .main-content, .title-page{
-=======
 //                      __   _____ __    ___    __
 //                     | _| |___  / /_  ( _ )  |_ |
 //    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
@@ -149,7 +135,6 @@ main{
 //                     |__|                       |__|
 @media (min-width: 1024px) {
     .main-content{
->>>>>>> 4e62f3c93bcda93a4a1f335b1a8fc9b5b416ab0b
         padding: 24px 32px;
         margin-bottom: -150px;
     }
@@ -162,16 +147,7 @@ main{
 //                     | |  |_|\___/ \___/ \___/   | |
 //                     |__|                       |__|
 @media (min-width: 1600px){
-<<<<<<< HEAD
-    .main-content, .title-page{
-=======
-    .title-page-content{
->>>>>>> 4e62f3c93bcda93a4a1f335b1a8fc9b5b416ab0b
+    .main-content{
         @include maxscreen();
-    }
-
-    .title-page{
-        padding: 24px 32px;
-        margin-top: 48px;
     }
 }
