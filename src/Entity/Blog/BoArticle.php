@@ -70,6 +70,13 @@ class BoArticle
      */
     private $isPublished;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=BoCategory::class, inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"admin:read"})
+     */
+    private $category;
+
     public function __construct()
     {
         $createAt = new \DateTime();
@@ -200,6 +207,18 @@ class BoArticle
     public function setIsPublished(bool $isPublished): self
     {
         $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    public function getCategory(): ?BoCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?BoCategory $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

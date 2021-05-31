@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import axios             from "axios";
-import toastr            from "toastr";
 import Routing           from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
 
 import { Page }          from "@dashboardComponents/Layout/Page";
@@ -9,11 +7,11 @@ import { LoaderElement } from "@dashboardComponents/Layout/Loader";
 import Sort              from "@dashboardComponents/functions/sort";
 import Formulaire        from "@dashboardComponents/functions/Formulaire";
 
-import { ArticlesList }  from "./ArticlesList";
-import { ArticleCreate } from "./ArticleCreate";
-import { ArticleUpdate } from "./ArticleUpdate";
+import { CategoriesList }  from "./CategoriesList";
+import { CategoryCreate } from "./CategoryCreate";
+import { CategoryUpdate } from "./CategoryUpdate";
 
-export class Articles extends Component {
+export class Categories extends Component {
     constructor(props) {
         super(props);
 
@@ -35,37 +33,15 @@ export class Articles extends Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.handleDeleteGroup = this.handleDeleteGroup.bind(this);
-        this.handleChangePublished = this.handleChangePublished.bind(this);
     }
 
-    componentDidMount() {
-        const { perPage } = this.state;
-
-        const self = this;
-        axios.get(Routing.generate('api_articles_index'), {})
-            .then(function (response) {
-                let resp = response.data;
-
-                let data = JSON.parse(resp.articles);
-                let categories = JSON.parse(resp.categories);
-
-                data.sort(Sort.compareCreatedAt);
-                self.setState({ categories: categories, dataImmuable: data, data: data, currentData: data.slice(0, perPage) });
-            })
-            .catch(function () {
-                self.setState({ loadPageError: true });
-            })
-            .then(function () {
-                self.setState({ loadData: false });
-            })
-        ;
-    }
+    componentDidMount() { Formulaire.axiosGetDataPagination(this, Routing.generate('api_blog_categories_index'), Sort.compareName, this.state.perPage) }
 
     handleUpdateData = (data) => { this.setState({ currentData: data })  }
 
     handleUpdateList = (element, newContext=null) => {
         const { data, context, perPage } = this.state
-        Formulaire.updateDataPagination(this, Sort.compareCreatedAt, newContext, context, data, element, perPage);
+        Formulaire.updateDataPagination(this, Sort.compareName, newContext, context, data, element, perPage);
     }
 
     handleChangeContext = (context, element=null) => {
@@ -76,12 +52,12 @@ export class Articles extends Component {
     }
 
     handleDelete = (element) => {
-        Formulaire.axiosDeleteElement(this, element, Routing.generate('api_articles_delete', {'id': element.id}),
-            'Supprimer cet article ?', 'Cette action est irréversible.');
+        Formulaire.axiosDeleteElement(this, element, Routing.generate('api_blog_categories_delete', {'id': element.id}),
+            'Supprimer cette catégorie ?', 'Cette action est irréversible.');
     }
     handleDeleteGroup = () => {
         let checked = document.querySelectorAll('.i-selector:checked');
-        Formulaire.axiosDeleteGroupElement(this, checked, Routing.generate('api_articles_delete_group'), 'Aucun article sélectionné.')
+        Formulaire.axiosDeleteGroupElement(this, checked, Routing.generate('api_blog_categories_delete_group'), 'Aucune catégorie sélectionnée.')
     }
 
     handleSearch = (search) => {
@@ -92,7 +68,7 @@ export class Articles extends Component {
         }else{
             let newData = [];
             newData = dataImmuable.filter(function(v) {
-                if(v.title.toLowerCase().includes(search)){
+                if(v.name.toLowerCase().includes(search)){
                     return v;
                 }
             })
@@ -100,42 +76,23 @@ export class Articles extends Component {
         }
     }
 
-    handleChangePublished = (element) => {
-        Formulaire.loader(true);
-        let self = this;
-        axios({ method: "POST", url: Routing.generate('api_articles_article_published', {'id': element.id}) })
-            .then(function (response) {
-                let data = response.data;
-                self.handleUpdateList(data, "update");
-                toastr.info(element.isPublished ? "Article mis hors ligne" : "Article en ligne");
-            })
-            .catch(function (error) {
-                Formulaire.displayErrors(self, error);
-            })
-            .then(() => {
-                Formulaire.loader(false);
-            })
-        ;
-    }
-
     render () {
-        const { loadPageError, context, loadData, data, currentData, element, categories } = this.state;
+        const { loadPageError, context, loadData, data, currentData, element } = this.state;
 
         let content, havePagination = false;
         switch (context){
             case "create":
-                content = <ArticleCreate categories={categories} onChangeContext={this.handleChangeContext} onUpdateList={this.handleUpdateList} />
+                content = <CategoryCreate onChangeContext={this.handleChangeContext} onUpdateList={this.handleUpdateList} />
                 break;
             case "update":
-                content = <ArticleUpdate categories={categories} onChangeContext={this.handleChangeContext} onUpdateList={this.handleUpdateList} element={element}/>
+                content = <CategoryUpdate onChangeContext={this.handleChangeContext} onUpdateList={this.handleUpdateList} element={element}/>
                 break;
             default:
                 havePagination = true;
-                content = loadData ? <LoaderElement /> : <ArticlesList onChangeContext={this.handleChangeContext}
+                content = loadData ? <LoaderElement /> : <CategoriesList onChangeContext={this.handleChangeContext}
                                                                    onDelete={this.handleDelete}
                                                                    onSearch={this.handleSearch}
                                                                    onDeleteAll={this.handleDeleteGroup}
-                                                                   onChangePublished={this.handleChangePublished}
                                                                    data={currentData} />
                 break;
         }

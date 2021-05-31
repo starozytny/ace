@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import Routing           from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
 
 import { Button }        from "@dashboardComponents/Tools/Button";
-import { ArticleForm }   from "./ArticleForm";
+import { CategoryForm }   from "./CategoryForm";
 
-export class ArticleUpdate extends Component {
+export class CategoryUpdate extends Component {
     render () {
-        const { onChangeContext, onUpdateList, element, categories } = this.props;
+        const { onChangeContext, onUpdateList, element } = this.props;
 
         return <>
             <div>
@@ -17,15 +17,11 @@ export class ArticleUpdate extends Component {
                     </div>
                 </div>
                 <div className="form">
-                    <h2>Modifier {element.title}</h2>
-                    <ArticleForm
+                    <h2>Modifier {element.name}</h2>
+                    <CategoryForm
                         context="update"
-                        url={Routing.generate('api_articles_update', {'id': element.id})}
-                        title={element.title}
-                        introduction={element.introduction}
-                        content={element.content}
-                        category={element.category}
-                        categories={categories}
+                        url={Routing.generate('api_blog_categories_update', {'id': element.id})}
+                        name={element.name}
                         onUpdateList={onUpdateList}
                         onChangeContext={onChangeContext}
                         messageSuccess="Félicitation ! La mise à jour s'est réalisé avec succès !"
