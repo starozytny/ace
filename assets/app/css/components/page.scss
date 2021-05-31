@@ -36,6 +36,30 @@
   }
 }
 
+.title-page-nostyle{
+  background-color: var(--color3);
+}
+
+.custom-shape-divider {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  background-color: var(--greyShadow);
+  padding-top: 48px;
+}
+
+.custom-shape-divider svg {
+  position: relative;
+  display: block;
+  width: calc(274% + 1.3px);
+  height: 100px;
+}
+
+.custom-shape-divider .shape-fill {
+  fill: var(--fondContent);
+}
+
+
 //                      __   _____ __    ___    __
 //                     | _| |___  / /_  ( _ )  |_ |
 //    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
@@ -50,6 +74,14 @@
       font-size: 1.5em;
     }
   }
+
+  .custom-shape-divider {
+    padding-top: 72px;
+
+    .title-page{
+      padding-bottom: 96px;
+    }
+  }
 }
 //                      __   _ ____  ___   ___    __
 //                     | _| / |___ \( _ ) / _ \  |_ |
@@ -60,6 +92,18 @@
 @media (min-width:1280px) {
   .title-page{
     padding: 48px 32px;
+  }
+
+  .custom-shape-divider {
+    padding-top: 128px;
+
+    .title-page{
+      padding: 48px 32px 96px 32px;
+    }
+  }
+
+  .custom-shape-divider svg{
+    height: 180px;
   }
 }
 
@@ -72,5 +116,27 @@
 @media (min-width: 1600px){
   .title-page{
     padding: 48px 32px 24px 32px;
+  }
+
+  .custom-shape-divider {
+    .title-page{
+      padding: 48px 32px 96px 32px;
+    }
+  }
+}
+
+//                      __   _  ___ ____   ___    __
+//                     | _| / |/ _ \___ \ / _ \  |_ |
+//    _____ _____ _____| |  | | (_) |__) | | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |\__, / __/| |_| |  | |_____|_____|_____|
+//                     | |  |_|  /_/_____|\___/   | |
+//                     |__|                      |__|
+@media (min-width: 1920px){
+  .custom-shape-divider {
+    padding-top: 158px;
+
+    .title-page{
+      padding-bottom: 128px;
+    }
   }
 }

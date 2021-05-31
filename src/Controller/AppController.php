@@ -87,7 +87,7 @@ class AppController extends AbstractController
     }
 
     /**
-     * @Route("/actualités", name="app_actualites")
+     * @Route("/actualites", name="app_actualites")
      */
     public function actualites(): Response
     {
@@ -95,7 +95,7 @@ class AppController extends AbstractController
     }
 
     /**
-     * @Route("/actualités/article/{slug}", options={"expose"=true}, name="app_article")
+     * @Route("/actualites/article/{slug}", options={"expose"=true}, name="app_article")
      */
     public function article($slug): Response
     {

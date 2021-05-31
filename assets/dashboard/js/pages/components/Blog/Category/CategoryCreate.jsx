@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import Routing           from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
 
 import { Button }        from "@dashboardComponents/Tools/Button";
-import { ArticleForm }   from "./ArticleForm";
+import { CategoryForm }   from "./CategoryForm";
 
-export class ArticleCreate extends Component {
+export class CategoryCreate extends Component {
     render () {
-        const { onChangeContext, onUpdateList, categories } = this.props;
+        const { onChangeContext, onUpdateList } = this.props;
 
         return <>
             <div>
@@ -18,18 +18,14 @@ export class ArticleCreate extends Component {
                 </div>
 
                 <div className="form">
-                    <h2>Ajouter un article</h2>
-                    <ArticleForm
+                    <h2>Ajouter une catégorie</h2>
+                    <CategoryForm
                         context="create"
-                        url={Routing.generate('api_articles_create')}
-                        title=""
-                        introduction=""
-                        content=""
-                        category=""
-                        categories={categories}
+                        url={Routing.generate('api_blog_categories_create')}
+                        name=""
                         onUpdateList={onUpdateList}
                         onChangeContext={onChangeContext}
-                        messageSuccess="Félicitation ! Vous avez ajouté un nouveau article !"
+                        messageSuccess="Félicitation ! Vous avez ajouté une nouvelle catégorie !"
                     />
                 </div>
             </div>

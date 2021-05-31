@@ -4,6 +4,10 @@
   font-size: 1.4em;
 }
 
+.title-page .title{
+  color: var(--alpha);
+}
+
 h1{
   text-align: center;
   max-width: 768px;
@@ -85,6 +89,10 @@ h2{
     font-size: 2em;
   }
 
+  .title-page .title{
+    font-size: 2.4em;
+  }
+
   h2{
     font-size: 1.5em;
   }
@@ -118,6 +126,26 @@ h2{
     }
   }
 }
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
+  .title-page{
+    margin-left: 15%;
+    align-items: flex-start;
+  }
+
+  .title-page .title{
+    text-align: left;
+    font-size: 3em;
+  }
+
+}
+
 
 //                      __   _ ____  ___   ___    __
 //                     | _| / |___ \( _ ) / _ \  |_ |

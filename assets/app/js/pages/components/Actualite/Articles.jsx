@@ -8,6 +8,7 @@ import Sort              from "@dashboardComponents/functions/sort";
 import Formulaire        from "@dashboardComponents/functions/Formulaire";
 
 import { ArticlesList }  from "./ArticlesList";
+import axios from "axios";
 
 export class Articles extends Component {
     constructor(props) {
@@ -20,16 +21,39 @@ export class Articles extends Component {
             data: null,
             currentData: null,
             element: null,
-            perPage: 10
+            perPage: 10,
+            filter: 9999
         }
 
         this.page = React.createRef();
 
         this.handleUpdateData = this.handleUpdateData.bind(this);
         this.handleUpdateList = this.handleUpdateList.bind(this);
+        this.handleFilter = this.handleFilter.bind(this);
     }
 
-    componentDidMount() { Formulaire.axiosGetDataPagination(this, Routing.generate('api_articles_index'), null, this.state.perPage) }
+    componentDidMount() {
+        const { perPage, filter } = this.state;
+
+        const self = this;
+        axios.get(Routing.generate('api_articles_index'), {})
+            .then(function (response) {
+                let resp = response.data;
+
+                let data = JSON.parse(resp.articles);
+                let categories = JSON.parse(resp.categories);
+
+                data.sort(Sort.compareCreatedAt);
+                self.setState({ categories: categories, dataImmuable: data, data: data, currentData: data.slice(0, perPage) });
+            })
+            .catch(function () {
+                self.setState({ loadPageError: true });
+            })
+            .then(function () {
+                self.setState({ loadData: false });
+            })
+        ;
+    }
 
     handleUpdateData = (data) => { this.setState({ currentData: data })  }
 
@@ -38,14 +62,31 @@ export class Articles extends Component {
         Formulaire.updateDataPagination(this, Sort.compareLastname, newContext, context, data, element, perPage);
     }
 
+    handleFilter = (id) => {
+        const { dataImmuable, perPage } = this.state;
+
+        let data = [];
+        if(id === 9999){
+            data = dataImmuable
+        }else{
+            dataImmuable.forEach(el => {
+                if(el.category.id === id){
+                    data.push(el);
+                }
+            })
+        }
+
+        this.setState({ filter: id, data: data, currentData: data.slice(0, perPage) });
+    }
+
     render () {
-        const { loadPageError, context, loadData, data, currentData, element } = this.state;
+        const { loadPageError, context, loadData, data, currentData, categories, filter } = this.state;
 
         let content, havePagination = false;
         switch (context){
             default:
                 havePagination = true;
-                content = loadData ? <LoaderElement /> : <ArticlesList data={currentData} />
+                content = loadData ? <LoaderElement /> : <ArticlesList categories={categories} filter={filter} onFilter={this.handleFilter} data={currentData} />
                 break;
         }
 

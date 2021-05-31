@@ -77,7 +77,7 @@ class InitServicesCommand extends Command
                 'img1' => "particulier_1", 'img2' => "particulier_2", 'img3' => "particulier_3", 'img4' => "particulier_4"
             ],
             [
-                "title" => "Vous vous sentez perdus dans votre choix d’orientation ? Vous avez du mal à vous organiser, en manque de motivation ?",
+                "title" => "L’un des facteurs clé de votre réussite : la préparation mentale",
                 "slug" => "sportifs",
                 'bandeau' => "bandeau_service_sportif.jpg",
                 'img1' => "sportif_1", 'img2' => "sportif_2", 'img3' => "sportif_3", 'img4' => "sportif_4"

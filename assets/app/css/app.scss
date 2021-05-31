@@ -72,6 +72,10 @@ h1, h2, h3, h4, p{
     margin: 0;
 }
 
+p{
+    line-height: 1.32;
+}
+
 h1{
     @include fontBold();
     margin-bottom: 24px;
@@ -92,27 +96,8 @@ main{
 .main-content{
     min-height: 40vh;
     padding: 14px 12px 12px 12px;
-    background-color: var(--fondContent);
     position: relative;
     z-index: 10;
-}
-
-.custom-shape-divider {
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    background-color: var(--greyShadow);
-}
-
-.custom-shape-divider svg {
-    position: relative;
-    display: block;
-    width: calc(274% + 1.3px);
-    height: 180px;
-}
-
-.custom-shape-divider .shape-fill {
-    fill: var(--fondContent);
 }
 
 //                      __   _____ __    ___    __

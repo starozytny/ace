@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import axios                   from "axios";
 import toastr                  from "toastr";
 
-import { Input }               from "@dashboardComponents/Tools/Fields";
+import { Input, Select }       from "@dashboardComponents/Tools/Fields";
 import { Button }              from "@dashboardComponents/Tools/Button";
 import { Trumb }               from "@dashboardComponents/Tools/Trumb";
+import { Drop }                from "@dashboardComponents/Tools/Drop";
 
 import Validateur              from "@dashboardComponents/functions/validateur";
 import Formulaire              from "@dashboardComponents/functions/Formulaire";
-import {Drop} from "@dashboardComponents/Tools/Drop";
 
 export class ArticleForm extends Component {
     constructor(props) {
@@ -19,6 +19,7 @@ export class ArticleForm extends Component {
             title: props.title,
             introduction: { value: props.introduction ? props.introduction : "", html: props.introduction ? props.introduction : "" },
             content: { value: props.content ? props.content : "", html: props.content ? props.content : "" },
+            category: props.category ? props.category : "",
             errors: []
         }
 
@@ -49,13 +50,14 @@ export class ArticleForm extends Component {
         e.preventDefault();
 
         const { url, messageSuccess } = this.props;
-        const { title, introduction, content } = this.state;
+        const { title, category, introduction, content } = this.state;
 
         this.setState({ success: false})
 
         let file = this.inputFile.current.drop.current.files;
         let paramsToValidate = [
-            {type: "text", id: 'title', value: title}
+            {type: "text", id: 'title', value: title},
+            {type: "text", id: 'category', value: category},
         ];
 
         // validate global
@@ -67,6 +69,7 @@ export class ArticleForm extends Component {
         }else{
             let formData = new FormData();
             formData.append('title', title);
+            formData.append('category', category);
             formData.append('introduction', introduction.html);
             formData.append('content', content.html);
 
@@ -96,13 +99,22 @@ export class ArticleForm extends Component {
     }
 
     render () {
-        const { context } = this.props;
-        const { errors, title, introduction, content } = this.state;
+        const { context, categories } = this.props;
+        const { errors, title, introduction, content, category } = this.state;
+
+        let selectItems = [];
+        categories.forEach(el => {
+            selectItems.push({ value: el.id, label: el.name, identifiant: el.slug })
+        })
 
         return <>
             <form onSubmit={this.handleSubmit}>
                 <div className="line">
                     <Input valeur={title} identifiant="title" errors={errors} onChange={this.handleChange} >Titre de l'article</Input>
+                </div>
+
+                <div className="line">
+                    <Select items={selectItems} identifiant="category" valeur={category} errors={errors} onChange={this.handleChange}>A quelle catégorie appartient cet article ?</Select>
                 </div>
 
                 <div className="line">
