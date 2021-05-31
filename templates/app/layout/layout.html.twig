@@ -12,7 +12,37 @@
             'path': path('app_homepage'),
             'label': 'Accueil',
             'name': 'accueil'
-        }
+        },
+        {
+            'path': path('app_services', {'slug': "etudiants-lyceens"}),
+            'label': 'Services',
+            'name': 'services'
+        },
+        {
+            'path': path('app_homepage'),
+            'label': 'A propos',
+            'name': 'a-propos'
+        },
+        {
+            'path': path('app_ateliers'),
+            'label': 'Ateliers',
+            'name': 'ateliers'
+        },
+        {
+            'path': path('app_homepage'),
+            'label': 'Témoignages',
+            'name': 'temoignages'
+        },
+        {
+            'path': path('app_actualites'),
+            'label': 'Actualités',
+            'name': 'actualites'
+        },
+        {
+            'path': path('app_contact'),
+            'label': 'Contact',
+            'name': 'contact'
+        },
     ] %}
 
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

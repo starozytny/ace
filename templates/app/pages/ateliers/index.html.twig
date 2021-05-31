@@ -1,0 +1,56 @@
+{% extends 'app/pages/ateliers/template.html.twig' %}
+
+{% block title %}Ateliers{% endblock %}
+
+{% block main_content %}
+    <div class="title-page">
+        <div class="title-page-content">
+            <h1>Ateliers</h1>
+            <p class="subtitle">
+                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
+                suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure
+                dolor in hendrerit in vule dugait nulla facilisi
+            </p>
+        </div>
+    </div>
+    <div class="title-page-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60">
+            <path fill="#E7EDF1" fill-opacity="1" d="M0,0L120,10.7C240,21,480,43,720,42.7C960,43,1200,21,1320,10.7L1440,0L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path>
+        </svg>
+    </div>
+    <div class="main-content">
+        <div class="ateliers">
+            {% for atelier in ateliers %}
+                <div class="atelier">
+
+                    <div class="infos">
+                        <h2>{{ atelier.name }}</h2>
+                        <div class="content">
+                            {{ atelier.content | raw }}
+                        </div>
+                    </div>
+
+                    <div class="illustration">
+                        <img src="{{ asset('build/app/images/' ~ atelier.file) }}" alt="illustration atelier">
+                    </div>
+
+                    <div class="actions">
+                        <div class="nb">
+                            <span>De {{ atelier.min }} à {{ atelier.max }}</span>
+                            <span>personnes</span>
+                        </div>
+
+                        <div class="avis">
+                            <a href="{{ path('app_contact') }}" class="btn btn-outline-default">Cet atelier vous intéresse ?</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="question">
+            <h2>Vous avez des questions concernant ce service ?</h2>
+            <p>N’hésitez pas à me contacter pour plus d’informations.</p>
+            <a href="{{ path('app_contact') }}" class="btn btn-primary">Contactez-moi !</a>
+        </div>
+    </div>
+{% endblock %}

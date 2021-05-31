@@ -1,0 +1,80 @@
+@import "../vars/vars";
+
+.title-page{
+  @include flex(column, center, center);
+  background-color: var(--color3);
+  padding: 48px 12px;
+
+  .title, h1, .subtitle{
+    text-align: center;
+  }
+
+  h1, .title{
+    color: var(--color0);
+  }
+
+  .title{
+    font-size: 2em;
+    @include fontBold();
+  }
+
+  .subtitle{
+    max-width: 480px;
+  }
+}
+
+.title-page-wave{
+  margin-bottom: 24px;
+}
+
+.question{
+  text-align: center;
+
+  p{
+    font-size: 18px;
+    opacity: 0.8;
+  }
+
+  a{
+    margin-top: 24px;
+  }
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .question {
+    margin-top: 120px;
+
+    h2{
+      font-size: 1.5em;
+    }
+  }
+}
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+  .title-page{
+    padding: 48px 32px;
+  }
+}
+
+//                      __   _  __    ___   ___    __
+//                     | _| / |/ /_  / _ \ / _ \  |_ |
+//    _____ _____ _____| |  | | '_ \| | | | | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | | (_) | |_| | |_| |  | |_____|_____|_____|
+//                     | |  |_|\___/ \___/ \___/   | |
+//                     |__|                       |__|
+@media (min-width: 1600px){
+  .main-content{
+    @include maxscreen();
+  }
+}

@@ -2,9 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Ace\AcAtelier;
+use App\Entity\Ace\AcService;
+use App\Entity\Blog\BoArticle;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class AppController extends AbstractController
 {
@@ -54,5 +60,53 @@ class AppController extends AbstractController
     public function contact(): Response
     {
         return $this->render('app/pages/contact/index.html.twig');
+    }
+
+    /**
+     * @Route("/services/{slug}", name="app_services")
+     */
+    public function service($slug): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $service = $em->getRepository(AcService::class)->findOneBy(['slug' => $slug]);
+        return $this->render('app/pages/services/index.html.twig', [
+            'service' => $service
+        ]);
+    }
+
+    /**
+     * @Route("/ateliers", name="app_ateliers")
+     */
+    public function ateliers(): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $ateliers = $em->getRepository(AcAtelier::class)->findAll();
+        return $this->render('app/pages/ateliers/index.html.twig', [
+            'ateliers' => $ateliers
+        ]);
+    }
+
+    /**
+     * @Route("/actualités", name="app_actualites")
+     */
+    public function actualites(): Response
+    {
+        return $this->render('app/pages/actualites/index.html.twig');
+    }
+
+    /**
+     * @Route("/actualités/article/{slug}", options={"expose"=true}, name="app_article")
+     */
+    public function article($slug): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository(BoArticle::class)->findOneBy(['slug' => $slug]);
+        if(!$article){
+            throw new NotFoundHttpException();
+        }
+
+        return $this->render('app/pages/actualites/article.html.twig', [
+            'article' => $article
+        ]);
     }
 }

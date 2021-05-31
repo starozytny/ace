@@ -3,7 +3,7 @@
 
 :root{
     --color0: #064872;
-    --color0-bis: rgba(6,72,114, 0.45);
+    --color0-bis: rgba(6,72,114, 0.85);
     --color1: #F3944D;
     --color2: #616160;
     --color3: #E7EDF1;
@@ -48,6 +48,7 @@
 @import "components/aside";
 @import "components/exception";
 @import "components/legales";
+@import "components/page";
 @import "components/pagination";
 
 html, body{
@@ -74,11 +75,14 @@ h1, h2, h3, h4, p{
 h1{
     @include fontBold();
     margin-bottom: 24px;
+    color: var(--color0);
 }
 
 h2{
     @include fontSemibold();
     text-transform: uppercase;
+    color: var(--color0);
+    margin-bottom: 12px;
 }
 
 main{
@@ -86,11 +90,14 @@ main{
 }
 
 .main-content{
-    min-height: 100vh;
+    min-height: 40vh;
     padding: 14px 12px 12px 12px;
     background-color: var(--fondContent);
+    position: relative;
+    z-index: 10;
 }
 
+<<<<<<< HEAD
 .title-page{
     padding: 24px 12px 12px 12px;
 }
@@ -121,7 +128,30 @@ main{
 //                     |__|                      |__|
 @media (min-width:1280px) {
     .main-content, .title-page{
+=======
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+    .main-content{
+        margin-bottom: -70px;
+    }
+}
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
+    .main-content{
+>>>>>>> 4e62f3c93bcda93a4a1f335b1a8fc9b5b416ab0b
         padding: 24px 32px;
+        margin-bottom: -150px;
     }
 }
 
@@ -132,7 +162,11 @@ main{
 //                     | |  |_|\___/ \___/ \___/   | |
 //                     |__|                       |__|
 @media (min-width: 1600px){
+<<<<<<< HEAD
     .main-content, .title-page{
+=======
+    .title-page-content{
+>>>>>>> 4e62f3c93bcda93a4a1f335b1a8fc9b5b416ab0b
         @include maxscreen();
     }
 

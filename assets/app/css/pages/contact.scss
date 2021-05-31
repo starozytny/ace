@@ -1,1 +1,64 @@
 @import "../vars/vars";
+
+h2{
+  text-align: center;
+}
+
+.contact-content{
+  @include flex(column, center, center);
+
+  p{
+    max-width: 480px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+}
+
+.choice-contact{
+
+  span:first-child{
+    display: inline-block;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 4px;
+  }
+
+  span:last-child{
+    @include fontSemibold();
+    color: var(--color0);
+  }
+
+  & > div{
+    @include flex(column, center, center);
+    margin-bottom: 12px;
+  }
+}
+
+#contact{
+  border-top: 2px solid var(--color0);
+  padding-top: 24px;
+  max-width: 768px;
+  margin: 24px auto 0 auto;
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .choice-contact{
+    @include flex(row, center, center);
+
+    & > div:first-child{
+      margin-right: 24px;
+    }
+
+    & > div:last-child{
+      margin-left: 24px;
+      border-left: 2px solid var(--color0);
+      padding-left: 24px;
+    }
+  }
+}

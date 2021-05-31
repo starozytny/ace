@@ -12,6 +12,33 @@
     </svg>
 </div>
 <div class="main-content">
-    Hello world
+    <br><br>
+    <p>Services</p>
+    <ul>
+        <li><a href="{{ path('app_services', {'slug': "etudiants-lyceens"}) }}">Etudiants/Lycéens</a></li>
+        <li><a href="{{ path('app_services', {'slug': "entreprises"}) }}">Entreprises</a></li>
+        <li><a href="{{ path('app_services', {'slug': "particuliers"}) }}">Particuliers</a></li>
+        <li><a href="{{ path('app_services', {'slug': "sportifs"}) }}">Sportifs</a></li>
+    </ul>
+    <br><br>
+    <h2>En cours</h2>
+    <ul>
+        <li>Services</li>
+        <li>Ateliers</li>
+        <li>Actalités (front et back)</li>
+        <li>Contact (front et back)</li>
+        <li>Mentions légales</li>
+        <li>Politique confidentialité</li>
+        <li>Gestion cookies</li>
+    </ul>
+
+    <h2>Même pas entamé</h2>
+    <ul>
+        <li>Page accueil</li>
+        <li>Services (back)</li>
+        <li>Atelier (back)</li>
+        <li>A propos</li>
+        <li>Témoignages</li>
+    </ul>
 </div>
 {% endblock %}
