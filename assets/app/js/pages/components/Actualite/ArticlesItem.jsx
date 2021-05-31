@@ -13,7 +13,7 @@ export class ArticlesItem extends Component {
                     <a href={Routing.generate('app_article', {'slug': elem.slug})} className="infos">
                         <div className="image">
                             <div className="cat">
-                                <span>Catégorie</span>
+                                <span>{elem.category.name}</span>
                             </div>
                             <img src={'articles/' + elem.file} alt="illustration article"/>
                         </div>
@@ -23,10 +23,7 @@ export class ArticlesItem extends Component {
                             </div>
                             <div className="content-wrap">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                                    diam nonummy nibh euismod tincidunt ut laoreet dolore
-                                    magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                                    quis nostrud exerci tation ullamcorper suscipit lobortis nisl
+                                    {elem.content.substr(0,150) + "..."}
                                 </p>
                             </div>
                             <div className="createdAt">{elem.createAtString}</div>
