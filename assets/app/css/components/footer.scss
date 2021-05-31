@@ -36,11 +36,11 @@ footer{
   }
 
   .footer-services{
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 
     span{
       display: inline-block;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
     }
   }
 }
@@ -60,7 +60,11 @@ footer{
     .footer-items{
       width: 100%;
     }
-    .footer-items-col-1, .footer-items-col-2{
+    .footer-items-col-1{
+      margin-right: 12px;
+      width: calc(50% - 12px);
+    }
+    .footer-items-col-2{
       width: 50%;
     }
   }
@@ -90,6 +94,7 @@ footer{
     }
 
     .footer-items:last-child{
+      width: 50%;
       @include flex(column, flex-start, flex-start);
     }
   }

@@ -101,24 +101,6 @@ main{
     z-index: 10;
 }
 
-.custom-shape-divider {
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    background-color: var(--greyShadow);
-}
-
-.custom-shape-divider svg {
-    position: relative;
-    display: block;
-    width: calc(274% + 1.3px);
-    height: 180px;
-}
-
-.custom-shape-divider .shape-fill {
-    fill: var(--fondContent);
-}
-
 //                      __   _____ __    ___    __
 //                     | _| |___  / /_  ( _ )  |_ |
 //    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
