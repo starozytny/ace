@@ -6,5 +6,5 @@ import { Menu } from './components/Layout/Menu';
 
 const menu = document.getElementById("menu");
 render(
-    <Menu {...menu.dataset}></Menu>, menu
+    <Menu {...menu.dataset} />, menu
 )

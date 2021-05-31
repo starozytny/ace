@@ -18,6 +18,10 @@ function compareName(a, b){
     return comparison(a.name, b.name);
 }
 
+function compareCreatedAt(a, b){
+    return comparison(a.createdAt, b.createdAt);
+}
+
 function comparison (objA, objB){
     let comparison = 0;
     if (objA > objB) {
@@ -33,5 +37,6 @@ module.exports = {
     compareLastname,
     compareFirstname,
     compareTitle,
-    compareName
+    compareName,
+    compareCreatedAt
 }

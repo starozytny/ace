@@ -4,10 +4,13 @@ const Swal        = require("sweetalert2");
 const SwalOptions = require("@dashboardComponents/functions/swalOptions");
 const UpdateList  = require("@dashboardComponents/functions/updateList");
 
-function axiosGetData(self, url){
+function axiosGetData(self, url, sorter = null){
     axios.get(url, {})
         .then(function (response) {
             let data = response.data;
+            if(sorter !== null){
+                data.sort(sorter);
+            }
             self.setState({ data: data });
         })
         .catch(function () {
@@ -19,10 +22,13 @@ function axiosGetData(self, url){
     ;
 }
 
-function axiosGetDataPagination(self, url, perPage=10){
+function axiosGetDataPagination(self, url, sorter = null, perPage=10){
     axios.get(url, {})
         .then(function (response) {
             let data = response.data;
+            if(sorter !== null){
+                data.sort(sorter);
+            }
             self.setState({ dataImmuable: data, data: data, currentData: data.slice(0, perPage) });
         })
         .catch(function () {

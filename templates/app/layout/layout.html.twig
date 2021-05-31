@@ -7,6 +7,39 @@
 {% block body %}
     {% include "dashboard/layout/components/loader.html.twig" %}
 
+    {% set menu = [
+        {
+            'path': path('app_homepage'),
+            'label': 'Accueil',
+            'name': 'accueil'
+        }
+    ] %}
+
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {% set menuLogged = [
+            {
+                'path': path('app_login'),
+                'label': 'Mon espace',
+                'name': 'login'
+            },
+            {
+                'path': path('app_logout'),
+                'label': 'Déconnexion',
+                'name': 'logout'
+            }
+        ] %}
+        {% set menu = menu | merge(menuLogged) %}
+    {% else %}
+        {% set menuLogged = [
+            {
+                'path': path('app_login'),
+                'label': 'Mon espace',
+                'name': 'login'
+            }
+        ] %}
+        {% set menu = menu | merge(menuLogged) %}
+    {% endif %}
+
     <div class="body">
         <nav>
             <div class="nav-container">
@@ -17,26 +50,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="nav-mobile">
-                    <span class="icon-menu"></span>
-                </div>
-                <div class="nav-body">
-                    <div class="items">
-                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                            <div class="item">
-                                <a href="{{ path('app_logout') }}">
-                                    <span>Déconnexion</span>
-                                </a>
-                            </div>
-                        {% else %}
-                            <div class="item">
-                                <a href="{{ path('app_login') }}">
-                                    <span>Se connecter</span>
-                                </a>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
+                <div id="menu" data-menu="{{ menu | json_encode }}"></div>
             </div>
         </nav>
 

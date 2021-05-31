@@ -1,0 +1,21 @@
+{% extends 'app/layout/layout.html.twig' %}
+
+{% block title %}Nous contacter{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('contact') }}
+{% endblock %}
+
+{% block main_content %}
+    <div class="main-content">
+        <h1>Nous contacter</h1>
+
+        <div id="contact"></div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('contact') }}
+{% endblock %}

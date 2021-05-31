@@ -5,13 +5,19 @@
                 <a href="{{ path('app_homepage') }}" title="Logilink">
                     <img src="{{ asset('build/dashboard/images/logilink-logo.svg') }}" alt="Logo"/>
                 </a>
-                <span>Espace Cité de la Musique de Marseille </span>
+                <span>Website </span>
             </div>
             <div class="footer-items">
                 <a rel="nofollow" href="{{ path('app_mentions') }}">Mentions légales</a>
                 <a rel="nofollow" href="{{ path('app_politique') }}">Politique de confidentialité</a>
                 <a rel="nofollow" href="{{ path('app_cookies') }}">Gestion des cookies</a>
-                <a rel="nofollow" href="{{ path('app_login') }}">Mon espace</a>
+                <a rel="nofollow" href="{{ path('app_contact') }}">Nous contacter</a>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <a rel="nofollow" href="{{ path('app_login') }}">Mon espace</a>
+                    <a rel="nofollow" href="{{ path('app_logout') }}">Me déconnecter</a>
+                {% else %}
+                    <a rel="nofollow" href="{{ path('app_login') }}">Mon espace</a>
+                {% endif %}
             </div>
         </div>
         <div class="copyright">Copyright 2020 - <a href="https://logilink.fr" target="_blank">Logilink</a></div>

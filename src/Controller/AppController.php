@@ -25,7 +25,7 @@ class AppController extends AbstractController
     }
 
     /**
-     * @Route("/legales/politique-confidentialite", name="app_politique")
+     * @Route("/legales/politique-confidentialite", options={"expose"=true}, name="app_politique")
      */
     public function politique(): Response
     {
@@ -46,5 +46,13 @@ class AppController extends AbstractController
     public function rgpd(): Response
     {
         return $this->render('app/pages/legales/rgpd.html.twig');
+    }
+
+    /**
+     * @Route("/nous-contacter", name="app_contact")
+     */
+    public function contact(): Response
+    {
+        return $this->render('app/pages/contact/index.html.twig');
     }
 }

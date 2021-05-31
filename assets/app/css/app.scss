@@ -48,6 +48,7 @@
 @import "components/aside";
 @import "components/exception";
 @import "components/legales";
+@import "components/pagination";
 
 html, body{
     scroll-behavior: smooth;
@@ -90,6 +91,28 @@ main{
     background-color: var(--fondContent);
 }
 
+.title-page{
+    padding: 24px 12px 12px 12px;
+}
+
+.custom-shape-divider {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    background-color: var(--greyShadow);
+}
+
+.custom-shape-divider svg {
+    position: relative;
+    display: block;
+    width: calc(274% + 1.3px);
+    height: 180px;
+}
+
+.custom-shape-divider .shape-fill {
+    fill: var(--fondContent);
+}
+
 //                      __   _ ____  ___   ___    __
 //                     | _| / |___ \( _ ) / _ \  |_ |
 //    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
@@ -97,7 +120,7 @@ main{
 //                     | |  |_|_____\___/ \___/   | |
 //                     |__|                      |__|
 @media (min-width:1280px) {
-    .main-content{
+    .main-content, .title-page{
         padding: 24px 32px;
     }
 }
@@ -109,7 +132,12 @@ main{
 //                     | |  |_|\___/ \___/ \___/   | |
 //                     |__|                       |__|
 @media (min-width: 1600px){
-    .main-content{
+    .main-content, .title-page{
         @include maxscreen();
+    }
+
+    .title-page{
+        padding: 24px 32px;
+        margin-top: 48px;
     }
 }
