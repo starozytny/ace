@@ -98,3 +98,15 @@ RewriteCond %{REQUEST_URI} !^/public/
 RewriteRule ^(.*)$ /public/$1 [L]
 
 Redirect 301 http://ace.chanbora-chhun.fr/ https://ace.chanbora-chhun.fr/
+
+#----------------------------------------------------------------cp:ppd
+# Section managed by cPanel: Password Protected Directories     -cp:ppd
+# - Do not edit this section of the htaccess file!              -cp:ppd
+#----------------------------------------------------------------cp:ppd
+AuthType Basic
+AuthName "Protected 'ace.chanbora-chhun.fr'"
+AuthUserFile "/home/xubm6823/.htpasswds/ace.chanbora-chhun.fr/passwd"
+Require valid-user
+#----------------------------------------------------------------cp:ppd
+# End section managed by cPanel: Password Protected Directories -cp:ppd
+#----------------------------------------------------------------cp:ppd
