@@ -7,6 +7,69 @@
 {% block body %}
     {% include "dashboard/layout/components/loader.html.twig" %}
 
+    {% set menu = [
+        {
+            'path': path('app_homepage'),
+            'label': 'Accueil',
+            'name': 'accueil'
+        },
+        {
+            'path': path('app_services', {'slug': "etudiants-lyceens"}),
+            'label': 'Services',
+            'name': 'services'
+        },
+        {
+            'path': path('app_homepage'),
+            'label': 'A propos',
+            'name': 'a-propos'
+        },
+        {
+            'path': path('app_ateliers'),
+            'label': 'Ateliers',
+            'name': 'ateliers'
+        },
+        {
+            'path': path('app_homepage'),
+            'label': 'Témoignages',
+            'name': 'temoignages'
+        },
+        {
+            'path': path('app_actualites'),
+            'label': 'Actualités',
+            'name': 'actualites'
+        },
+        {
+            'path': path('app_contact'),
+            'label': 'Contact',
+            'name': 'contact'
+        },
+    ] %}
+
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {% set menuLogged = [
+            {
+                'path': path('app_login'),
+                'label': 'Mon espace',
+                'name': 'login'
+            },
+            {
+                'path': path('app_logout'),
+                'label': 'Déconnexion',
+                'name': 'logout'
+            }
+        ] %}
+        {% set menu = menu | merge(menuLogged) %}
+    {% else %}
+        {% set menuLogged = [
+            {
+                'path': path('app_login'),
+                'label': 'Mon espace',
+                'name': 'login'
+            }
+        ] %}
+        {% set menu = menu | merge(menuLogged) %}
+    {% endif %}
+
     <div class="body">
         <nav>
             <div class="nav-container">
@@ -17,66 +80,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="nav-mobile">
-                    <span class="icon-menu"></span>
-                </div>
-                <div class="nav-body">
-                    <div class="items">
-                        <div class="item">
-                            <a href="{{ path('app_homepage') }}">
-                                <span>Accueil</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="{{ path('app_services', {'slug': "etudiants-lyceens"}) }}">
-                                <span>Services</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="{{ path('app_homepage') }}">
-                                <span>A propos</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="{{ path('app_ateliers') }}">
-                                <span>Ateliers</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="{{ path('app_homepage') }}">
-                                <span>Témoignages</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="{{ path('app_actualites') }}">
-                                <span>Actualités</span>
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="{{ path('app_contact') }}">
-                                <span>Contact</span>
-                            </a>
-                        </div>
-                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                            <div class="item">
-                                <a rel="nofollow" href="{{ path('app_login') }}">
-                                    <span>Mon espace</span>
-                                </a>
-                            </div>
-                            <div class="item">
-                                <a rel="nofollow" href="{{ path('app_logout') }}">
-                                    <span>Déconnexion</span>
-                                </a>
-                            </div>
-                        {% else %}
-                            <div class="item">
-                                <a rel="nofollow" href="{{ path('app_login') }}">
-                                    <span>Mon espace</span>
-                                </a>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
+                <div id="menu" data-menu="{{ menu | json_encode }}"></div>
             </div>
         </nav>
 
