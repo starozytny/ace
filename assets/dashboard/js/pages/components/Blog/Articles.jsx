@@ -52,7 +52,9 @@ export class Articles extends Component {
                 data.sort(Sort.compareCreatedAt);
                 self.setState({ categories: categories, dataImmuable: data, data: data, currentData: data.slice(0, perPage) });
             })
-            .catch(function () {
+            .catch(function (error) {
+                console.log(error)
+                console.log(error.response)
                 self.setState({ loadPageError: true });
             })
             .then(function () {
