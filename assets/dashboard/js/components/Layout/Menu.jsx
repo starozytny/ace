@@ -45,9 +45,9 @@ export class Menu extends Component {
                 <div className="items">
                     { <MenuItem menu={menu} active={active} /> }
                 </div>
-                <div className="items">
+                {menuBottom &&  <div className="items">
                     { <MenuItem menu={menuBottom} active={active}/> }
-                </div>
+                </div>}
             </div>
         </>
     }
@@ -60,7 +60,7 @@ function MenuItem (props){
         JSON.parse(menu).map(el => {
             return <div key={el.name} className="item">
                 <a href={el.path} className={ active === el.name ? "active" : "" }>
-                    <span className={`icon-${el.icon}`} />
+                    {el.icon && <span className={`icon-${el.icon}`} />}
                     <span>{el.label}</span>
                 </a>
             </div>

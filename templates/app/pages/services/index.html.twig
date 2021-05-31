@@ -3,14 +3,14 @@
 {% block title %}{{ service.title }}{% endblock %}
 
 {% block main_content %}
-    <div class="title-page">
-        <div class="title-page-content">
-            <p class="title">Seuls on va plus vite, <br> ensemble on va plus loin</p>
+    <div class="custom-shape-divider" style="background: url({{ asset('build/app/images/' ~ service.file1) }}) no-repeat fixed; background-size: cover; background-position-y: -500px">
+        <div class="title-page">
+            <div class="title-page-content">
+                <p class="title">Seuls on va plus vite, <br> ensemble on va plus loin</p>
+            </div>
         </div>
-    </div>
-    <div class="title-page-wave">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 60">
-            <path fill="#E7EDF1" fill-opacity="1" d="M0,0L120,10.7C240,21,480,43,720,42.7C960,43,1200,21,1320,10.7L1440,0L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path>
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path class="shape-fill" d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"></path>
         </svg>
     </div>
     <div class="main-content">
