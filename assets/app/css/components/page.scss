@@ -2,8 +2,8 @@
 
 .title-page{
   @include flex(column, center, center);
-  background-color: var(--color3);
   padding: 48px 12px;
+  line-height: 1.15;
 
   .title, h1, .subtitle{
     text-align: center;
@@ -21,10 +21,6 @@
   .subtitle{
     max-width: 480px;
   }
-}
-
-.title-page-wave{
-  margin-bottom: 24px;
 }
 
 .question{
@@ -74,13 +70,7 @@
 //                     | |  |_|\___/ \___/ \___/   | |
 //                     |__|                       |__|
 @media (min-width: 1600px){
-  .title-page-content{
-    @include maxscreen();
-  }
-
-
   .title-page{
-    padding: 24px 32px;
-    margin-top: 48px;
+    padding: 48px 32px 24px 32px;
   }
 }
