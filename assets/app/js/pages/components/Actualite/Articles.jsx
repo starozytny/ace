@@ -40,8 +40,15 @@ export class Articles extends Component {
             .then(function (response) {
                 let resp = response.data;
 
-                let data = JSON.parse(resp.articles);
+                let d = JSON.parse(resp.articles);
                 let categories = JSON.parse(resp.categories);
+
+                let data = [];
+                d.forEach(el => {
+                    if(el.isPublished){
+                        data.push(el);
+                    }
+                })
 
                 data.sort(Sort.compareCreatedAt);
                 self.setState({ categories: categories, dataImmuable: data, data: data, currentData: data.slice(0, perPage) });

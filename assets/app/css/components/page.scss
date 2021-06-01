@@ -83,6 +83,19 @@
     }
   }
 }
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
+  .title-page-nostyle{
+    padding-top: 76px;
+  }
+}
+
 //                      __   _ ____  ___   ___    __
 //                     | _| / |___ \( _ ) / _ \  |_ |
 //    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
@@ -92,6 +105,9 @@
 @media (min-width:1280px) {
   .title-page{
     padding: 48px 32px;
+  }
+  .title-page-nostyle{
+    padding-top: 76px;
   }
 
   .custom-shape-divider {
@@ -105,6 +121,12 @@
   .custom-shape-divider svg{
     height: 180px;
   }
+
+  .question{
+    h2{
+      font-size: 1.8em;
+    }
+  }
 }
 
 //                      __   _  __    ___   ___    __
@@ -117,6 +139,9 @@
   .title-page{
     padding: 48px 32px 24px 32px;
   }
+  .title-page-nostyle{
+    padding-top: 76px;
+  }
 
   .custom-shape-divider {
     .title-page{
@@ -124,6 +149,8 @@
     }
   }
 }
+
+
 
 //                      __   _  ___ ____   ___    __
 //                     | _| / |/ _ \___ \ / _ \  |_ |

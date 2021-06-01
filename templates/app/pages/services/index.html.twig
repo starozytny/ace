@@ -1,9 +1,9 @@
 {% extends 'app/pages/services/template.html.twig' %}
 
-{% block title %}{{ service.title }}{% endblock %}
+{% block title %}{{ service.title }} {{ parent() }}{% endblock %}
 
 {% block main_content %}
-    <div class="custom-shape-divider" style="background: url({{ asset('build/app/images/' ~ service.file1) }}) no-repeat fixed; background-size: cover;">
+    <div class="{{ service.slug }} custom-shape-divider" style="background: url({{ asset('build/app/images/' ~ service.file1) }}) no-repeat fixed; background-size: cover;">
         <div class="title-page">
             <div class="title-page-content">
                 <p class="title">Seuls on va plus <br> vite, ensemble <br> on va plus loin</p>
