@@ -35,7 +35,7 @@ class BlogInitCategoriesCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $io->title('Reset des tables');
-        $this->databaseService->resetTable($io, ['user']);
+        $this->databaseService->resetTable($io, ['bo_category']);
 
         $users = array(
             [

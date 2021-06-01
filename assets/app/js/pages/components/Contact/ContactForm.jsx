@@ -12,6 +12,29 @@ import { RgpdInfo }         from "@appComponents/Tools/Rgpd";
 import Validateur           from "@dashboardComponents/functions/validateur";
 import Formulaire           from "@dashboardComponents/functions/Formulaire";
 
+function getAteliers(self, ateliers, name=null, value=null)
+{
+    if(ateliers.length === 0){
+        Formulaire.loader(true);
+        axios.get(Routing.generate('api_ateliers_index'))
+            .then(function (response) {
+                let data = response.data;
+                if(name !== null){
+                    self.setState({ [name]: value, ateliers: data })
+                }else{
+                    self.setState({ ateliers: data })
+                }
+            })
+            .catch(function (error) {
+                Formulaire.displayErrors(self, error);
+            })
+            .then(() => {
+                Formulaire.loader(false);
+            })
+        ;
+    }
+}
+
 export class ContactForm extends Component {
     constructor(props) {
         super(props);
@@ -24,13 +47,21 @@ export class ContactForm extends Component {
             email: "",
             phone: "",
             subject: props.subject,
+            atelier: props.atelier ? parseInt(props.atelier) : "",
             message: "",
-            atelier: "",
             ateliers: []
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount = () => {
+        const { subject, ateliers } = this.state;
+
+        if(subject === "ateliers"){
+            getAteliers(this, ateliers);
+        }
     }
 
     handleChange = (e) => {
@@ -40,22 +71,7 @@ export class ContactForm extends Component {
         let value = e.currentTarget.value
 
         if(name === "subject" && value === "ateliers"){
-            if(ateliers.length === 0){
-                const self = this;
-                Formulaire.loader(true);
-                axios.get(Routing.generate('api_ateliers_index'))
-                    .then(function (response) {
-                        let data = response.data;
-                        self.setState({ [name]: value, ateliers: data })
-                    })
-                    .catch(function (error) {
-                        Formulaire.displayErrors(self, error);
-                    })
-                    .then(() => {
-                        Formulaire.loader(false);
-                    })
-                ;
-            }
+            getAteliers(this, ateliers, name, value);
         }else{
             this.setState({ [name]: value })
         }

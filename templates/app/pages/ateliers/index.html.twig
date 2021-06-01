@@ -41,16 +41,15 @@
                         </div>
 
                         <div class="avis">
-                            <a href="{{ path('app_contact') }}" class="btn btn-outline-default">Cet atelier vous intéresse ?</a>
+                            <a href="{{ path('app_contact', {'subject': 'ateliers', 'atelier': atelier.id}) }}" class="btn btn-outline-default">Cet atelier vous intéresse ?</a>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
-        <div class="question">
-            <h2>Vous avez des questions concernant ce service ?</h2>
-            <p>N’hésitez pas à me contacter pour plus d’informations.</p>
-            <a href="{{ path('app_contact') }}" class="btn btn-primary">Contactez-moi !</a>
-        </div>
+        {% include "app/layout/components/question.html.twig" with {
+            'questionTitle': "Vous avez des questions concernant mes ateliers ?",
+            'url': path('app_contact', {'subject': 'ateliers'})
+        } %}
     </div>
 {% endblock %}
