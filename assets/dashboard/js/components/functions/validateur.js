@@ -141,7 +141,7 @@ function validateur(values, valuesIfExistes){
 
     if(valuesIfExistes){
         valuesIfExistes.forEach(element => {
-            if(element !== "" && element !== null){
+            if(element.value !== "" || element.value !== null){
                 validate = switchCase(element);
                 if(!validate.code){
                     code = false;
