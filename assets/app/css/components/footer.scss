@@ -8,6 +8,10 @@ footer{
   .footer{
     .footer-logo{
       color: var(--alpha);
+
+      img{
+        width: 222px;
+      }
     }
     .footer-items{
       a, span{
@@ -22,6 +26,16 @@ footer{
 
       a{
         color: var(--alpha);
+      }
+    }
+
+    .sociaux{
+      margin-top: 12px;
+      text-align: center;
+
+      a{
+        color: var(--alpha);
+        opacity: 1;
       }
     }
   }
@@ -96,6 +110,22 @@ footer{
     .footer-items:last-child{
       width: 50%;
       @include flex(column, flex-start, flex-start);
+    }
+  }
+}
+
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+  .footer{
+    .footer-logo{
+      img{
+        width: 280px;
+      }
     }
   }
 }
