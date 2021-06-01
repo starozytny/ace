@@ -5,12 +5,11 @@ import Routing from '@publicFolder/bundles/fosjsrouting/js/router.min';
 
 import React from "react";
 import { render } from "react-dom";
-import { Articles } from "./components/Blog/Articles";
-import { Categories } from "./components/Blog/Category/Categories";
+import { Services } from "./components/Services/Services";
 
 Routing.setRoutingData(routes);
 
 let el = document.getElementById("services");
 if(el){
-    render(<Articles />, el)
+    render(<Services />, el)
 }
