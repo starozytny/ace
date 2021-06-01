@@ -1,0 +1,9 @@
+Allow from all
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+RewriteCond %{HTTPS} !on
+RewriteRule ^ https://%{HTTP_HOST} [R,L]
