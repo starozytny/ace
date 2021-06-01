@@ -70,8 +70,13 @@ class ServiceController extends AbstractController
             $service->setFile1($fileName5);
         }
 
-        $slug = new AsciiSlugger();
-        $service->setSlug($slug->slug(trim($title)));
+        if($service->getSlug() !== "etudiants-lyceens" && $service->getSlug() !== "entreprises"
+            && $service->getSlug() !== "particuliers" && $service->getSlug() !== "sportifs")
+        {
+            $slug = new AsciiSlugger();
+            $service->setSlug($slug->slug(trim($title)));
+        }
+
 
         return $service;
     }
