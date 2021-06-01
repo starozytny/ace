@@ -1,6 +1,6 @@
 {% extends 'app/pages/actualites/template.html.twig' %}
 
-{% block title %}{{ article.title }}{% endblock %}
+{% block title %}{{ article.title }} {{ parent() }}{% endblock %}
 
 {% block main_content %}
     <div class="main-content">
