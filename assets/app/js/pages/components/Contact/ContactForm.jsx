@@ -23,7 +23,7 @@ export class ContactForm extends Component {
             name: "",
             email: "",
             phone: "",
-            subject: "",
+            subject: props.subject,
             message: ""
         }
 
@@ -80,11 +80,11 @@ export class ContactForm extends Component {
         const { errors, success, critere, name, email, message, phone, subject } = this.state;
 
         let selectItems = [
-            { value: 0, label: 'Etudiants/Lycéens', identifiant: 'etudiants' },
-            { value: 1, label: 'Entreprises', identifiant: 'entreprises' },
-            { value: 2, label: 'Particuliers', identifiant: 'particuliers' },
-            { value: 3, label: 'Sportifs', identifiant: 'sportifs' },
-            { value: 4, label: 'Autre demande', identifiant: 'autre' },
+            { value: "etudiants", label: 'Etudiants/Lycéens', identifiant: 'etudiants' },
+            { value: "entreprises", label: 'Entreprises', identifiant: 'entreprises' },
+            { value: "particuliers", label: 'Particuliers', identifiant: 'particuliers' },
+            { value: 'sportifs', label: 'Sportifs', identifiant: 'sportifs' },
+            { value: 'autre', label: 'Autre demande', identifiant: 'autre' },
         ]
 
         return <form onSubmit={this.handleSubmit}>

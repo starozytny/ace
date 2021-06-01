@@ -85,7 +85,7 @@ class ContactController extends AbstractController
             ->setEmail($data->email)
             ->setMessage($data->message)
             ->setSubject($data->subject)
-            ->setPhone($data->subject ?? null)
+            ->setPhone($data->phone ?? null)
         ;
 
         $noErrors = $validator->validate($contact);

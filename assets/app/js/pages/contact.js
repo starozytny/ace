@@ -11,5 +11,5 @@ Routing.setRoutingData(routes);
 
 let el = document.getElementById("contact");
 if(el){
-    render(<ContactForm />, el)
+    render(<ContactForm {...el.dataset} />, el)
 }

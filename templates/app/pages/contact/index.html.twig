@@ -1,6 +1,6 @@
 {% extends 'app/layout/layout.html.twig' %}
 
-{% block title %}Nous contacter{% endblock %}
+{% block title %}Me contacter{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div id="contact"></div>
+        <div id="contact" data-subject="{{ subject }}"></div>
     </div>
 {% endblock %}
 

@@ -55,11 +55,11 @@ class AppController extends AbstractController
     }
 
     /**
-     * @Route("/nous-contacter", name="app_contact")
+     * @Route("/contact/{subject}", options={"expose"=true}, name="app_contact", defaults={"subject": "autre"})
      */
-    public function contact(): Response
+    public function contact($subject): Response
     {
-        return $this->render('app/pages/contact/index.html.twig');
+        return $this->render('app/pages/contact/index.html.twig', ['subject' => $subject]);
     }
 
     /**
