@@ -63,6 +63,24 @@ footer{
   transform: translateY(16px);
 }
 
+.footer-background {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  background-color: var(--color0);
+  margin-top: 48px;
+}
+
+.footer-background svg {
+  position: relative;
+  display: block;
+  width: calc(204% + 1.3px);
+  height: 115px;
+}
+
+.footer-background .shape-fill {
+  fill: var(--fondContent);
+}
 //                      __   _____ __    ___    __
 //                     | _| |___  / /_  ( _ )  |_ |
 //    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
