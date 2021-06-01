@@ -80,7 +80,7 @@ export class ContactForm extends Component {
         const { errors, success, critere, name, email, message, phone, subject } = this.state;
 
         let selectItems = [
-            { value: "etudiants", label: 'Etudiants/Lycéens', identifiant: 'etudiants' },
+            { value: "etudiants-lyceens", label: 'Etudiants/Lycéens', identifiant: 'etudiants' },
             { value: "entreprises", label: 'Entreprises', identifiant: 'entreprises' },
             { value: "particuliers", label: 'Particuliers', identifiant: 'particuliers' },
             { value: 'sportifs', label: 'Sportifs', identifiant: 'sportifs' },
