@@ -95,4 +95,20 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/pages/contact/index.html.twig');
     }
+
+    /**
+     * @Route("/ateliers", name="ateliers_index")
+     */
+    public function ateliers(): Response
+    {
+        return $this->render('admin/pages/ateliers/index.html.twig');
+    }
+
+    /**
+     * @Route("/services", name="services_index")
+     */
+    public function services(): Response
+    {
+        return $this->render('admin/pages/services/index.html.twig');
+    }
 }
