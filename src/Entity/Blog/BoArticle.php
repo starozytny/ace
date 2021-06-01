@@ -19,13 +19,13 @@ class BoArticle
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"admin:read", "admin:write"})
+     * @Groups({"visitor:read", "admin:write"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"admin:read", "admin:write"})
+     * @Groups({"visitor:read", "admin:write"})
      */
     private $title;
 
@@ -36,44 +36,44 @@ class BoArticle
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"admin:write"})
+     * @Groups({"visitor:write"})
      */
     private $updatedAt;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"admin:read", "admin:write"})
+     * @Groups({"visitor:read", "admin:write"})
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"admin:read", "admin:write"})
+     * @Groups({"visitor:read", "admin:write"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"admin:read", "admin:write"})
+     * @Groups({"visitor:read", "admin:write"})
      */
     private $file;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"admin:read", "admin:write"})
+     * @Groups({"visitor:read", "admin:write"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="boolean")
-     *  @Groups({"admin:read"})
+     *  @Groups({"visitor:read"})
      */
     private $isPublished;
 
     /**
      * @ORM\ManyToOne(targetEntity=BoCategory::class, inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"admin:read"})
+     * @Groups({"visitor:read"})
      */
     private $category;
 
@@ -116,7 +116,7 @@ class BoArticle
 
     /**
      * Return created at time in string format d/m/Y
-     * @Groups({"admin:read"})
+     * @Groups({"visitor:read"})
      */
     public function getCreateAtString(): ?string
     {
@@ -124,6 +124,19 @@ class BoArticle
             return null;
         }
         return date_format($this->createdAt, 'd/m/Y');
+    }
+
+    /**
+     * Return created at time in string format 5 janv. 2017
+     * @Groups({"visitor:read"})
+     */
+    public function getCreateAtStringLong(): ?string
+    {
+        if($this->createdAt == null){
+            return null;
+        }
+        Carbon::setLocale('fr');
+        return Carbon::instance($this->getCreatedAt())->isoFormat('ll');
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
@@ -141,7 +154,7 @@ class BoArticle
     /**
      * How long ago an article was update.
      *
-     * @Groups({"admin:read"})
+     * @Groups({"visitor:read"})
      */
     public function getUpdatedAtAgo(): ?string
     {

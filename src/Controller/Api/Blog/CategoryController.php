@@ -26,9 +26,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 class CategoryController extends AbstractController
 {
     /**
-     * Admin - Get array of categories
-     *
-     * @Security("is_granted('ROLE_ADMIN')")
+     * Get array of categories
      *
      * @Route("/categories", name="index", options={"expose"=true}, methods={"GET"})
      *
@@ -48,7 +46,7 @@ class CategoryController extends AbstractController
         $order = $request->query->get('order') ?: 'ASC';
         $categories = $em->getRepository(BoCategory::class)->findBy([], ['name' => $order]);
 
-        return $apiResponse->apiJsonResponse($categories, User::ADMIN_READ);
+        return $apiResponse->apiJsonResponse($categories, User::VISITOR_READ);
     }
 
     public function setCategory(BoCategory $category, $request): BoCategory
@@ -104,7 +102,7 @@ class CategoryController extends AbstractController
 
         $em->persist($category);
         $em->flush();
-        return $apiResponse->apiJsonResponse($category, User::ADMIN_READ);
+        return $apiResponse->apiJsonResponse($category, User::VISITOR_READ);
     }
 
     /**
@@ -152,10 +150,10 @@ class CategoryController extends AbstractController
         }
 
         $em->flush();
-        return $apiResponse->apiJsonResponse($category, User::ADMIN_READ);
+        return $apiResponse->apiJsonResponse($category, User::VISITOR_READ);
     }
 
-    private function canDeleteCategory($em, BoCategory $category)
+    private function canDeleteCategory($em, BoCategory $category): bool
     {
         if($category->getSlug() === "autres"){
             return false;

@@ -26,9 +26,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 class ArticleController extends AbstractController
 {
     /**
-     * Admin - Get array of articles
-     *
-     * @Security("is_granted('ROLE_ADMIN')")
+     * Get array of articles
      *
      * @Route("/articles", name="index", options={"expose"=true}, methods={"GET"})
      *
@@ -49,8 +47,8 @@ class ArticleController extends AbstractController
         $articles = $em->getRepository(BoArticle::class)->findBy([], ['createdAt' => $order]);
         $categories = $em->getRepository(BoCategory::class)->findAll();
 
-        $articles = $serializer->serialize($articles, "json", ['groups' => User::ADMIN_READ]);
-        $categories = $serializer->serialize($categories, "json", ['groups' => User::ADMIN_READ]);
+        $articles = $serializer->serialize($articles, "json", ['groups' => User::VISITOR_READ]);
+        $categories = $serializer->serialize($categories, "json", ['groups' => User::VISITOR_READ]);
 
         return new JsonResponse([
             'articles' => $articles,
@@ -135,7 +133,7 @@ class ArticleController extends AbstractController
 
             $em->persist($article);
             $em->flush();
-            return $apiResponse->apiJsonResponse($article, User::ADMIN_READ);
+            return $apiResponse->apiJsonResponse($article, User::VISITOR_READ);
         }else{
             return $article;
         }
@@ -203,7 +201,7 @@ class ArticleController extends AbstractController
             }
 
             $em->flush();
-            return $apiResponse->apiJsonResponse($article, User::ADMIN_READ);
+            return $apiResponse->apiJsonResponse($article, User::VISITOR_READ);
         }else{
             return $article;
         }
