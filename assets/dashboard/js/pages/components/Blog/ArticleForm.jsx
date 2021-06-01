@@ -19,7 +19,7 @@ export class ArticleForm extends Component {
             title: props.title,
             introduction: { value: props.introduction ? props.introduction : "", html: props.introduction ? props.introduction : "" },
             content: { value: props.content ? props.content : "", html: props.content ? props.content : "" },
-            category: props.category ? props.category : "",
+            category: props.category.id ? props.category.id : "",
             errors: []
         }
 

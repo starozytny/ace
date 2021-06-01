@@ -16,6 +16,7 @@ export class ArticlesItem extends Component {
                         <div>
                             <div className="name">
                                 <span>{elem.title}</span>
+                                <span className="role">{elem.category.name}</span>
                             </div>
                             <div className="sub">Créé : {elem.createAtString} {elem.updatedAtAgo && "- Modifié : " + elem.updatedAtAgo}</div>
                             <div className="sub link">

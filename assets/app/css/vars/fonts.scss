@@ -51,6 +51,57 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-linkedin:before {
+  content: "\e966";
+}
+.icon-messenger:before {
+  content: "\e96a";
+}
+.icon-snapchat:before {
+  content: "\e96b";
+}
+.icon-twitter:before {
+  content: "\e973";
+}
+.icon-youtube:before {
+  content: "\e974";
+}
+.icon-house-plan:before {
+  content: "\e970";
+}
+.icon-square-2:before {
+  content: "\e971";
+}
+.icon-link-2:before {
+  content: "\e972";
+}
+.icon-phone:before {
+  content: "\e96f";
+}
+.icon-up-chevron:before {
+  content: "\e912";
+}
+.icon-down-chevron:before {
+  content: "\e96c";
+}
+.icon-left-chevron:before {
+  content: "\e96d";
+}
+.icon-right-chevron:before {
+  content: "\e96e";
+}
+.icon-credit-card:before {
+  content: "\e967";
+}
+.icon-facebook:before {
+  content: "\e968";
+}
+.icon-instagram:before {
+  content: "\e969";
+}
+.icon-equal:before {
+  content: "\e965";
+}
 .icon-male:before {
   content: "\e910";
 }
@@ -104,9 +155,6 @@
 }
 .icon-cloud:before {
   content: "\e911";
-}
-.icon-credit---card:before {
-  content: "\e912";
 }
 .icon-dashboard:before {
   content: "\e913";

@@ -8,11 +8,11 @@ import { Checkbox, Input, Radiobox, Select, TextArea,
 import { DatePick, DateTimePick, TimePick }            from "@dashboardComponents/Tools/DatePicker";
 import { Drop }                                        from "@dashboardComponents/Tools/Drop"
 import { Button }                                      from "@dashboardComponents/Tools/Button";
+import { Trumb }                                       from "@dashboardComponents/Tools/Trumb";
 
 import Validator    from "@dashboardComponents/functions/validateur";
 import Sanitaze     from "@dashboardComponents/functions/sanitaze";
-import Formulaire     from "@dashboardComponents/functions/Formulaire";
-import {Trumb} from "@dashboardComponents/Tools/Trumb";
+import Formulaire   from "@dashboardComponents/functions/Formulaire";
 
 export class StyleguideForm extends Component {
     constructor(props) {
@@ -155,25 +155,25 @@ export class StyleguideForm extends Component {
                 createAt, arrived, postalCode, city, fruit, faq } = this.state;
 
         let checkboxItems = [
-            { 'value': 'ROLE_USER', 'label': 'Utilisateur', 'identifiant': 'utilisateur' },
-            { 'value': 'ROLE_ADMIN', 'label': 'Admin', 'identifiant': 'admin' }
+            { value: 'ROLE_USER', label: 'Utilisateur', identifiant: 'utilisateur' },
+            { value: 'ROLE_ADMIN', label: 'Admin', identifiant: 'admin' }
         ]
 
         let radioboxItems = [
-            { 'value': 0, 'label': 'Homme', 'identifiant': 'homme' },
-            { 'value': 1, 'label': 'Femme', 'identifiant': 'femme' }
+            { value: 0, label: 'Homme', identifiant: 'homme' },
+            { value: 1, label: 'Femme', identifiant: 'femme' }
         ]
 
         let selectItems = [
-            { 'value': 0, 'label': 'France', 'identifiant': 'france' },
-            { 'value': 1, 'label': 'Allemagne', 'identifiant': 'allemagne' },
-            { 'value': 2, 'label': 'Japon', 'identifiant': 'japon' },
+            { value: 0, label: 'France', identifiant: 'france' },
+            { value: 1, label: 'Allemagne', identifiant: 'allemagne' },
+            { value: 2, label: 'Japon', identifiant: 'japon' },
         ]
 
         let selectFruitItems = [
-            { 'value': 0, 'label': 'Orange', 'identifiant': 'orange' },
-            { 'value': 1, 'label': 'Pomme', 'identifiant': 'pomme' },
-            { 'value': 2, 'label': 'Mangue', 'identifiant': 'mangue' },
+            { value: 0, label: 'Orange', identifiant: 'orange' },
+            { value: 1, label: 'Pomme', identifiant: 'pomme' },
+            { value: 2, label: 'Mangue', identifiant: 'mangue' },
         ]
 
         return (

@@ -49,6 +49,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-linkedin:before {
+  content: "\e966";
+}
+.icon-messenger:before {
+  content: "\e96a";
+}
+.icon-snapchat:before {
+  content: "\e96b";
+}
+.icon-twitter:before {
+  content: "\e973";
+}
+.icon-youtube:before {
+  content: "\e974";
+}
 .icon-house-plan:before {
   content: "\e970";
 }
@@ -73,9 +88,6 @@
 .icon-right-chevron:before {
   content: "\e96e";
 }
-.icon-back:before {
-  content: "\e966";
-}
 .icon-credit-card:before {
   content: "\e967";
 }
@@ -84,9 +96,6 @@
 }
 .icon-instagram:before {
   content: "\e969";
-}
-.icon-next:before {
-  content: "\e96a";
 }
 .icon-equal:before {
   content: "\e965";

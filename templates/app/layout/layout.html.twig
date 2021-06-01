@@ -14,9 +14,30 @@
             'name': 'accueil'
         },
         {
-            'path': path('app_services', {'slug': "etudiants-lyceens"}),
+            'dropdown': true,
             'label': 'Services',
-            'name': 'services'
+            'items': [
+                {
+                    'path': path('app_services', {'slug': "etudiants-lyceens"}),
+                    'label': 'Etudiants et Lycéens',
+                    'name': 'etudiants-lyceens'
+                },
+                {
+                    'path': path('app_services', {'slug': "entreprises"}),
+                    'label': 'Entreprises',
+                    'name': 'entreprises'
+                },
+                {
+                    'path': path('app_services', {'slug': "particuliers"}),
+                    'label': 'Particuliers',
+                    'name': 'particuliers'
+                },
+                {
+                    'path': path('app_services', {'slug': "sportifs"}),
+                    'label': 'Sportifs',
+                    'name': 'sportifs'
+                }
+            ]
         },
         {
             'path': path('app_homepage'),
