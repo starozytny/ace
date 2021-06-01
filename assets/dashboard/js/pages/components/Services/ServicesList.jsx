@@ -18,9 +18,6 @@ export class ServicesList extends Component {
                     <div className="item create">
                         <Button onClick={() => onChangeContext("create")}>Ajouter un service</Button>
                     </div>
-                    <div className="item filter-search">
-                        <Search onSearch={onSearch} />
-                    </div>
                 </div>
 
                 <div className="items-table">

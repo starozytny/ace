@@ -13,7 +13,7 @@ export class ServicesItem extends Component {
             <div className="item-content">
                 <div className="item-body">
                     <div className="avatar">
-                        <img src={`services/${elem.file1}`} alt={`Illustration de ${elem.title}`}/>
+                        <img src={location.origin + `/services/${elem.file1}`} alt={`Illustration de ${elem.title}`}/>
                     </div>
                     <div className="infos">
                         <div>

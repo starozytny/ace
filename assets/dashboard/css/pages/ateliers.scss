@@ -1,1 +1,66 @@
 @import "../vars/vars";
+
+.items-table {
+  padding-top: 0;
+  padding-bottom: 0;
+
+  & > .items > .item{
+    align-items: flex-start;
+    padding-top: 24px;
+  }
+
+  .item-selector{
+    transform: translateY(24px);
+  }
+
+  .item-content{
+    width: calc(100% - 24px);
+  }
+}
+
+.items-user {
+  .avatar {
+    background: var(--fond);
+    width: 84px;
+    height: 64px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-right: 12px;
+    margin-bottom: 8px;
+
+    img {
+      width: 84px;
+      height: 64px;
+    }
+  }
+}
+
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .items-table {
+    & > .items > .item {
+      padding-bottom: 24px;
+    }
+  }
+
+  .items-user{
+    .infos{
+      align-items: flex-start;
+      width: calc(100% - 84px - 12px);
+    }
+
+    .avatar , .avatar > img{
+      width: 84px;
+      height: 64px;
+    }
+    .role{
+      margin: 0 0 0 8px;
+    }
+  }
+}
