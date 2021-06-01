@@ -1,5 +1,16 @@
 @import "../vars/vars";
 
+.role{
+  margin-top: 4px;
+  margin-bottom: 4px;
+  display: inline-block;
+  padding: 4px 8px;
+  background: var(--primaryShadow);
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0.5;
+}
+
 .items-contact{
   .infos{
     div:first-child{

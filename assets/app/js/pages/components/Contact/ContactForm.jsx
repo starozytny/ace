@@ -24,19 +24,47 @@ export class ContactForm extends Component {
             email: "",
             phone: "",
             subject: props.subject,
-            message: ""
+            message: "",
+            atelier: "",
+            ateliers: []
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange = (e) => { this.setState({ [e.currentTarget.name]: e.currentTarget.value }) }
+    handleChange = (e) => {
+        const { ateliers } = this.state;
+
+        let name = e.currentTarget.name;
+        let value = e.currentTarget.value
+
+        if(name === "subject" && value === "ateliers"){
+            if(ateliers.length === 0){
+                const self = this;
+                Formulaire.loader(true);
+                axios.get(Routing.generate('api_ateliers_index'))
+                    .then(function (response) {
+                        let data = response.data;
+                        self.setState({ [name]: value, ateliers: data })
+                    })
+                    .catch(function (error) {
+                        Formulaire.displayErrors(self, error);
+                    })
+                    .then(() => {
+                        Formulaire.loader(false);
+                    })
+                ;
+            }
+        }else{
+            this.setState({ [name]: value })
+        }
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
 
-        const { critere, name, email, message, subject } = this.state;
+        const { critere, name, email, message, subject, atelier } = this.state;
 
         if(critere !== ""){
             toastr.error("Veuillez rafraichir la page.");
@@ -46,6 +74,8 @@ export class ContactForm extends Component {
                 {type: "text", id: 'email', value: email},
                 {type: "text", id: 'message', value: message},
                 {type: "text", id: 'subject', value: subject},
+            ], [
+                {type: "text", id: 'atelier', value: atelier}
             ])
 
             if(!validate.code) {
@@ -61,6 +91,8 @@ export class ContactForm extends Component {
                             name: "",
                             email: "",
                             message: "",
+                            atelier: "",
+                            phone: "",
                             errors: [],
                             success: data.message
                         })
@@ -77,15 +109,20 @@ export class ContactForm extends Component {
     }
 
     render () {
-        const { errors, success, critere, name, email, message, phone, subject } = this.state;
+        const { errors, success, critere, name, email, message, phone, subject, ateliers, atelier } = this.state;
 
         let selectItems = [
             { value: "etudiants-lyceens", label: 'Etudiants/Lycéens', identifiant: 'etudiants' },
             { value: "entreprises", label: 'Entreprises', identifiant: 'entreprises' },
             { value: "particuliers", label: 'Particuliers', identifiant: 'particuliers' },
             { value: 'sportifs', label: 'Sportifs', identifiant: 'sportifs' },
+            { value: 'ateliers', label: 'Ateliers', identifiant: 'ateliers' },
             { value: 'autre', label: 'Autre demande', identifiant: 'autre' },
         ]
+
+        let selectItemsAteliers = ateliers.map(el => {
+            return { value: el.id, label: el.name, identifiant: "atelier-" + el.id };
+        })
 
         return <form onSubmit={this.handleSubmit}>
             {success && <Alert type="info">{success}</Alert>}
@@ -94,9 +131,12 @@ export class ContactForm extends Component {
                 <Input identifiant="email" valeur={email} errors={errors} onChange={this.handleChange} type="email">Adresse e-mail</Input>
             </div>
             <div className="line line-2">
-                <Input identifiant="phone" valeur={phone} errors={errors} onChange={this.handleChange}>Téléphone (facultatif)</Input>
+                <Input identifiant="phone" valeur={phone} errors={errors} onChange={this.handleChange} type="number">Téléphone (facultatif)</Input>
                 <Select items={selectItems} identifiant="subject" valeur={subject} errors={errors} onChange={this.handleChange}>Sujet de votre demande ?</Select>
             </div>
+            {subject === "ateliers" && <div className="line">
+                <Select items={selectItemsAteliers} identifiant="atelier" valeur={atelier} errors={errors} onChange={this.handleChange}>De quel atelier s'agit-il ?</Select>
+            </div>}
             <div className="line line-critere">
                 <Input identifiant="critere" valeur={critere} errors={errors} onChange={this.handleChange}>Critère</Input>
             </div>

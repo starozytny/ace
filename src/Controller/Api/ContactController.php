@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Ace\AcAtelier;
 use App\Entity\Contact;
 use App\Entity\User;
 use App\Repository\ContactRepository;
@@ -87,6 +88,15 @@ class ContactController extends AbstractController
             ->setSubject($data->subject)
             ->setPhone($data->phone ?? null)
         ;
+
+        if($data->subject == "ateliers"){
+            $atelier = $em->getRepository(AcAtelier::class)->find($data->atelier);
+            if(!$atelier){
+                return $apiResponse->apiJsonResponseBadRequest('Veuillez sélectionner un atelier.');
+            }
+
+            $contact->setSubject($atelier->getName());
+        }
 
         $noErrors = $validator->validate($contact);
 

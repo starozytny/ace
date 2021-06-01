@@ -4,6 +4,7 @@ namespace App\Entity\Ace;
 
 use App\Repository\Ace\AcAtelierRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AcAtelierRepository::class)
@@ -14,31 +15,37 @@ class AcAtelier
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"visitor:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"visitor:read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"visitor:read"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"visitor:read"})
      */
     private $min;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"visitor:read"})
      */
     private $max;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"visitor:read"})
      */
     private $file;
 

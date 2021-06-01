@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { Button }        from "@dashboardComponents/Tools/Button";
+import Sanitize          from "@dashboardComponents/functions/sanitaze";
 
 export class ContactRead extends Component {
     render () {
@@ -17,7 +18,9 @@ export class ContactRead extends Component {
                 <div className="item-contact-read">
                     <div className="name">{element.name}</div>
                     <div className="sub">{element.email}</div>
+                    <div className="sub">{Sanitize.toFormatPhone(element.phone)}</div>
                     <div className="sub sub-time">{element.createdAtAgo}</div>
+                    <div className="sub-message">Sujet : {element.subject}</div>
                     <div className="sub-message">{element.message}</div>
                 </div>
             </div>

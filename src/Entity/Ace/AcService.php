@@ -15,61 +15,51 @@ class AcService
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user:read"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"user:read"})
      */
     private $intro;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"user:read"})
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user:read"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
      */
     private $file1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
      */
     private $file2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
      */
     private $file3;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
      */
     private $file4;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
      */
     private $file5;
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { ButtonIcon }   from "@dashboardComponents/Tools/Button";
 import { Selector }     from "@dashboardComponents/Layout/Selector";
+import Sanitize         from "@dashboardComponents/functions/sanitaze";
 
 export class ContactItem extends Component {
     render () {
@@ -18,6 +19,9 @@ export class ContactItem extends Component {
                                 <span>{elem.name}</span>
                             </div>
                             <div className="sub">{elem.email}</div>
+                            {elem.phone && <div className="sub">{Sanitize.toFormatPhone(elem.phone)}</div>}
+                            <div className="role">{elem.subject}</div>
+
                             <div className="sub">{elem.createdAtAgo}</div>
 
                             <div className="sub sub-seen">
