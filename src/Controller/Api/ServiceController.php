@@ -19,7 +19,7 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /**
- * @Route("/api/", name="api_services_")
+ * @Route("/api", name="api_services_")
  */
 class ServiceController extends AbstractController
 {

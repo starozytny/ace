@@ -1,25 +1,29 @@
 @import "../vars/vars";
 
-.title-page .title, h1{
-  font-size: 1.4em;
+.custom-shape-divider{
+  .title-page .title{
+    color: var(--alpha);
+  }
 }
 
-.title-page .title{
-  color: var(--alpha);
-}
 
 h1{
+  font-size: 1.4em;
   text-align: center;
-  max-width: 768px;
-  margin: 0 auto;
+  max-width: 1024px;
+  margin: 0 auto 24px auto;
 }
 
 h2{
   font-size: 1.2em;
 }
 
+.etudiants-lyceens{
+  background-position: -375px -135px !important;
+}
+
 .service-content{
-  max-width: 1024px;
+  max-width: 1280px;
   margin: 0 auto 48px auto;
 
   .content{
@@ -85,12 +89,23 @@ h2{
 //                     | |   /_/  \___/ \___/   | |
 //                     |__|                    |__|
 @media (min-width:768px) {
-  .title-page .title, h1{
+  .etudiants-lyceens{
+    background-position: -530px -245px !important;
+  }
+
+  .particuliers{
+    background-position: 0 -245px !important;
+  }
+
+
+  h1{
     font-size: 2em;
   }
 
-  .title-page .title{
-    font-size: 2.4em;
+  .custom-shape-divider{
+    .title-page .title{
+      font-size: 2.4em;
+    }
   }
 
   h2{
@@ -134,16 +149,25 @@ h2{
 //                     | |  |_|\___/_____|  |_|    | |
 //                     |__|                       |__|
 @media (min-width: 1024px) {
-  .title-page{
-    margin-left: 15%;
-    align-items: flex-start;
+  .etudiants-lyceens{
+    background-position: -30px -145px !important;
+  }
+  .particuliers{
+    background-position: 0 -25px !important;
   }
 
-  .title-page .title{
-    text-align: left;
-    font-size: 3em;
-  }
+  .custom-shape-divider{
+    .title-page{
+      @include maxscreen();
+      align-items: flex-start;
+      padding-left: 15%;
+    }
 
+    .title-page .title{
+      text-align: left;
+      font-size: 3em;
+    }
+  }
 }
 
 
@@ -154,7 +178,17 @@ h2{
 //                     | |  |_|_____\___/ \___/   | |
 //                     |__|                      |__|
 @media (min-width:1280px) {
+  .etudiants-lyceens{
+    background-position: 0 -145px !important;
+  }
+
+  h1{
+    font-size: 2.5em;
+  }
+
   .service-content {
+    margin-top: 80px;
+    font-size: 18px;
 
     .content{
       width: calc(50% - 48px);
@@ -165,5 +199,33 @@ h2{
       margin-left: 48px;
       width: calc(50% - 48px);
     }
+  }
+}
+
+//                      __   _  __    ___   ___    __
+//                     | _| / |/ /_  / _ \ / _ \  |_ |
+//    _____ _____ _____| |  | | '_ \| | | | | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | | (_) | |_| | |_| |  | |_____|_____|_____|
+//                     | |  |_|\___/ \___/ \___/   | |
+//                     |__|                       |__|
+@media (min-width: 1600px){
+  .etudiants-lyceens{
+    background-position: 0 -245px !important;
+  }
+}
+
+//                      __   _  ___ ____   ___    __
+//                     | _| / |/ _ \___ \ / _ \  |_ |
+//    _____ _____ _____| |  | | (_) |__) | | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |\__, / __/| |_| |  | |_____|_____|_____|
+//                     | |  |_|  /_/_____|\___/   | |
+//                     |__|                      |__|
+@media (min-width: 1920px){
+  .etudiants-lyceens{
+    background-position: 0 -545px !important;
+  }
+
+  .particuliers{
+    background-position: 0 -280px !important;
   }
 }
