@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import axios                   from "axios";
 import toastr                  from "toastr";
+import Routing                 from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
 
 import { Input, Select }       from "@dashboardComponents/Tools/Fields";
 import { Button }              from "@dashboardComponents/Tools/Button";
@@ -10,6 +11,36 @@ import { Drop }                from "@dashboardComponents/Tools/Drop";
 
 import Validateur              from "@dashboardComponents/functions/validateur";
 import Formulaire              from "@dashboardComponents/functions/Formulaire";
+
+import { FormLayout }          from "@dashboardComponents/Layout/Elements";
+
+export function ArticleFormulaire ({ type, onChangeContext, onUpdateList, categories, element })
+{
+    let title = "Ajouter un article";
+    let url = Routing.generate('api_articles_create');
+    let msg = "Félicitation ! Vous avez ajouté un nouveau article !";
+
+    if(type === "update"){
+        title = "Modifier " + element.title;
+        url = Routing.generate('api_articles_update', {'id': element.id});
+        msg = "Félicitation ! La mise à jour s'est réalisé avec succès !";
+    }
+
+    let form = <ArticleForm
+                    context={type}
+                    url={url}
+                    title={element ? element.title : ""}
+                    introduction={element ? element.introduction : ""}
+                    content={element ? element.content : ""}
+                    category={element ? element.category : ""}
+                    categories={categories}
+                    onUpdateList={onUpdateList}
+                    onChangeContext={onChangeContext}
+                    messageSuccess={msg}
+                />
+
+    return <FormLayout onChangeContext={onChangeContext} form={form}>{title}</FormLayout>
+}
 
 export class ArticleForm extends Component {
     constructor(props) {

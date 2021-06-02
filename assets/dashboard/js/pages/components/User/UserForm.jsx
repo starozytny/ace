@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import axios                   from "axios";
+import Routing                 from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
 
 import { Input, Checkbox }     from "@dashboardComponents/Tools/Fields";
 import { Alert }               from "@dashboardComponents/Tools/Alert";
@@ -8,6 +9,35 @@ import { Button }              from "@dashboardComponents/Tools/Button";
 
 import Validateur              from "@dashboardComponents/functions/validateur";
 import Formulaire              from "@dashboardComponents/functions/Formulaire";
+import { FormLayout }          from "@dashboardComponents/Layout/Elements";
+
+export function UserFormulaire ({ type, onChangeContext, onUpdateList, element })
+{
+    let title = "Ajouter un utilisateur";
+    let url = Routing.generate('api_users_create');
+    let msg = "Félicitation ! Vous avez ajouté un nouveau utilisateur !"
+
+    if(type === "update"){
+        title = "Modifier " + element.username;
+        url = Routing.generate('api_users_update', {'id': element.id});
+        msg = "Félicitation ! La mise à jour s'est réalisé avec succès !";
+    }
+
+    let form = <UserForm
+        context={type}
+        url={url}
+        username={element ? element.username : ""}
+        firstname={element ? element.firstname : ""}
+        lastname={element ? element.lastname : ""}
+        email={element ? element.email : ""}
+        roles={element ? element.roles : []}
+        onUpdateList={onUpdateList}
+        onChangeContext={onChangeContext}
+        messageSuccess={msg}
+    />
+
+    return <FormLayout onChangeContext={onChangeContext} form={form}>{title}</FormLayout>
+}
 
 export class UserForm extends Component {
     constructor(props) {
@@ -99,6 +129,8 @@ export class UserForm extends Component {
                     }
                 })
                 .catch(function (error) {
+                    console.log(error)
+                    console.log(error.response)
                     Formulaire.displayErrors(self, error);
                 })
                 .then(() => {

@@ -1,5 +1,18 @@
 @import "../vars/vars";
 
+nav.fixed{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--alpha);
+  z-index: 1000;
+
+  & + main{
+    margin-top: 76px;
+  }
+}
+
 nav{
   position: relative;
   z-index: 2000;
@@ -87,6 +100,11 @@ nav{
 //                     | |  |_|\___/_____|  |_|    | |
 //                     |__|                       |__|
 @media (min-width: 1024px) {
+  nav.fixed{
+    & + main{
+      margin-top: 66px;
+    }
+  }
   nav{
     background: var(--alpha);
   }
