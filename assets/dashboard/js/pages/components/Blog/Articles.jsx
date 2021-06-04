@@ -68,7 +68,7 @@ export class Articles extends Component {
         ;
     }
 
-    handleUpdateList = (element, newContext=null) => { this.layout.current.handleSearch(element, newContext, Sort.compareCreatedAt); }
+    handleUpdateList = (element, newContext=null) => { this.layout.current.handleUpdateList(element, newContext, Sort.compareCreatedAt); }
 
     handleDelete = (element) => {
         Formulaire.axiosDeleteElement(this, element, Routing.generate('api_articles_delete', {'id': element.id}),
@@ -112,7 +112,7 @@ export class Articles extends Component {
         return <ArticleFormulaire type="create" categories={this.layout.current.state.categories} onChangeContext={changeContext} onUpdateList={this.handleUpdateList}/>
     }
 
-    handleContentUpdate = (changeContext, updateList, element) => {
+    handleContentUpdate = (changeContext, element) => {
         return <ArticleFormulaire type="update" categories={this.layout.current.state.categories} element={element} onChangeContext={changeContext} onUpdateList={this.handleUpdateList}/>
     }
 
