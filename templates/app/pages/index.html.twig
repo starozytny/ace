@@ -96,12 +96,64 @@
         </div>
     </div>
 
+    {% set temoignages = [
+        {
+            'name': "Louis JOUANY", "profession": "CEO Endeavor",
+            'avis': "
+                    Valérie Ternay a démontré, avec talent, ses compétences auprès des étudiants du
+                    Groupe ESIEA. A ce poste qui venait d’être créé, elle a pris en charge le support et
+                    l’accompagnement de la vie étudiante et associative qu’elle a brillamment développé
+                    en coordination avec les équipes pédagogiques et la direction sur l’ensemble des
+                    campus. A l’écoute, avec tact, persévérance et bienveillance, elle a amené toutes les
+                    parties prenantes, individus et organisations, à une meilleure communication ainsi
+                    qu’une prise en compte et un développement de leurs potentiels respectifs. Son
+                    investissement personnel de chaque instant ainsi que les résultats obtnus ont été
+                    reconnus par toutes et tous."
+        },
+        {
+            'name': "Lionel PREVOST PhD", "profession": "Directeur de recherche à l’ESIEA",
+            'avis': "
+                    J’ai eu de nombreux échanges avec Valérie, qui m’ont permis d’apprécier ses capacités
+                    d’écoute et de synthèse ainsi que la qualité et la justesse de son accompagnement. Les
+                    retours des étudiants la concernant sont tout aussi unanimes quant à l’aide qu’elle a pu
+                    leur apporter lorsqu’ils avaient des soucis d’orientation ou personnels. Je suis
+                    convaincu que l’expérience de Valérie sera précieuse à toute entreprise faisant appel à
+                    ses services."
+        },
+        {
+            'name': "Sophia", "profession": "Etudiante à L’ESIEA",
+            'avis': "
+                    Valérie est une coach en or, elle m’a beaucoup aidée dans plusieurs domaines de ma
+                    vie : que ce soit au niveau scolaire, en me poussant toujours plus à me dépasser dans
+                    mes études ou dans le cadre de ma vie étudiante où elle m’a aidé à comprendre
+                    l’importance de la communication et du travail d’équipe. Ou encore dans le contexte
+                    de ma vie personnelle où j’ai, grâce à elle et un travail sur moi-même, pu me découvrir
+                    des axes sur lesquels je devais m’améliorer afin de devenir la personne que je veux
+                    être."
+        }
+    ] %}
+
     <div class="temoignages">
-        <h2>témoignages</h2>
+        <h2>Témoignages</h2>
 
         <div class="temoignages-slider">
             <div class="temoignages-items">
-
+                <div class="slide slide-1">
+                    {% for temoignage in temoignages %}
+                        <div class="item">
+                            <div class="name">{{ temoignage.name }}</div>
+                            <div class="profession">{{ temoignage.profession }}</div>
+                            <div class="content">
+                                {{ temoignage.avis }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="slide-dot">
+                <div class="active"></div>
+                <div></div>
+                <div></div>
             </div>
         </div>
     </div>

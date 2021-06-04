@@ -2,7 +2,7 @@
 
 @import "actualites";
 
-.first, .main-services-container, .contact, .main-actualites-container{
+.first, .main-services-container, .contact, .main-actualites-container, .temoignages{
   padding: 48px 12px;
 }
 
@@ -145,6 +145,58 @@
   }
 }
 
+.temoignages{
+  h2{
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .temoignages-items{
+    .item{
+      padding: 12px;
+      border: 2px solid var(--color0);
+      margin-bottom: 24px;
+
+      .name{
+        margin-bottom: 4px;
+        font-size: 18px;
+      }
+
+      .profession{
+        margin-bottom: 24px;
+        @include fontSemibold();
+        color: var(--color0);
+      }
+
+      .content{
+        font-size: 14px;
+      }
+    }
+  }
+
+  .slide-dot{
+    margin-top: 48px;
+    @include flex(row, center, center);
+
+    & > div{
+      background-color: var(--grey);
+      width: 12px; height: 12px;
+      border-radius: 20px;
+      margin-right: 24px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover{
+        background-color: var(--color1);
+      }
+
+      &.active{
+        background-color: var(--color1);
+      }
+    }
+  }
+}
+
 //                      __   _____ __    ___    __
 //                     | _| |___  / /_  ( _ )  |_ |
 //    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
@@ -210,7 +262,7 @@
 //                     | |  |_|\___/_____|  |_|    | |
 //                     |__|                       |__|
 @media (min-width: 1024px) {
-  .first, .main-services-container, .contact, .main-actualites-container{
+  .first, .main-services-container, .contact, .main-actualites-container, .temoignages{
     padding: 48px 24px;
   }
   .main-services{
@@ -236,6 +288,26 @@
     .item:nth-child(odd), .item:nth-child(even){
       width: calc(25% - 24px);
       margin-right: 24px;
+    }
+  }
+
+  .temoignages {
+    h2 {
+      margin-bottom: 48px;
+    }
+
+    .temoignages-items {
+      width: calc(100% + 24px);
+
+      .slide{
+        @include flex(row, stretch, flex-start);
+      }
+      .item{
+        padding: 24px;
+        width: calc(33% - 24px);
+        margin-bottom: 0;
+        margin-right: 24px;
+      }
     }
   }
 }
@@ -307,5 +379,10 @@
         }
       }
     }
+  }
+
+  .temoignages{
+    @include maxscreen();
+    padding: 80px 24px 80px 24px;
   }
 }
