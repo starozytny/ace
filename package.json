@@ -21,8 +21,10 @@
     },
     "dependencies": {
         "@types/react-transition-group": "^4.4.0",
+        "aos": "^2.3.4",
         "axios": "^0.21.0",
         "date-fns": "^2.16.1",
+        "html-react-parser": "^1.2.6",
         "leaflet": "^1.7.1",
         "leaflet-ajax": "^2.1.0",
         "node-sass": "4.14.1",

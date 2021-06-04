@@ -5,28 +5,24 @@ namespace App\Service;
 
 
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Symfony\Component\String\AbstractUnicodeString;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class SanitizeData
 {
-    public function fullSanitize($value)
+    public function fullSanitize($value): AbstractUnicodeString
     {
         $value = trim($value);
         $value = mb_strtolower($value);
         $value = str_replace(" ", "", $value);
-        $value = $this->reformatCara($value);
 
-        return $value;
+        return $this->reformatCara($value);
     }
 
-    public function reformatCara($data)
+    public function reformatCara($data): AbstractUnicodeString
     {
-
-        $spe = array(' ', '<', '>', '\'', 'é', 'è', 'ê', 'ë', 'á', 'ä', 'à', 'â', 'î', 'ï', 'ö', 'ô', 'ù', 'û',
-                     'É', 'È', 'Ê', 'Ë', 'À', 'Â', 'Á', 'Î', 'Ï', 'Ô', 'Ù', 'Û', 'ç','Ç');
-        $noSpe = array('-', '-', '-', '', 'e','e','e','e','á','a','a','a','i','i','o','o','u','u',
-                     'E','E','E','E','A','A','A','I','I','O','U','U','c','C');
-
-        return str_replace($spe, $noSpe, $data);
+        $slug = new AsciiSlugger();
+        return $slug->slug($data);
     }
 
     public function updateValue($value, $newValue)
@@ -54,9 +50,7 @@ class SanitizeData
     {
         if($value != "" && $value != null){
             $value = trim($value);
-            $value = htmlspecialchars($value);
-
-            return $value;
+            return htmlspecialchars($value);
         }
 
         return null;

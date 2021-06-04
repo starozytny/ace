@@ -19,6 +19,6 @@ export function RgpdInfo(props){
     return <Alert>
         {content}
         <br/>
-        Plus d'informations sur le traitement de vos données dans notre <a target="_blank" href={Routing.generate('app_politique')}>politique de confidentialité</a>.
+        {/*Plus d'informations sur le traitement de vos données dans notre <a target="_blank" href={Routing.generate('app_politique')}>politique de confidentialité</a>.*/}
     </Alert>
 }

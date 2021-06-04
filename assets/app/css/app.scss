@@ -1,10 +1,14 @@
 @import "~normalize.css";
 @import "~toastr";
+@import "~aos/dist/aos.css";
 
 :root{
     --color0: #064872;
     --color0-bis: rgba(6,72,114, 0.85);
+    --color0-third: rgba(6,72,114, 0.1);
+    --color0-four: rgba(6,72,114, 0.55);
     --color1: #F3944D;
+    --color1-bis: #cd6f2a;
     --color2: #616160;
     --color3: #E7EDF1;
     --primary: #00a8e8;
@@ -84,9 +88,9 @@ h1{
 
 h2{
     @include fontSemibold();
-    text-transform: uppercase;
     color: var(--color0);
     margin-bottom: 12px;
+    font-size: 2em;
 }
 
 main{
@@ -96,8 +100,27 @@ main{
 .main-content{
     min-height: 40vh;
     padding: 14px 12px 12px 12px;
-    position: relative;
-    z-index: 10;
+    background-color: var(--fondContent);
+}
+
+.choice-contact{
+
+    span:first-child{
+        display: inline-block;
+        text-transform: uppercase;
+        opacity: 0.6;
+        margin-bottom: 4px;
+    }
+
+    span:last-child{
+        @include fontSemibold();
+        color: var(--color0);
+    }
+
+    & > div{
+        @include flex(column, center, center);
+        margin-bottom: 12px;
+    }
 }
 
 //                      __   _  ___ ____  _  _     __
@@ -109,7 +132,6 @@ main{
 @media (min-width: 1024px) {
     .main-content{
         padding: 24px 32px;
-        margin-bottom: -150px;
     }
 }
 

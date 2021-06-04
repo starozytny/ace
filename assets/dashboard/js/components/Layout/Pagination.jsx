@@ -11,7 +11,7 @@ export class Pagination extends Component {
             offset: 0,
             inputPage: 0,
             currentPage: 0,
-            perPage: props.perPage !== undefined ? props.perPage : 20
+            perPage: props.perPage !== undefined ? props.perPage : 20,
         }
 
         this.handleClick = this.handleClick.bind(this);
@@ -20,11 +20,11 @@ export class Pagination extends Component {
     }
 
     componentDidMount() {
-        sessionStorage.setItem('user.pagination', "0");
+        sessionStorage.setItem(this.props.sessionName, "0");
     }
 
     handleClick = (e) => {
-        const { perPage, items } = this.props;
+        const { perPage, items, sessionName } = this.props;
 
         const selectedPage = e.selected;
         const offset = selectedPage * perPage;
@@ -32,18 +32,20 @@ export class Pagination extends Component {
         if(items !== null){
             this.setState({ currentPage: selectedPage, offset: offset })
             this.props.onUpdate(items.slice(offset, offset + parseInt(perPage)))
-            sessionStorage.setItem('user.pagination', selectedPage);
+            sessionStorage.setItem(sessionName, selectedPage);
         }
     }
 
     handleComeback = () => {
-        const { perPage, items } = this.props;
+        const { perPage, items, sessionName, currentPage } = this.props;
 
-        const selectedPage = localStorage.getItem('user.pagination');
-        const offset = selectedPage * perPage;
+        if(currentPage){
+            const selectedPage = localStorage.getItem(sessionName);
+            const offset = selectedPage * perPage;
 
-        this.setState({ currentPage: selectedPage, offset: offset })
-        this.props.onUpdate(items.slice(offset, offset + parseInt(perPage)))
+            this.setState({ currentPage: selectedPage, offset: offset })
+            this.props.onUpdate(items.slice(offset, offset + parseInt(perPage)))
+        }
     }
 
     handlePageOne = () => {
@@ -56,7 +58,7 @@ export class Pagination extends Component {
     }
 
     handleChange = (e) => {
-        const { perPage, items } = this.props;
+        const { perPage, items, sessionName } = this.props;
 
         let selectedPage = 1;
         let offset = selectedPage * perPage;
@@ -69,7 +71,7 @@ export class Pagination extends Component {
         if(items !== null){
             this.setState({ inputPage: selectedPage, currentPage: selectedPage, offset: offset })
             this.props.onUpdate(items.slice(offset, offset + parseInt(perPage)))
-            sessionStorage.setItem('user.pagination', e.currentTarget.value);
+            sessionStorage.setItem(sessionName, e.currentTarget.value);
         }
     }
 

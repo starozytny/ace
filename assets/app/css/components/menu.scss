@@ -1,8 +1,21 @@
 @import "../vars/vars";
 
-nav{
+nav {
   position: relative;
   z-index: 2000;
+}
+
+nav.fixed{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--alpha);
+  z-index: 1000;
+
+  & + main{
+    margin-top: 63px;
+  }
 }
 
 .nav-header-logo{
@@ -15,7 +28,7 @@ nav{
 
 .nav-mobile{
   position: absolute;
-  top: 0; right: 0;
+  top: 6px; right: 0;
   padding: 14px 14px 12px 12px;
   cursor: pointer;
 }
@@ -87,6 +100,11 @@ nav{
 //                     | |  |_|\___/_____|  |_|    | |
 //                     |__|                       |__|
 @media (min-width: 1024px) {
+  nav.fixed{
+    & + main{
+      margin-top: 93px;
+    }
+  }
   nav{
     background: var(--alpha);
   }
@@ -98,7 +116,7 @@ nav{
     padding: 12px 0;
 
     img{
-      width: 188px;
+      width: 208px;
     }
   }
   .nav-mobile{ display: none; }
