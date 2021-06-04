@@ -2,7 +2,7 @@
 
 @import "actualites";
 
-.first, .main-services-container, .contact{
+.first, .main-services-container, .contact, .main-actualites-container{
   padding: 48px 12px;
 }
 
@@ -94,6 +94,9 @@
 }
 
 .contact{
+  p{
+    opacity: 0.9;
+  }
   .choice-contact{
     margin-top: 24px;
     margin-bottom: 24px;
@@ -116,6 +119,29 @@
   form{
     border-top: 2px solid var(--color0);
     padding-top: 24px;
+  }
+}
+
+.main-actualites-container{
+  h2{
+    text-align: center;
+  }
+
+  & > p{
+    text-align: center;
+    max-width: 768px;
+    margin: 0 auto 48px auto;
+    opacity: 0.9;
+  }
+}
+
+.main-actualites{
+  background-color: #e4e7f1;
+
+  .custom-shape-divider{
+    background-color: #e4e7f1;
+    padding-top: 42px;
+    margin-top: -24px;
   }
 }
 
@@ -184,7 +210,7 @@
 //                     | |  |_|\___/_____|  |_|    | |
 //                     |__|                       |__|
 @media (min-width: 1024px) {
-  .first, .main-services-container, .contact{
+  .first, .main-services-container, .contact, .main-actualites-container{
     padding: 48px 24px;
   }
   .main-services{
@@ -251,6 +277,10 @@
       @include maxscreen();
       padding: 80px 0 80px 24px;
     }
+  }
+
+  .main-actualites-container{
+    padding: 80px 24px 0 24px;
   }
 
   .contact{
