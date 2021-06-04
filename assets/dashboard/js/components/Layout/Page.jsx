@@ -68,7 +68,9 @@ export class Layout extends Component {
         if(context === "list"){
             this.page.current.pagination.current.handleComeback()
         }else if(context === "read"){
-            onChangeContextRead(element)
+            if(onChangeContextRead){
+                onChangeContextRead(element);
+            }
         }
     }
 

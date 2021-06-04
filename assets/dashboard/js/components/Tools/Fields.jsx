@@ -20,9 +20,9 @@ export function Input (props) {
  * TEXTAREA Classique
  ***************************************/
 export function TextArea (props) {
-    const { identifiant, valeur, onChange, rows="8", children } = props;
+    const { identifiant, valeur, onChange, rows="8", children, placeholder } = props;
 
-    let content = <textarea name={identifiant} id={identifiant} value={valeur} rows={rows} onChange={onChange}/>
+    let content = <textarea name={identifiant} id={identifiant} value={valeur} rows={rows} onChange={onChange} placeholder={placeholder}/>
     return (<ClassiqueStructure {...props} content={content} label={children} />)
 }
 
