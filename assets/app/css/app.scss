@@ -87,6 +87,7 @@ h2{
     @include fontSemibold();
     color: var(--color0);
     margin-bottom: 12px;
+    font-size: 2em;
 }
 
 main{
@@ -97,6 +98,26 @@ main{
     min-height: 40vh;
     padding: 14px 12px 12px 12px;
     background-color: var(--fondContent);
+}
+
+.choice-contact{
+
+    span:first-child{
+        display: inline-block;
+        text-transform: uppercase;
+        opacity: 0.6;
+        margin-bottom: 4px;
+    }
+
+    span:last-child{
+        @include fontSemibold();
+        color: var(--color0);
+    }
+
+    & > div{
+        @include flex(column, center, center);
+        margin-bottom: 12px;
+    }
 }
 
 //                      __   _  ___ ____  _  _     __

@@ -1,6 +1,6 @@
 @import "../vars/vars";
 
-.first, .main-services-container{
+.first, .main-services-container, .contact{
   padding: 48px 12px;
 }
 
@@ -91,6 +91,32 @@
   }
 }
 
+.contact{
+  .choice-contact{
+    margin-top: 24px;
+    margin-bottom: 24px;
+
+    div:first-child{
+      &:after{
+        content: "";
+        width: 30%; height: 2px;
+        margin: 0 auto 12px auto;
+        border-bottom: 2px solid var(--color1);
+        padding-bottom: 12px;
+      }
+    }
+
+    span:first-child{
+      opacity: 1;
+    }
+  }
+
+  form{
+    border-top: 2px solid var(--color0);
+    padding-top: 24px;
+  }
+}
+
 //                      __   _____ __    ___    __
 //                     | _| |___  / /_  ( _ )  |_ |
 //    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
@@ -130,6 +156,23 @@
       margin-left: 12px;
     }
   }
+
+  .contact{
+    @include flex(row, flex-start, flex-start);
+
+    & > div:first-child{
+      width: calc(50% - 48px);
+      margin-right: 48px;
+
+      p{
+        margin: 48px 0;
+      }
+    }
+
+    & > div:last-child{
+      width: 50%;
+    }
+  }
 }
 
 //                      __   _  ___ ____  _  _     __
@@ -139,7 +182,7 @@
 //                     | |  |_|\___/_____|  |_|    | |
 //                     |__|                       |__|
 @media (min-width: 1024px) {
-  .first, .main-services-container{
+  .first, .main-services-container, .contact{
     padding: 48px 24px;
   }
   .main-services{
@@ -177,28 +220,60 @@
 //                     |__|                      |__|
 @media (min-width:1280px) {
   .first{
-    min-height: 60vh;
+    min-height: 50vh;
+    padding-bottom: 96px;
 
     .first-container{
       @include maxscreen();
     }
 
     h1{
-      padding-top: 326px;
+      padding-top: 286px;
+      font-size: 4.5em;
     }
+
   }
   .citation{
     .citation-container {
       padding: 48px 0;
-      max-width: 625px;
+      max-width: 694px;
     }
 
     p{
-      font-size: 18px;
+      font-size: 20px;
 
     }
   }
-  .main-services-container{
+  .main-services{
+    .main-services-container{
+      @include maxscreen();
+      padding: 80px 0 80px 24px;
+    }
+  }
+
+  .contact{
     @include maxscreen();
+    padding: 80px 24px 0 24px;
+
+    .choice-contact{
+      @include flex(row, center, flex-start);
+      font-size: 20px;
+
+      & > div{
+        margin-bottom: 0;
+      }
+
+      & > div:first-child{
+        flex-direction: row;
+        min-width: 200px;
+
+        &:after{
+          border-bottom: none;
+          border-right: 2px solid var(--color1);
+          width: 2px;
+          height: 26px;
+        }
+      }
+    }
   }
 }

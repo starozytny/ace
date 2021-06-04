@@ -14,26 +14,6 @@ h2{
   }
 }
 
-.choice-contact{
-
-  span:first-child{
-    display: inline-block;
-    text-transform: uppercase;
-    opacity: 0.6;
-    margin-bottom: 4px;
-  }
-
-  span:last-child{
-    @include fontSemibold();
-    color: var(--color0);
-  }
-
-  & > div{
-    @include flex(column, center, center);
-    margin-bottom: 12px;
-  }
-}
-
 #contact{
   border-top: 2px solid var(--color0);
   padding-top: 24px;
