@@ -4,6 +4,7 @@
 :root{
     --color0: #064872;
     --color0-bis: rgba(6,72,114, 0.85);
+    --color0-third: rgba(6,72,114, 0.1);
     --color1: #F3944D;
     --color2: #616160;
     --color3: #E7EDF1;
@@ -84,7 +85,6 @@ h1{
 
 h2{
     @include fontSemibold();
-    text-transform: uppercase;
     color: var(--color0);
     margin-bottom: 12px;
 }
@@ -108,7 +108,6 @@ main{
 @media (min-width: 1024px) {
     .main-content{
         padding: 24px 32px;
-        margin-bottom: -150px;
     }
 }
 

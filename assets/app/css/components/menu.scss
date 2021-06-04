@@ -14,7 +14,7 @@ nav.fixed{
   z-index: 1000;
 
   & + main{
-    margin-top: 76px;
+    margin-top: 63px;
   }
 }
 
@@ -28,7 +28,7 @@ nav.fixed{
 
 .nav-mobile{
   position: absolute;
-  top: 0; right: 0;
+  top: 6px; right: 0;
   padding: 14px 14px 12px 12px;
   cursor: pointer;
 }
@@ -102,7 +102,7 @@ nav.fixed{
 @media (min-width: 1024px) {
   nav.fixed{
     & + main{
-      margin-top: 66px;
+      margin-top: 93px;
     }
   }
   nav{
