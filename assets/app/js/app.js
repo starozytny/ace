@@ -1,5 +1,6 @@
 import '../css/app.scss';
 
+import AOS from "aos";
 const routes = require('@publicFolder/js/fos_js_routes.json');
 import Routing from '@publicFolder/bundles/fosjsrouting/js/router.min';
 
@@ -13,3 +14,5 @@ const menu = document.getElementById("menu");
 render(
     <Menu {...menu.dataset} />, menu
 )
+
+AOS.init();

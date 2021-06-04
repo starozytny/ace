@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@types/react-transition-group": "^4.4.0",
+        "aos": "^2.3.4",
         "axios": "^0.21.0",
         "date-fns": "^2.16.1",
         "html-react-parser": "^1.2.6",

@@ -10,12 +10,12 @@
 {% block main_content %}
     <div class="first">
         <div class="first-container">
-            <h1>Et si votre futur se <br> conjugait au présent ?</h1>
+            <h1 data-aos="fade-right" data-aos-offset="300" data-aos-delay="300">Et si votre futur se <br> conjugait au présent ?</h1>
         </div>
     </div>
 
     <div class="citation">
-        <div class="citation-container">
+        <div class="citation-container" data-aos="fade-in" data-aos-delay="300">
             <p>Une personne est un processus vivant en train d’émerger et non un produit fini.</p>
             <p>Carl Rogers</p>
         </div>
@@ -23,9 +23,9 @@
 
     <div class="main-services">
         <div class="main-services-container">
-            <h2>Mes services</h2>
+            <h2 data-aos="fade-in">Mes services</h2>
             <div class="main-services-box">
-                <div class="item">
+                <div class="item" data-aos="zoom-in-down" data-aos-delay="100">
                     <div class="image">
                         <img src="{{ asset('build/app/images/service_etudiant.jpg') }}" alt="illustration etudiants">
                     </div>
@@ -39,8 +39,8 @@
                         </p>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="image">
+                <div class="item" data-aos="zoom-in-down" data-aos-delay="150">
+                    <div class="image" >
                         <img src="{{ asset('build/app/images/service_entreprise.jpg') }}" alt="illustration entreprise">
                     </div>
                     <div class="content">
@@ -52,7 +52,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="item">
+                <div class="item" data-aos="zoom-in-down" data-aos-delay="200">
                     <div class="image">
                         <img src="{{ asset('build/app/images/service_particulier.jpg') }}" alt="illustration particulier">
                     </div>
@@ -65,7 +65,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="item">
+                <div class="item" data-aos="zoom-in-down" data-aos-delay="250">
                     <div class="image">
                         <img src="{{ asset('build/app/images/service_sportif.jpg') }}" alt="illustration sportif">
                     </div>
@@ -83,8 +83,8 @@
 
     <div class="who">
         <div class="who-container">
-            <h2>Qui suis-je ?</h2>
-            <div class="content">
+            <h2 data-aos="fade-in">Qui suis-je ?</h2>
+            <div class="content" data-aos="fade-right">
                 <p>
                     Après plus de quinze années passées au centre des métiers du conseil, au sein de
                     PwC et Deloitte, de la planification à la formation des consultants, je fais le choix de
@@ -105,17 +105,17 @@
                     sportifs dans la préparation mentale de leur entraînement car le sport est
                     omniprésent dans ma vie (compétition et loisirs).
                 </p>
-                <div class="image">
+                <div class="image" data-aos="fade-in">
                     <img src="{{ asset('build/app/images/service_sportif.jpg') }}" alt="valérie">
                 </div>
             </div>
-            <p>
+            <p data-aos="fade-up">
                 Chacun d’entre nous mérite d’être guidé, encouragé et valorisé afin de trouver sa voie, un équilibre, de s’épanouir quel que soit le
                 domaine. <br><br>
                 J’ai donc à coeur de mettre à profit mon expérience, en vous accompagnant à partir de vos besoins professionnels/personnels, de
                 révéler vos talents et votre savoir-faire pour faciliter la réalisation de vos objectifs.
             </p>
-            <p class="signature">
+            <p class="signature" data-aos="fade-up">
                 <span>Valérie Ternay</span>
                 <span>Coach professionnelle</span>
             </p>
@@ -160,19 +160,21 @@
     ] %}
 
     <div class="temoignages">
-        <h2>Témoignages</h2>
+        <h2 data-aos="fade-in">Témoignages</h2>
 
         <div class="temoignages-slider">
             <div class="temoignages-items">
                 <div class="slide slide-1">
+                    {% set i = 100 %}
                     {% for temoignage in temoignages %}
-                        <div class="item">
+                        <div class="item" data-aos="zoom-in-down" data-aos-delay="{{ i }}">
                             <div class="name">{{ temoignage.name }}</div>
                             <div class="profession">{{ temoignage.profession }}</div>
                             <div class="content">
                                 {{ temoignage.avis }}
                             </div>
                         </div>
+                        {% set i = i + 50 %}
                     {% endfor %}
                 </div>
             </div>
@@ -186,14 +188,14 @@
 
     <div class="main-actualites">
         <div class="main-actualites-container">
-            <h2>Actualités</h2>
-            <p>
+            <h2 data-aos="fade-in">Actualités</h2>
+            <p data-aos="fade-in">
                 Découvrez de nouveaux contenus chaque semaine, ces articles sauront mettre en
                 lumière différents sujets comme orientation, performance, confiance, prise de parole...
                 N’hésitez pas à échanger avec moi !
             </p>
             {% if article is defined %}
-                <div class="main-actualites-box">
+                <div class="main-actualites-box" data-aos="fade-up">
                     <div class="items-table">
                         <div class="items items-default items-user">
                             <div class="item">
@@ -241,7 +243,7 @@
     </div>
 
     <div class="contact">
-        <div>
+        <div data-aos="fade-right">
             <h2>Contactez-moi !</h2>
             <p>
                 Pour plus d’informations sur les prestations ou les tarifs, merci de remplir le formulaire
@@ -257,7 +259,7 @@
                 </div>
             </div>
         </div>
-        <div id="contact"></div>
+        <div id="contact" data-aos="fade-up"></div>
     </div>
 {% endblock %}
 
