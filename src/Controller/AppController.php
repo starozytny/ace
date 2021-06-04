@@ -17,7 +17,14 @@ class AppController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('app/pages/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository(BoArticle::class)->findBy([], ['createdAt' => 'ASC']);
+        if(count($articles) <= 0){
+            return $this->render('app/pages/index.html.twig');
+        }
+        return $this->render('app/pages/index.html.twig', [
+            'article' => $articles[0]
+        ]);
     }
 
     /**
