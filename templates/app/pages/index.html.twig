@@ -116,12 +116,41 @@
             </p>
             {% if article is defined %}
                 <div class="main-actualites-box">
+                    <div class="items-table">
+                        <div class="items items-default items-user">
+                            <div class="item">
 
+                                <div class="item-content">
+                                    <div class="item-body">
+                                        <a href="{{ path('app_actualites') }}" class="infos">
+                                        <div class="image">
+                                            <div class="cat">
+                                                <span>{{ article.category.name }}</span>
+                                            </div>
+                                            <img src="{{ asset("articles/" ~ article.file) }}">
+                                        </div>
+                                        <div class="article">
+                                            <div class="name">
+                                                <span>{{ article.title }}</span>
+                                            </div>
+                                            <div class="content-wrap">
+                                                <p>
+                                                    {{ article.introduction | slice(0, 150) }}...
+                                                </p>
+                                            </div>
+                                            <div class="createdAt">{{ article.createAtString }}</div>
+                                        </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             {% else %}
                 <div class="main-actualites-box">
                     <div>
-                        <a href="{{ path('app_actualites') }}" class="btn btn-color1">Voir les articles</a>
+                        <a href="{{ path('app_actualites') }}" class="btn btn-primary">Voir les articles</a>
                     </div>
                 </div>
             {% endif %}
