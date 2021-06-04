@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Repository\ContactRepository;
 use App\Service\ApiResponse;
 use App\Service\MailerService;
+use App\Service\SanitizeData;
 use App\Service\SettingsService;
 use App\Service\ValidatorService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -64,10 +65,11 @@ class ContactController extends AbstractController
      * @param ApiResponse $apiResponse
      * @param MailerService $mailerService
      * @param SettingsService $settingsService
+     * @param SanitizeData $sanitizeData
      * @return JsonResponse
      */
     public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse,
-                           MailerService $mailerService, SettingsService $settingsService): JsonResponse
+                           MailerService $mailerService, SettingsService $settingsService, SanitizeData $sanitizeData): JsonResponse
     {
         $em = $this->getDoctrine()->getManager();
         $data = json_decode($request->getContent());
@@ -82,11 +84,11 @@ class ContactController extends AbstractController
         }
 
         $contact = (new Contact())
-            ->setName(trim($data->name))
+            ->setName($sanitizeData->sanitizeString($data->name))
             ->setEmail($data->email)
-            ->setMessage($data->message)
             ->setSubject($data->subject)
             ->setPhone($data->phone ?? null)
+            ->setMessage($sanitizeData->sanitizeString($data->message))
         ;
 
         if($data->subject == "ateliers"){

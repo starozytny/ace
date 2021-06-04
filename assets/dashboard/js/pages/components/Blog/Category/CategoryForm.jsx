@@ -1,14 +1,40 @@
 import React, { Component } from 'react';
 
-import axios                   from "axios";
-import toastr                  from "toastr";
+import axios             from "axios";
+import toastr            from "toastr";
+import Routing           from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
 
-import { Input }               from "@dashboardComponents/Tools/Fields";
-import { Button }              from "@dashboardComponents/Tools/Button";
-import { Trumb }               from "@dashboardComponents/Tools/Trumb";
+import { Input }         from "@dashboardComponents/Tools/Fields";
+import { Button }        from "@dashboardComponents/Tools/Button";
 
-import Validateur              from "@dashboardComponents/functions/validateur";
-import Formulaire              from "@dashboardComponents/functions/Formulaire";
+import Validateur        from "@dashboardComponents/functions/validateur";
+import Formulaire        from "@dashboardComponents/functions/Formulaire";
+
+import { FormLayout }    from "@dashboardComponents/Layout/Elements";
+
+export function CategoryFormulaire ({ type, onChangeContext, onUpdateList, element })
+{
+    let title = "Ajouter une categorie";
+    let url = Routing.generate('api_blog_categories_create')
+    let msg = "Félicitation ! Vous avez ajouté une nouvelle catégorie !";
+
+    if(type === "update"){
+        title = "Modifier " + element.name;
+        url = Routing.generate('api_blog_categories_update', {'id': element.id});
+        msg = "Félicitation ! La mise à jour s'est réalisé avec succès !";
+    }
+
+    let form = <CategoryForm
+        context={type}
+        url={url}
+        name={element ? element.name : ""}
+        onUpdateList={onUpdateList}
+        onChangeContext={onChangeContext}
+        messageSuccess={msg}
+    />
+
+    return <FormLayout onChangeContext={onChangeContext} form={form}>{title}</FormLayout>
+}
 
 export class CategoryForm extends Component {
     constructor(props) {
