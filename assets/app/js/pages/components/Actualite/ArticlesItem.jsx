@@ -7,7 +7,7 @@ export class ArticlesItem extends Component {
     render () {
         const { elem } = this.props
 
-        let intro = elem.intro ? parse(elem.intro) : null;
+        let intro = elem.introduction ? parse(elem.introduction) : null;
         let content = elem.content ? parse(elem.content) : null;
 
         return <div className="item">

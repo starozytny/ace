@@ -20,63 +20,69 @@
             <p>Carl Rogers</p>
         </div>
     </div>
+    {% set services = [
+        {
+            "name": "Etudiants/Lycéens" , "img": "service_etudiant.jpg",
+            "slug": "etudiants-lyceens",
+            "content": "
+                    Vous vous sentez perdus dans
+                    votre choix d’orientation ? Vous
+                    avez du mal à vous organiser, en
+                    manque de motivation ?
+            "
+        },
+        {
+            "name": "Entreprises" , "img": "service_entreprise.jpg",
+            "slug": "entreprises",
+            "content": "
+                    Entrepeneurs, dirigeants,
+                    managers, vous souhaitez
+                    optimiser votre performance ?
+            "
+        },
+        {
+            "name": "Particuliers" , "img": "service_particulier.jpg",
+            "slug": "particuliers",
+            "content": "
+                     Vous avez un projet professionnel
+                    ou personnel à réaliser qui vous
+                    tient à coeur ?
+            "
+        },
+        {
+            "name": "Sportif" , "img": "service_sportif.jpg",
+            "slug": "sportif",
+            "content": "
+                    L’un des facteurs clé de votre
+                    réussite : la préparation mentale
+            "
+        }
+    ] %}
 
     <div class="main-services">
         <div class="main-services-container">
             <h2 data-aos="fade-in">Mes services</h2>
             <div class="main-services-box">
-                <div class="item" data-aos="zoom-in-down" data-aos-delay="100">
-                    <div class="image">
-                        <img src="{{ asset('build/app/images/service_etudiant.jpg') }}" alt="illustration etudiants">
-                    </div>
-                    <div class="content">
-                        <h3>Etudiants/Lycéens</h3>
-                        <p>
-                            Vous vous sentez perdus dans
-                            votre choix d’orientation ? Vous
-                            avez du mal à vous organiser, en
-                            manque de motivation ?
-                        </p>
-                    </div>
-                </div>
-                <div class="item" data-aos="zoom-in-down" data-aos-delay="150">
-                    <div class="image" >
-                        <img src="{{ asset('build/app/images/service_entreprise.jpg') }}" alt="illustration entreprise">
-                    </div>
-                    <div class="content">
-                        <h3>Entreprises</h3>
-                        <p>
-                            Entrepeneurs, dirigeants,
-                            managers, vous souhaitez
-                            optimiser votre performance ?
-                        </p>
-                    </div>
-                </div>
-                <div class="item" data-aos="zoom-in-down" data-aos-delay="200">
-                    <div class="image">
-                        <img src="{{ asset('build/app/images/service_particulier.jpg') }}" alt="illustration particulier">
-                    </div>
-                    <div class="content">
-                        <h3>Particuliers</h3>
-                        <p>
-                            Vous avez un projet professionnel
-                            ou personnel à réaliser qui vous
-                            tient à coeur ?
-                        </p>
-                    </div>
-                </div>
-                <div class="item" data-aos="zoom-in-down" data-aos-delay="250">
-                    <div class="image">
-                        <img src="{{ asset('build/app/images/service_sportif.jpg') }}" alt="illustration sportif">
-                    </div>
-                    <div class="content">
-                        <h3>Sportif</h3>
-                        <p>
-                            L’un des facteurs clé de votre
-                            réussite : la préparation mentale
-                        </p>
-                    </div>
-                </div>
+                {% for service in services %}
+                    <a href="{{ path('app_services', {'slug': service.slug}) }}" class="item" data-aos="zoom-in-down" data-aos-delay="100">
+                        <div class="image">
+                            <img src="{{ asset('build/app/images/' ~ service.img) }}" alt="illustration {{ service.slug }}">
+
+                            <div class="custom-shape-divider-top-1622875638">
+                                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                                    <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <h3>{{ service.name }}</h3>
+                            <p>
+                                {{ service.content }}
+                            </p>
+                        </div>
+                    </a>
+                {% endfor %}
             </div>
         </div>
     </div>
