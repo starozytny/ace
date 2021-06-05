@@ -217,6 +217,7 @@
   }
 
   .temoignages-items{
+
     .item{
       position: relative;
       padding: 24px;
@@ -255,6 +256,30 @@
       }
     }
   }
+
+  .temoignages-items {
+    position: relative;
+    @include flex(row, flex-start, flex-start);
+
+    .slide{
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: all 0.2s ease-in-out;
+
+      &.slide-0{
+        position: relative;
+        opacity: 0;
+        z-index: -1;
+      }
+
+      &.active{
+        opacity: 1;
+      }
+    }
+  }
+
 
   .slide-dot{
     margin-top: 48px;
@@ -387,6 +412,16 @@
     }
   }
 
+  .temoignages-items{
+    .slide{
+      @include flex(column, flex-start, flex-start);
+      width: 100%;
+    }
+    .item{
+      min-width: calc(100% - 48px - 4px);
+    }
+  }
+
   .who-container{
     margin: 0 12px;
     background-color: var(--color0-four);
@@ -439,6 +474,7 @@
 
       .slide{
         @include flex(row, stretch, flex-start);
+        width: calc(33% - 24px);
       }
       .item{
         padding: 24px;

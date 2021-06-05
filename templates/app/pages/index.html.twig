@@ -169,33 +169,49 @@
         }
     ] %}
 
+    {% set temoignages2 = [
+        {
+            'name': "Temoignagne 2", "profession": "CEO Endeavor",
+            'avis': "
+                    Valérie Ternay a démontré, avec talent. elle m’a beaucoup aidée dans plusieurs domaines de ma
+                    vie : que ce soit au niveau scolaire,"
+        },
+        {
+            'name': "Temoignagne 2", "profession": "Directeur de recherche à l’ESIEA",
+            'avis': "
+                    J’ai eu de nombreux échanges avec Valérie. elle m’a beaucoup aidée dans plusieurs domaines de ma
+                    vie : que ce soit au niveau scolaire,"
+        },
+        {
+            'name': "Temoignagne 2", "profession": "Etudiante à L’ESIEA",
+            'avis': "
+                    Valérie est une coach en or. elle m’a beaucoup aidée dans plusieurs domaines de ma
+                    vie : que ce soit au niveau scolaire,"
+        }
+    ] %}
+
+    {% set temoignages3 = [
+        {
+            'name': "Temoignagne 3", "profession": "CEO Endeavor",
+            'avis': "
+                    Valérie Ternay a démontré, avec talent."
+        },
+        {
+            'name': "Temoignagne 3", "profession": "Directeur de recherche à l’ESIEA",
+            'avis': "
+                    J’ai eu de nombreux échanges avec Valérie."
+        },
+        {
+            'name': "Temoignagne 3", "profession": "Etudiante à L’ESIEA",
+            'avis': "
+                    Valérie est une coach en or."
+        }
+    ] %}
+
     <div class="temoignages">
         <h2 data-aos="fade-in">Témoignages</h2>
 
-        <div class="temoignages-slider">
-            <div class="temoignages-items">
-                <div class="slide slide-1">
-                    {% set i = 100 %}
-                    {% for temoignage in temoignages %}
-                        <div class="item" data-aos="zoom-in-down" data-aos-delay="{{ i }}">
-                            <div class="guil1"><img src="{{ asset('build/app/images/guillemet_1.png') }}" alt="guillemet"></div>
-                            <div class="name">{{ temoignage.name }}</div>
-                            <div class="profession">{{ temoignage.profession }}</div>
-                            <div class="content">
-                                {{ temoignage.avis }}
-                            </div>
-                            <div class="guil2"><img src="{{ asset('build/app/images/guillemet_2.png') }}" alt="guillemet"></div>
-                        </div>
-                        {% set i = i + 50 %}
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="slide-dot">
-                <div class="active"></div>
-                <div></div>
-                <div></div>
-            </div>
-        </div>
+        <div id="slider" data-temoignages="{{ temoignages | json_encode() }}" data-temoignages2="{{ temoignages2 | json_encode() }}" data-temoignages3="{{ temoignages3 | json_encode() }}"></div>
     </div>
 
     <div class="main-actualites">
