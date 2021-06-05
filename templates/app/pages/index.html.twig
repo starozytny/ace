@@ -16,8 +16,12 @@
 
     <div class="citation">
         <div class="citation-container" data-aos="fade-in" data-aos-delay="300">
-            <p>Une personne est un processus vivant en train d’émerger et non un produit fini.</p>
+            <div class="guil1"><img src="{{ asset('build/app/images/guillemet_1_blanc.png') }}" alt="guillemet"></div>
+            <p>
+                Une personne est un processus vivant en train d’émerger et non un produit fini.
+            </p>
             <p>Carl Rogers</p>
+            <div class="guil2"><img src="{{ asset('build/app/images/guillemet_2_blanc.png') }}" alt="guillemet"></div>
         </div>
     </div>
     {% set services = [
@@ -174,11 +178,13 @@
                     {% set i = 100 %}
                     {% for temoignage in temoignages %}
                         <div class="item" data-aos="zoom-in-down" data-aos-delay="{{ i }}">
+                            <div class="guil1"><img src="{{ asset('build/app/images/guillemet_1.png') }}" alt="guillemet"></div>
                             <div class="name">{{ temoignage.name }}</div>
                             <div class="profession">{{ temoignage.profession }}</div>
                             <div class="content">
                                 {{ temoignage.avis }}
                             </div>
+                            <div class="guil2"><img src="{{ asset('build/app/images/guillemet_2.png') }}" alt="guillemet"></div>
                         </div>
                         {% set i = i + 50 %}
                     {% endfor %}
