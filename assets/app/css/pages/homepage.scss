@@ -91,6 +91,7 @@
   .item{
     background: var(--alpha);
     margin-bottom: 24px;
+    color: var(--txt);
 
     &:hover{
       img{
@@ -99,6 +100,7 @@
     }
 
     .image{
+      position: relative;
       overflow: hidden;
     }
 
@@ -119,6 +121,25 @@
       }
     }
   }
+}
+
+.custom-shape-divider-top-1622875638 {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(-4deg) scale(1.5);
+  margin-top: -36px;
+}
+
+.custom-shape-divider-top-1622875638 svg {
+  position: relative;
+  display: block;
+  width: calc(247% + 1.3px);
+  height: 42px;
+}
+
+.custom-shape-divider-top-1622875638 .shape-fill {
+  fill: var(--alpha);
 }
 
 .contact{
@@ -259,7 +280,6 @@
     }
   }
 }
-
 
 //                      __   _____ __    ___    __
 //                     | _| |___  / /_  ( _ )  |_ |
