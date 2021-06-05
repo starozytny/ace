@@ -5,14 +5,44 @@ export class Slider extends Component {
         super(props);
 
         this.state = {
-            active: 1
+            active: 1,
+            interval: null
         }
 
+        this.handleInterval = this.handleInterval.bind(this);
+        this.handleClearInterval = this.handleClearInterval.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
 
+    componentDidMount () {
+        let interval = this.handleInterval();
+
+        this.setState({ interval })
+    }
+
+    handleInterval = () => {
+        const self = this; let i = 1;
+
+        return setInterval(() => {
+            if(i % 3 === 0){
+                i = 1;
+            }else{
+                i = i + 1;
+            }
+            self.setState({ active : i })
+
+        }, 3000);
+    }
+
+    handleClearInterval = () => {
+        const { interval } = this.state;
+        clearInterval(interval);
+        this.setState({ interval: null })
+    }
+
     handleClick = (number) => {
-        this.setState({ active: number })
+        this.setState({ active: number });
+        this.handleClearInterval();
     }
 
     render () {
