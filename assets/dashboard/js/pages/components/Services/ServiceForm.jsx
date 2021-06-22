@@ -82,6 +82,8 @@ export class ServiceForm extends Component {
             formData.append('title', title);
             formData.append('intro', intro.html);
             formData.append('content', content.html);
+            formData.append('seance', seance);
+            formData.append('nbSeance', nbSeance);
 
             if(file1 !== ""){
                 if(file1[0]){
@@ -152,11 +154,11 @@ export class ServiceForm extends Component {
                 </div>
 
                 <div className="line">
-                    <TextArea valeur={seance} identifiant="seance" errors={errors} onChange={this.handleChangeTrumb} >Séance</TextArea>
+                    <TextArea valeur={seance} identifiant="seance" errors={errors} onChange={this.handleChange} >Séance</TextArea>
                 </div>
 
                 <div className="line">
-                    <TextArea valeur={nbSeance} identifiant="nbSeance" errors={errors} onChange={this.handleChangeTrumb} >Nombre de séances</TextArea>
+                    <TextArea valeur={nbSeance} identifiant="nbSeance" errors={errors} onChange={this.handleChange} >Nombre de séances</TextArea>
                 </div>
 
                 <div className="line line-2">
