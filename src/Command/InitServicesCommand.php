@@ -97,6 +97,8 @@ class InitServicesCommand extends Command
                 ->setFile3($item['img2'] . '.jpg')
                 ->setFile4($item['img3'] . '.jpg')
                 ->setFile5($item['img4'] . '.jpg')
+                ->setSeance("EN SÉANCE INDIVIDUELLE D’1H / POSSIBILITÉ DE GROUPES POUR LES ENTREPRISES.")
+                ->setNbSeance("LE NOMBRE DE SÉANCES EST À DÉFINIR APRÈS LE 1ER ENTRETIEN.")
             ;
 
             $this->em->persist($service);

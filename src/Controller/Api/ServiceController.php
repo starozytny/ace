@@ -49,10 +49,14 @@ class ServiceController extends AbstractController
         $title = $request->get('title');
         $intro = $request->get('intro');
         $content = $request->get('content');
+        $seance = $request->get('seance');
+        $nbSeance = $request->get('nbSeance');
 
         $service->setTitle(trim($title));
         $service->setIntro($intro ?: null);
         $service->setContent($content ?: null);
+        $service->setSeance($seance ?: null);
+        $service->setNbSeance($nbSeance ?: null);
 
         if($fileName1){
             $service->setFile1($fileName1);

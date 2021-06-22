@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import axios                   from "axios";
 import toastr                  from "toastr";
 
-import { Input }               from "@dashboardComponents/Tools/Fields";
+import {Input, TextArea} from "@dashboardComponents/Tools/Fields";
 import { Button }              from "@dashboardComponents/Tools/Button";
 import { Trumb }               from "@dashboardComponents/Tools/Trumb";
 import { Drop }                from "@dashboardComponents/Tools/Drop";
@@ -19,6 +19,8 @@ export class ServiceForm extends Component {
             title: props.title,
             intro: { value: props.intro ? props.intro : "", html: props.intro ? props.intro : "" },
             content: { value: props.content ? props.content : "", html: props.content ? props.content : "" },
+            seance: props.seance ? props.seance : "",
+            nbSeance: props.nbSeance ? props.nbSeance : "",
             errors: []
         }
 
@@ -53,7 +55,7 @@ export class ServiceForm extends Component {
         e.preventDefault();
 
         const { url, messageSuccess } = this.props;
-        const { title, intro, content } = this.state;
+        const { title, intro, content, seance, nbSeance } = this.state;
 
         this.setState({ success: false})
 
@@ -64,7 +66,9 @@ export class ServiceForm extends Component {
         let file5 = this.inputFile5.current.drop.current.files;
         let paramsToValidate = [
             {type: "text", id: 'title', value: title},
-            {type: "text", id: 'content', value: content.html}
+            {type: "text", id: 'content', value: content.html},
+            {type: "text", id: 'seance', value: seance},
+            {type: "text", id: 'nbSeance', value: nbSeance}
         ];
 
         // validate global
@@ -126,7 +130,7 @@ export class ServiceForm extends Component {
 
     render () {
         const { context } = this.props;
-        const { errors, title, intro, content } = this.state;
+        const { errors, title, intro, content, seance, nbSeance } = this.state;
 
         return <>
             <form onSubmit={this.handleSubmit}>
@@ -145,6 +149,14 @@ export class ServiceForm extends Component {
 
                 <div className="line">
                     <Trumb valeur={content.value} identifiant="content" errors={errors} onChange={this.handleChangeTrumb} >Contenu de l'article</Trumb>
+                </div>
+
+                <div className="line">
+                    <TextArea valeur={seance} identifiant="seance" errors={errors} onChange={this.handleChangeTrumb} >Séance</TextArea>
+                </div>
+
+                <div className="line">
+                    <TextArea valeur={nbSeance} identifiant="nbSeance" errors={errors} onChange={this.handleChangeTrumb} >Nombre de séances</TextArea>
                 </div>
 
                 <div className="line line-2">

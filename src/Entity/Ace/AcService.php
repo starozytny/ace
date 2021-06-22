@@ -73,6 +73,18 @@ class AcService
      */
     private $file5;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Groups({"visitor:read"})
+     */
+    private $seance;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Groups({"visitor:read"})
+     */
+    private $nbSeance;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -182,6 +194,30 @@ class AcService
     public function setFile5(?string $file5): self
     {
         $this->file5 = $file5;
+
+        return $this;
+    }
+
+    public function getSeance(): ?string
+    {
+        return $this->seance;
+    }
+
+    public function setSeance(?string $seance): self
+    {
+        $this->seance = $seance;
+
+        return $this;
+    }
+
+    public function getNbSeance(): ?string
+    {
+        return $this->nbSeance;
+    }
+
+    public function setNbSeance(?string $nbSeance): self
+    {
+        $this->nbSeance = $nbSeance;
 
         return $this;
     }

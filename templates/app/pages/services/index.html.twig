@@ -22,8 +22,10 @@
                     {{ service.content | raw }}
                 </div>
 
-                <p class="seance">EN SÉANCE INDIVIDUELLE D’1H / POSSIBILITÉ DE GROUPES POUR LES ENTREPRISES</p>
-                <p class="nb-seance">LE NOMBRE DE SÉANCES EST À DÉFINIR APRÈS LE 1ER ENTRETIEN.</p>
+{#                <p class="seance">EN SÉANCE INDIVIDUELLE D’1H / POSSIBILITÉ DE GROUPES POUR LES ENTREPRISES</p>#}
+{#                <p class="nb-seance">LE NOMBRE DE SÉANCES EST À DÉFINIR APRÈS LE 1ER ENTRETIEN.</p>#}
+                <p class="seance">{{ service.seance }}</p>
+                <p class="nb-seance">{{ service.nbSeance }}</p>
             </div>
             <div class="illustrations">
                <div class="illustrations-col-1">
