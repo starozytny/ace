@@ -111,4 +111,12 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/pages/services/index.html.twig');
     }
+
+    /**
+     * @Route("/temoignages", name="testimonials_index")
+     */
+    public function temoignages(): Response
+    {
+        return $this->render('admin/pages/testimonials/index.html.twig');
+    }
 }

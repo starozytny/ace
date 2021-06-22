@@ -4,6 +4,7 @@ namespace App\Entity\Ace;
 
 use App\Repository\Ace\AcTestimonialRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AcTestimonialRepository::class)
@@ -14,21 +15,25 @@ class AcTestimonial
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"visitor:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"visitor:read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"visitor:read"})
      */
     private $work;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"visitor:read"})
      */
     private $content;
 
