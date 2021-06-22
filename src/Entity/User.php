@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Carbon\Carbon;
+use Carbon\Factory;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -100,6 +101,12 @@ class User implements UserInterface
      * @Groups({"admin:write"})
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"admin:read", "admin:write", "update", "user:read"})
+     */
+    private $avatar;
 
     public function __construct()
     {
@@ -274,7 +281,13 @@ class User implements UserInterface
     public function getLastLoginAgo(): ?string
     {
         if($this->getLastLogin()){
-            return Carbon::instance($this->getLastLogin())->diffForHumans();
+            $frenchFactory = new Factory([
+                'locale' => 'fr_FR',
+                'timezone' => 'Europe/Paris'
+            ]);
+            $time = Carbon::instance($this->getLastLogin());
+
+            return $frenchFactory->make($time)->diffForHumans();
         }
 
         return null;
@@ -349,6 +362,18 @@ class User implements UserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

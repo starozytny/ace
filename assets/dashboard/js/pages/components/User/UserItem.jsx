@@ -15,13 +15,18 @@ export class UserItem extends Component {
             url = Routing.generate('admin_homepage', {'_switch_user' : elem.username})
         }
 
+        let avatar = `https://robohash.org/${elem.username}?size=64x64`;
+        if(elem.avatar){
+            avatar = "/avatars/" + elem.avatar;
+        }
+
         return <div className="item">
             <Selector id={elem.id} onSelectors={onSelectors} />
 
             <div className="item-content">
                 <div className="item-body">
                     <div className="avatar">
-                        <img src={`https://robohash.org/${elem.username}?size=64x64`} alt={`Avatar de ${elem.username}`}/>
+                        <img src={avatar} alt={`Avatar de ${elem.username}`}/>
                     </div>
                     <div className="infos">
                         <div>
@@ -29,9 +34,11 @@ export class UserItem extends Component {
                                 <span>{elem.lastname.toUpperCase()} {elem.firstname}</span>
                                 {elem.highRoleCode !== 0 && <span className="role">{elem.highRole}</span>}
                             </div>
+                            {elem.lastLoginAgo && <div className="sub">Connecté {elem.lastLoginAgo}</div>}
+                        </div>
+                        <div>
                             <div className="sub sub-username">{elem.username}</div>
                             {elem.email !== "undefined@undefined.fr" ? <div className="sub">{elem.email}</div> : <div className="sub txt-danger"><span className="icon-warning" /> {elem.email}</div>}
-
                         </div>
                         <div className="actions">
                             {elem.highRoleCode !== 1 &&

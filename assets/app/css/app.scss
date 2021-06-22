@@ -54,6 +54,8 @@
 @import "components/legales";
 @import "components/page";
 @import "components/pagination";
+@import "components/cookies";
+@import "components/page";
 
 html, body{
     scroll-behavior: smooth;
@@ -103,6 +105,9 @@ main{
     background-color: var(--fondContent);
 }
 
+.matomo-iframe-display.remove{
+    display: none;
+}
 .choice-contact{
 
     span:first-child{

@@ -171,16 +171,28 @@ select{
 }
 
 .form-files{
-  @include flex(row, center, flex-start);
+  @include flex(column, flex-start, flex-start);
   width: 100%;
 
+  .preview-form-oldFile{
+    margin-bottom: 12px;
+
+    img{
+      border-radius: 4px;
+    }
+  }
+
   .form-image, .form-logo, .form-avatar{
-    margin-right: 25px;
+    margin-right: 24px;
   }
 
   .form-image, .form-logo{
     img{
-      width: 100px;
+      width: 124px;
+    }
+
+    & + .form-group{
+      width: calc(100% - 148px);
     }
   }
 
@@ -272,31 +284,6 @@ select{
   }
 }
 
-.form-files{
-  @include flex(row, flex-start, flex-start);
-
-  .form-image, .form-logo, .form-avatar{
-    margin-right: 24px;
-  }
-
-  .form-image, .form-logo{
-    img{
-      width: 124px;
-    }
-
-    & + .form-group{
-      width: calc(100% - 148px);
-    }
-  }
-
-  .form-avatar{
-    img{
-      border-radius: 100px;
-      width: 64px; height: 64px;
-    }
-  }
-}
-
 .form{
   .password-rules{
     font-size: 14px;
@@ -348,6 +335,16 @@ select{
       margin-bottom: 0;
     }
   }
+
+  .form-files{
+    flex-direction: row;
+
+    .preview-form-oldFile{
+      margin-bottom: 0;
+      margin-right: 12px;
+    }
+  }
+
 }
 //                      __   _ ____  ___   ___    __
 //                     | _| / |___ \( _ ) / _ \  |_ |
