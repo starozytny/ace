@@ -1,6 +1,7 @@
 @mixin fontRegular() { font-family: 'hkGroteskregular', sans-serif; }
 @mixin fontSemibold() { font-family: 'hkGrotesksemibold', sans-serif; }
 @mixin fontBold() { font-family: 'hkGroteskbold', sans-serif; }
+@mixin fontSignature() { font-family: 'apaluregular', sans-serif; }
 
 @mixin flex($direction: row, $align: center, $justify: center) {
   display: flex;flex-direction: $direction;
