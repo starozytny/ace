@@ -113,14 +113,13 @@ main{
 }
 .choice-contact{
 
-    span:first-child{
+    a:first-child, span:first-child{
         display: inline-block;
-        text-transform: uppercase;
-        opacity: 0.6;
         margin-bottom: 4px;
+        color: var(--color0);
     }
 
-    span:last-child{
+    a:last-child, span:last-child{
         @include fontSemibold();
         color: var(--color0);
     }
@@ -133,6 +132,18 @@ main{
 
 .txt-signature{
     @include fontSignature();
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 //                      __   _  ___ ____  _  _     __

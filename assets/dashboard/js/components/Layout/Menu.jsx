@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import parse from "html-react-parser";
+
 export class Menu extends Component {
     constructor(props) {
         super();
@@ -93,9 +95,9 @@ function MenuItem (props){
 function Item({ el, active }){
     return (
         <div className="item">
-            <a href={el.path} className={ active === el.name ? "active" : "" }>
+            <a href={el.path} target={el.target ? "_blank" : ""} className={ active === el.name ? "active" : "" }>
                 {el.icon && <span className={`icon-${el.icon}`} />}
-                <span>{el.label}</span>
+                <span>{parse(el.label)}</span>
             </a>
         </div>
     )
