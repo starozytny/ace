@@ -47,8 +47,9 @@ export class CookiesGlobalResponse extends Component {
         }else if(cookie === "false"){
             this.setState({ response: 0 })
             let iframe = document.querySelector('.matomo-iframe-display');
-            console.log(iframe)
-            iframe.classList.add('remove')
+            if(iframe){
+                iframe.classList.add('remove')
+            }
         }
     }
 
