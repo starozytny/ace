@@ -99,7 +99,7 @@ function deleteElement(self, element, url, showLoader = true, showFire = true)
     ;
 }
 
-function axiosDeleteElement(self, element, url, title, text, showLoader = true, showFire = true){
+function axiosDeleteElement(self, element, url, title, text, showLoader = true, showFire = false){
     Swal.fire(SwalOptions.options(title, text))
         .then((result) => {
             if (result.isConfirmed) {
@@ -112,7 +112,9 @@ function axiosDeleteElement(self, element, url, title, text, showLoader = true, 
 function axiosDeleteGroupElement(self, checked, url,
                                  txtEmpty="Aucun élément sélectionné.",
                                  title="Supprimer la sélection ?",
-                                 text="Cette action est irréversible."){
+                                 text="Cette action est irréversible.",
+                                 showLoader = true,
+                                 showFire = false){
     let selectors = []
     checked.forEach(el => {
         selectors.push(parseInt(el.value))
@@ -125,10 +127,14 @@ function axiosDeleteGroupElement(self, checked, url,
             .then((result) => {
                 if (result.isConfirmed) {
 
-                    loader(true);
+                    if(showLoader){
+                        loader(true);
+                    }
                     axios({ method: "delete", url: url, data: selectors })
                         .then(function (response) {
-                            Swal.fire(response.data.message, '', 'success');
+                            if(showFire){
+                                Swal.fire(response.data.message, '', 'success');
+                            }
                             self.handleUpdateList(selectors, "delete_group");
                         })
                         .catch(function (error) {
