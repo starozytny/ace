@@ -11,5 +11,5 @@ Routing.setRoutingData(routes);
 
 let el = document.getElementById("user");
 if(el){
-    render(<User />, el)
+    render(<User {...el.dataset} />, el)
 }

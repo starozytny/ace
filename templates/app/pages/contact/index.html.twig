@@ -1,6 +1,6 @@
 {% extends 'app/layout/layout.html.twig' %}
 
-{% block title %}Me contacter{% endblock %}
+{% block title %}Me contacter {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -25,24 +25,24 @@
     </div>
     <div class="main-content">
         <div class="contact-content">
-            <h2>Contactez-moi directement !</h2>
-            <p>
+            <h2 data-aos="fade-in">Contactez-moi directement !</h2>
+            <p data-aos="fade-up">
                 N’hésitez pas à me contacter pour plus d’informations sur les
                 prestations ou les tarifs, merci de remplir le formulaire ou
                 écrivez moi directement !
             </p>
             <div class="choice-contact">
-                <div>
+                <div data-aos="zoom-in">
                     <span>Appelez-moi</span>
-                    <span>06 29 48 05 96</span>
+                    <a href="sms:0629480596">06 29 48 05 96</a>
                 </div>
-                <div>
+                <div data-aos="zoom-in">
                     <span>ENVOYEZ-MOI UN MAIL</span>
-                    <span>vternay@ace-coaching.fr</span>
+                    <a href="mailto:vternay@ace-coaching.fr">vternay@ace-coaching.fr</a>
                 </div>
             </div>
         </div>
-        <div id="contact" data-subject="{{ subject }}" data-atelier="{{ atelier }}"></div>
+        <div id="contact" data-aos="fade-up" data-subject="{{ subject }}" data-atelier="{{ atelier }}"></div>
     </div>
 {% endblock %}
 

@@ -1,6 +1,6 @@
 {% extends 'app/pages/actualites/template.html.twig' %}
 
-{% block title %}{{ article.title }}{% endblock %}
+{% block title %}{{ article.title }} {{ parent() }}{% endblock %}
 
 {% block main_content %}
     <div class="main-content">
@@ -11,7 +11,25 @@
             </a>
 
             <div class="article">
+                <div class="article-title">
+                    <h1>{{ article.title }}</h1>
+                </div>
 
+                <div class="article-intro">
+                    {{ article.introduction | raw }}
+                </div>
+
+                <div class="createdAt">
+                    {{ article.createAtStringLong }}
+                </div>
+
+                <div class="article-image">
+                    <img src="{{ asset('articles/' ~ article.file) }}" alt="Illustration article">
+                </div>
+
+                <div class="article-content">
+                    {{ article.content | raw }}
+                </content>
             </div>
         </div>
     </div>

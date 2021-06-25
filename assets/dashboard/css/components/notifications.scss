@@ -1,0 +1,186 @@
+@import "../vars/vars";
+
+.notif-container{
+  &.active{
+    .notif-card{
+      top: 52px;
+      z-index: 5;
+      opacity: 1;
+    }
+
+    .btn-notif{
+      opacity: 1;
+    }
+  }
+}
+
+.btn-notif{
+  position: relative;
+  cursor: pointer;
+  opacity: 0.6;
+  margin-right: 36px;
+  transform: scale(0.95);
+  transition: all 0.2s ease-in-out;
+
+  & > span:first-child{
+    font-size: 20px;
+  }
+
+  &:hover{
+    opacity: 1;
+  }
+
+  .number{
+    position: absolute;
+    top: -12px; right: -12px;
+    background-color: var(--warning);
+    border-radius: 50px;
+    width: 24px; height: 24px;
+    @include flex(row, center, center);
+    font-size: 14px;
+    @include fontSemibold();
+    color: var(--alpha);
+    padding-top: 1px;
+    padding-left: 1px;
+  }
+}
+
+.notif-card{
+  position: absolute;
+  top: -300px;
+  right: 0;
+  width: calc(320px - 24px);
+  background-color: var(--alpha);
+  box-shadow: 0 6px 24px var(--greyShadow);
+  border-radius: 8px;
+  z-index: -5;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+
+  .notif-all{
+    text-align: center;
+    @include fontSemibold();
+    font-size: 14px;
+    padding: 12px;
+    opacity: 0.8;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+
+    a{
+      color: var(--primary);
+    }
+
+    &:hover{
+      opacity: 1;
+    }
+  }
+
+  .notif-body{
+    max-height: 320px;
+    overflow: auto;
+    @include scrollbar();
+    border-bottom: 1px solid var(--fond);
+    padding-bottom: 12px;
+
+    .item{
+      @include flex(row, center, space-between);
+      transition: all 0.2s ease-in-out;
+      padding: 12px;
+
+      &:hover{
+        background-color: var(--fondContent);
+      }
+    }
+
+    .item-content{
+      @include flex(row, flex-start, flex-start);
+    }
+
+    .item-icon{
+      background-color: var(--fond);
+      border-radius: 50px;
+      margin-right: 12px;
+      width: 32px; height: 32px;
+      @include flex(row, center, center);
+      color: var(--grey2);
+    }
+
+    .title{
+      margin-bottom: 2px;
+      font-size: 15px;
+      @include flex(row, flex-start, flex-start);
+    }
+
+    .createdAt{
+      opacity: 0.6;
+      font-size: 12px;
+    }
+
+    .item-actions{
+      & > *{
+        font-size: 14px;
+        cursor: pointer;
+        opacity: 0.6;
+        transition: all 0.2s ease-in-out;
+
+        &:hover{
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.toSee{
+  display: block;
+  width: 4px; height: 4px;
+  background-color: var(--danger);
+  border-radius: 10px;
+  margin-right: 6px;
+}
+
+.notif-cancel{
+  @include flex(row, flex-start, space-between);
+  padding: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--fond);
+
+  & > span:first-child{
+    opacity: 0.8;
+    font-size: 14px;
+    @include fontSemibold();
+  }
+
+  .icon-cancel{
+    font-size: 12px;
+    opacity: 0.6;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover{
+      opacity: 1;
+    }
+  }
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .notif-container{
+    position: relative;
+  }
+  .notif-card{
+    right: 26px;
+  }
+  .notif-container{
+    &.active{
+      .notif-card{
+        top: 36px;
+      }
+    }
+  }
+}

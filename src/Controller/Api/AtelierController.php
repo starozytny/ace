@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 
 /**
- * @Route("/api/", name="api_ateliers_")
+ * @Route("/api", name="api_ateliers_")
  */
 class AtelierController extends AbstractController
 {

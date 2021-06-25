@@ -24,6 +24,8 @@ export class ServiceUpdate extends Component {
                         title={element.title}
                         intro={element.intro}
                         content={element.content}
+                        seance={element.seance}
+                        nbSeance={element.nbSeance}
                         onUpdateList={onUpdateList}
                         onChangeContext={onChangeContext}
                         messageSuccess="Félicitation ! La mise à jour s'est réalisé avec succès !"

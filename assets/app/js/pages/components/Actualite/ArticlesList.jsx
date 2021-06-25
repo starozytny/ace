@@ -26,7 +26,7 @@ export class ArticlesList extends Component {
                     <div className="items items-default items-user">
                         {data && data.length !== 0 ? data.map(elem => {
                             return <ArticlesItem {...this.props} elem={elem} key={elem.id}/>
-                        }) : <Alert>Aucun résultat</Alert>}
+                        }) : <Alert>Aucun résultat pour le moment</Alert>}
                     </div>
                 </div>
 

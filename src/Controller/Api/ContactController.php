@@ -7,7 +7,10 @@ use App\Entity\Contact;
 use App\Entity\User;
 use App\Repository\ContactRepository;
 use App\Service\ApiResponse;
+use App\Service\Data\DataService;
 use App\Service\MailerService;
+use App\Service\NotificationService;
+use App\Service\SanitizeData;
 use App\Service\SettingsService;
 use App\Service\ValidatorService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -22,6 +25,8 @@ use OpenApi\Annotations as OA;
  */
 class ContactController extends AbstractController
 {
+    const ICON = "chat-2";
+
     /**
      * Admin - Get array of contacts
      *
@@ -36,15 +41,15 @@ class ContactController extends AbstractController
      * @OA\Tag(name="Contact")
      *
      * @param Request $request
-     * @param ContactRepository $contactRepository
+     * @param ContactRepository $repository
      * @param ApiResponse $apiResponse
      * @return JsonResponse
      */
-    public function index(Request $request, ContactRepository $contactRepository, ApiResponse $apiResponse): JsonResponse
+    public function index(Request $request, ContactRepository $repository, ApiResponse $apiResponse): JsonResponse
     {
         $order = $request->query->get('order') ?: 'ASC';
-        $contacts = $contactRepository->findBy([], ['createdAt' => $order]);
-        return $apiResponse->apiJsonResponse($contacts, User::ADMIN_READ);
+        $objs = $repository->findBy([], ['createdAt' => $order]);
+        return $apiResponse->apiJsonResponse($objs, User::ADMIN_READ);
     }
 
     /**
@@ -62,12 +67,14 @@ class ContactController extends AbstractController
      * @param Request $request
      * @param ValidatorService $validator
      * @param ApiResponse $apiResponse
+     * @param NotificationService $notificationService
      * @param MailerService $mailerService
      * @param SettingsService $settingsService
+     * @param SanitizeData $sanitizeData
      * @return JsonResponse
      */
-    public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse,
-                           MailerService $mailerService, SettingsService $settingsService): JsonResponse
+    public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse, NotificationService $notificationService,
+                           MailerService $mailerService, SettingsService $settingsService, SanitizeData $sanitizeData): JsonResponse
     {
         $em = $this->getDoctrine()->getManager();
         $data = json_decode($request->getContent());
@@ -81,12 +88,12 @@ class ContactController extends AbstractController
             return $apiResponse->apiJsonResponseBadRequest('Il manque des données.');
         }
 
-        $contact = (new Contact())
-            ->setName(trim($data->name))
+        $obj = (new Contact())
+            ->setName($sanitizeData->sanitizeString($data->name))
             ->setEmail($data->email)
-            ->setMessage($data->message)
             ->setSubject($data->subject)
             ->setPhone($data->phone ?? null)
+            ->setMessage($sanitizeData->sanitizeString($data->message))
         ;
 
         if($data->subject == "ateliers"){
@@ -109,7 +116,7 @@ class ContactController extends AbstractController
                 "[" . $settingsService->getWebsiteName() ."] Demande de contact",
                 "Demande de contact réalisé à partir de " . $settingsService->getWebsiteName(),
                 'app/email/contact/contact.html.twig',
-                ['contact' => $contact, 'settings' => $settingsService->getSettings()]
+                ['contact' => $obj, 'settings' => $settingsService->getSettings()]
             ) != true)
         {
             return $apiResponse->apiJsonResponseValidationFailed([[
@@ -118,8 +125,10 @@ class ContactController extends AbstractController
             ]]);
         }
 
-        $em->persist($contact);
+        $em->persist($obj);
         $em->flush();
+
+        $notificationService->createNotification("Demande de contact", self::ICON, $this->getUser());
 
         return $apiResponse->apiJsonResponseSuccessful("Message envoyé.");
     }
@@ -138,17 +147,13 @@ class ContactController extends AbstractController
      *
      * @OA\Tag(name="Contact")
      *
-     * @param Contact $contact
-     * @param ApiResponse $apiResponse
+     * @param Contact $obj
+     * @param DataService $dataService
      * @return JsonResponse
      */
-    public function isSeen(Contact $contact, ApiResponse $apiResponse): JsonResponse
+    public function isSeen(Contact $obj, DataService $dataService): JsonResponse
     {
-        $em = $this->getDoctrine()->getManager();
-        $contact->setIsSeen(true);
-
-        $em->flush();
-        return $apiResponse->apiJsonResponse($contact, User::ADMIN_READ);
+        return $dataService->isSeenToTrue($obj);
     }
 
     /**
@@ -165,22 +170,13 @@ class ContactController extends AbstractController
      *
      * @OA\Tag(name="Contact")
      *
-     * @param ApiResponse $apiResponse
-     * @param Contact $contact
+     * @param Contact $obj
+     * @param DataService $dataService
      * @return JsonResponse
      */
-    public function delete(ApiResponse $apiResponse, Contact $contact): JsonResponse
+    public function delete(Contact $obj, DataService $dataService): JsonResponse
     {
-        $em = $this->getDoctrine()->getManager();
-
-        if (!$contact->getIsSeen()) {
-            return $apiResponse->apiJsonResponseBadRequest('Vous n\'avez pas lu ce message.');
-        }
-
-        $em->remove($contact);
-        $em->flush();
-
-        return $apiResponse->apiJsonResponseSuccessful("Supression réussie !");
+        return $dataService->delete($obj, true);
     }
 
     /**
@@ -198,27 +194,11 @@ class ContactController extends AbstractController
      * @OA\Tag(name="Contact")
      *
      * @param Request $request
-     * @param ApiResponse $apiResponse
+     * @param DataService $dataService
      * @return JsonResponse
      */
-    public function deleteGroup(Request $request, ApiResponse $apiResponse): JsonResponse
+    public function deleteSelected(Request $request, DataService $dataService): JsonResponse
     {
-        $em = $this->getDoctrine()->getManager();
-        $data = json_decode($request->getContent());
-
-        $contacts = $em->getRepository(Contact::class)->findBy(['id' => $data]);
-
-        if ($contacts) {
-            foreach ($contacts as $contact) {
-                if (!$contact->getIsSeen()) {
-                    return $apiResponse->apiJsonResponseBadRequest('Vous n\'avez pas lu ce message.');
-                }
-
-                $em->remove($contact);
-            }
-        }
-
-        $em->flush();
-        return $apiResponse->apiJsonResponseSuccessful("Supression de la sélection réussie !");
+        return $dataService->deleteSelected(Contact::class, json_decode($request->getContent()), true);
     }
 }

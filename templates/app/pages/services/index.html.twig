@@ -1,12 +1,14 @@
 {% extends 'app/pages/services/template.html.twig' %}
 
-{% block title %}{{ service.title }}{% endblock %}
+{% block title %}{{ service.title }} {{ parent() }}{% endblock %}
 
 {% block main_content %}
-    <div class="custom-shape-divider" style="background: url({{ asset('build/app/images/' ~ service.file1) }}) no-repeat fixed; background-size: cover;">
-        <div class="title-page">
+    <div class="{{ service.slug }} custom-shape-divider" style="background: url({{ asset('build/app/images/' ~ service.file1) }}) no-repeat fixed; background-size: cover;">
+        <div class="title-page" data-aos="fade-right" data-aos-delay="100">
             <div class="title-page-content">
-                <p class="title">Seuls on va plus <br> vite, ensemble <br> on va plus loin</p>
+                <div class="guil1"><img src="{{ asset('build/app/images/guillemet_1_blanc.png') }}" alt="guillemet"></div>
+                <div class="title">{{ service.intro | raw }}</div>
+                <div class="guil2"><img src="{{ asset('build/app/images/guillemet_2_blanc.png') }}" alt="guillemet"></div>
             </div>
         </div>
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -14,32 +16,32 @@
         </svg>
     </div>
     <div class="main-content">
-        <h1>{{ service.title }}</h1>
+        <h1 data-aos="fade-up">{{ service.title }}</h1>
 
         <div class="service-content">
-            <div class="content">
+            <div class="content" data-aos="fade-right">
                 <div class="content-text">
                     {{ service.content | raw }}
                 </div>
 
-                <p class="seance">EN SÉANCE INDIVIDUELLE D’1H / POSSIBILITÉ DE GROUPES POUR LES ENTREPRISES</p>
-                <p class="nb-seance">LE NOMBRE DE SÉANCES EST À DÉFINIR APRÈS LE 1ER ENTRETIEN.</p>
+                <p class="seance">{{ service.seance | raw }}</p>
+                <p class="nb-seance">{{ service.nbSeance | raw }}</p>
             </div>
             <div class="illustrations">
                <div class="illustrations-col-1">
                    <div>
-                       <img class="img-1" src="{{ asset('build/app/images/' ~ service.file2) }}" alt="Illustration service">
+                       <img class="img-1" data-aos="zoom-in" data-aos-delay="100" src="{{ asset('build/app/images/' ~ service.file2) }}" alt="Illustration service">
                    </div>
                    <div>
-                       <img class="img-2" src="{{ asset('build/app/images/' ~ service.file3) }}" alt="Illustration service">
+                       <img class="img-2" data-aos="zoom-in" data-aos-delay="150" src="{{ asset('build/app/images/' ~ service.file3) }}" alt="Illustration service">
                    </div>
                </div>
                 <div class="illustrations-col-2">
                     <div>
-                        <img class="img-3" src="{{ asset('build/app/images/' ~ service.file4) }}" alt="Illustration service">
+                        <img class="img-3" data-aos="zoom-in" data-aos-delay="200" src="{{ asset('build/app/images/' ~ service.file4) }}" alt="Illustration service">
                     </div>
                     <div>
-                        <img class="img-4" src="{{ asset('build/app/images/' ~ service.file5) }}" alt="Illustration service">
+                        <img class="img-4" data-aos="zoom-in" data-aos-delay="250" src="{{ asset('build/app/images/' ~ service.file5) }}" alt="Illustration service">
                     </div>
                 </div>
             </div>

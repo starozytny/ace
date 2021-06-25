@@ -1,6 +1,6 @@
 {% extends 'app/pages/ateliers/template.html.twig' %}
 
-{% block title %}Ateliers{% endblock %}
+{% block title %}Ateliers {{ parent() }}{% endblock %}
 
 {% block main_content %}
     <div class="title-page-nostyle title-page">
@@ -21,7 +21,7 @@
     <div class="main-content">
         <div class="ateliers">
             {% for atelier in ateliers %}
-                <div class="atelier">
+                <div class="atelier" data-aos="fade-up">
 
                     <div class="infos">
                         <h2>{{ atelier.name }}</h2>

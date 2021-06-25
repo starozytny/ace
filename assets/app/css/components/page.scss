@@ -4,6 +4,10 @@
   @include flex(column, center, center);
   padding: 48px 12px;
   line-height: 1.15;
+  
+  .title-page-content{
+    position: relative;
+  }
 
   .title, h1, .subtitle{
     text-align: center;
@@ -20,6 +24,12 @@
 
   .subtitle{
     max-width: 480px;
+  }
+
+  .guil1, .guil2{
+    position: absolute;
+    width: 24px; height: 24px;
+    display: none;
   }
 }
 
@@ -82,7 +92,40 @@
       padding-bottom: 96px;
     }
   }
+
+  .title-page{
+    .guil1, .guil2{
+      display: block;
+    }
+
+    .guil1{
+      top: -18px; left: 8px;
+    }
+
+    .guil2{
+      bottom: 26px; right: 38px;
+    }
+  }
 }
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
+  .title-page-nostyle{
+    padding-top: 76px;
+  }
+
+  .title-page{
+    .guil1{
+      left: -38px;
+    }
+  }
+}
+
 //                      __   _ ____  ___   ___    __
 //                     | _| / |___ \( _ ) / _ \  |_ |
 //    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
@@ -92,6 +135,9 @@
 @media (min-width:1280px) {
   .title-page{
     padding: 48px 32px;
+  }
+  .title-page-nostyle{
+    padding-top: 76px;
   }
 
   .custom-shape-divider {
@@ -105,6 +151,18 @@
   .custom-shape-divider svg{
     height: 180px;
   }
+
+  .question{
+    h2{
+      font-size: 1.8em;
+    }
+  }
+
+  .title-page{
+    .guil2{
+      right: -38px;
+    }
+  }
 }
 
 //                      __   _  __    ___   ___    __
@@ -117,6 +175,9 @@
   .title-page{
     padding: 48px 32px 24px 32px;
   }
+  .title-page-nostyle{
+    padding-top: 76px;
+  }
 
   .custom-shape-divider {
     .title-page{
@@ -124,6 +185,8 @@
     }
   }
 }
+
+
 
 //                      __   _  ___ ____   ___    __
 //                     | _| / |/ _ \___ \ / _ \  |_ |

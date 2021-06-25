@@ -16,6 +16,7 @@ export class ContactItem extends Component {
                     <div className="infos">
                         <div onClick={() => onChangeContext('read', elem)}>
                             <div className="name">
+                                {!elem.isSeen && <span className="toSee" />}
                                 <span>{elem.name}</span>
                             </div>
                             <div className="sub">{elem.email}</div>
@@ -23,11 +24,6 @@ export class ContactItem extends Component {
                             <div className="role">{elem.subject}</div>
 
                             <div className="sub">{elem.createdAtAgo}</div>
-
-                            <div className="sub sub-seen">
-                                <span className={elem.isSeen ? "icon-check" : "icon-vision-not"} />
-                                <span>{elem.isSeen ? "Lu" : "Non lu"}</span>
-                            </div>
                         </div>
                         <div className="actions">
                             <ButtonIcon icon="trash" onClick={() => onDelete(elem)}>Supprimer</ButtonIcon>

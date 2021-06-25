@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Notification;
 use App\Entity\Settings;
 use App\Entity\User;
+use App\Service\Data\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/admin", name="admin_")
@@ -59,9 +62,13 @@ class AdminController extends AbstractController
     /**
      * @Route("/utilisateurs", name="users_index")
      */
-    public function users(): Response
+    public function users(UserService $userService, SerializerInterface $serializer): Response
     {
-        return $this->render('admin/pages/user/index.html.twig');
+        $objs = $userService->getList('ASC');
+        $objs = $serializer->serialize($objs, 'json', ['groups' => User::ADMIN_READ]);
+        return $this->render('admin/pages/user/index.html.twig', [
+            'users' => $objs
+        ]);
     }
 
     /**
@@ -97,6 +104,20 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/notifications", options={"expose"=true}, name="notifications_index")
+     */
+    public function notifications(SerializerInterface $serializer): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $objs = $em->getRepository(Notification::class)->findAll();
+        $objs = $serializer->serialize($objs, 'json', ['groups' => User::ADMIN_READ]);
+
+        return $this->render('admin/pages/notifications/index.html.twig', [
+            'notifications' => $objs
+        ]);
+    }
+
+    /**
      * @Route("/ateliers", name="ateliers_index")
      */
     public function ateliers(): Response
@@ -110,5 +131,13 @@ class AdminController extends AbstractController
     public function services(): Response
     {
         return $this->render('admin/pages/services/index.html.twig');
+    }
+
+    /**
+     * @Route("/temoignages", name="testimonials_index")
+     */
+    public function temoignages(): Response
+    {
+        return $this->render('admin/pages/testimonials/index.html.twig');
     }
 }

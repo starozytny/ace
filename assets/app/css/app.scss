@@ -1,14 +1,19 @@
 @import "~normalize.css";
 @import "~toastr";
+@import "~aos/dist/aos.css";
 
 :root{
     --color0: #064872;
     --color0-bis: rgba(6,72,114, 0.85);
+    --color0-third: rgba(6,72,114, 0.1);
+    --color0-four: rgba(6,72,114, 0.55);
     --color1: #F3944D;
+    --color1-bis: #cd6f2a;
     --color2: #616160;
     --color3: #E7EDF1;
     --primary: #00a8e8;
-    --danger: #d57d7d;
+    --danger: #ff5444;
+    --error: #ff5444;
     --warning: #e7d087;
 
     --color0Shadow: rgba(169, 170, 201, 0.4);
@@ -16,6 +21,7 @@
     --primaryShadow2: rgba(0,168,232, 0.1);
     --dangerShadow: rgba(213,125,125, 0.4);
     --dangerShadow2: rgba(213,125,125, 0.1);
+    --dangerFondError: rgba(247, 104, 91, 0.05);
     --warningShadow: rgba(231,208,135, 0.4);
     --warningShadow2: rgba(231,208,135, 0.1);
 
@@ -50,6 +56,9 @@
 @import "components/legales";
 @import "components/page";
 @import "components/pagination";
+@import "components/cookies";
+@import "components/page";
+@import "components/toastr-custom";
 
 html, body{
     scroll-behavior: smooth;
@@ -84,9 +93,9 @@ h1{
 
 h2{
     @include fontSemibold();
-    text-transform: uppercase;
     color: var(--color0);
     margin-bottom: 12px;
+    font-size: 2em;
 }
 
 main{
@@ -96,20 +105,45 @@ main{
 .main-content{
     min-height: 40vh;
     padding: 14px 12px 12px 12px;
-    position: relative;
-    z-index: 10;
+    background-color: var(--fondContent);
 }
 
-//                      __   _____ __    ___    __
-//                     | _| |___  / /_  ( _ )  |_ |
-//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
-//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
-//                     | |   /_/  \___/ \___/   | |
-//                     |__|                    |__|
-@media (min-width:768px) {
-    .main-content{
-        margin-bottom: -70px;
+.matomo-iframe-display.remove{
+    display: none;
+}
+.choice-contact{
+
+    a:first-child, span:first-child{
+        display: inline-block;
+        margin-bottom: 4px;
+        color: var(--color0);
     }
+
+    a:last-child, span:last-child{
+        @include fontSemibold();
+        color: var(--color0);
+    }
+
+    & > div{
+        @include flex(column, center, center);
+        margin-bottom: 12px;
+    }
+}
+
+.txt-signature{
+    @include fontSignature();
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 //                      __   _  ___ ____  _  _     __
@@ -121,7 +155,22 @@ main{
 @media (min-width: 1024px) {
     .main-content{
         padding: 24px 32px;
-        margin-bottom: -150px;
+    }
+}
+
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+    h1{
+        font-size: 3em;
+    }
+
+    h2{
+        font-size: 2em;
     }
 }
 

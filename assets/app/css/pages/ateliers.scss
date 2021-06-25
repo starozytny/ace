@@ -26,6 +26,15 @@ h2{
 
   .actions{
     @include flex(column, flex-end, flex-end);
+
+    .avis{
+      a{
+        &:hover{
+          opacity: 1;
+          transform: scale(1.05);
+        }
+      }
+    }
   }
 
   .nb{
@@ -47,6 +56,9 @@ h2{
 //                     | |   /_/  \___/ \___/   | |
 //                     |__|                    |__|
 @media (min-width:768px) {
+  .question{
+    margin-top: 180px;
+  }
   .ateliers{
     margin-top: 48px;
   }
@@ -58,7 +70,7 @@ h2{
     .illustration{
       position: relative;
       display: block;
-      max-height: 320px;
+      max-height: 366px;
       overflow: hidden;
       z-index: 0;
 

@@ -53,12 +53,26 @@ function toFormatPhone(elem){
     }
 }
 
+function toFormatCurrency(number)
+{
+    let num = new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR"}).format(number)
+
+    let main = num.substr(0, num.length - 5);
+    let decimale = num.substr(num.length - 5, 3);
+    if(decimale === ",00"){
+        decimale = "";
+    }
+    num = main + decimale + " €";
+
+    return  num.replaceAll('.', ' ');
+}
+
 function processData(allText){
     let allTextLines = allText.split(/\r\n|\n/);
     let headers = allTextLines[0].split(';');
     let lines = [];
 
-    for (var i=1; i<allTextLines.length; i++) {
+    for (let i=1; i<allTextLines.length; i++) {
         let data = allTextLines[i].split(';');
 
         lines.push({"cp": data[2], "city": data[1]});
@@ -74,9 +88,6 @@ function getPostalCodes(self){
         })
     ;
 }
-function toCurrency(price){
-    return new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR"}).format(price);
-}
 
 module.exports = {
     sanitizeString,
@@ -85,5 +96,5 @@ module.exports = {
     toFormatDate,
     toFormatDateTime,
     toFormatPhone,
-    toCurrency
+    toFormatCurrency
 }

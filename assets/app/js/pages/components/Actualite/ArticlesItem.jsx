@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 
-import Routing           from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
+import Routing      from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
+import parse        from "html-react-parser";
 
 export class ArticlesItem extends Component {
     render () {
         const { elem } = this.props
+
+        let intro = elem.introduction ? parse(elem.introduction) : null;
+        let content = elem.content ? parse(elem.content) : null;
 
         return <div className="item">
 
@@ -22,9 +26,7 @@ export class ArticlesItem extends Component {
                                 <span>{elem.title}</span>
                             </div>
                             <div className="content-wrap">
-                                <p>
-                                    {elem.content.substr(0,150) + "..."}
-                                </p>
+                                {intro ? intro : (content ? content : null)}
                             </div>
                             <div className="createdAt">{elem.createAtString}</div>
                         </div>

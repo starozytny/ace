@@ -54,6 +54,12 @@
             'label': 'Contact',
             'name': 'contact'
         },
+        {
+            'path': "https://www.linkedin.com/in/val%C3%A9rie-ternay-36030121",
+            'label': '<span class="icon-linkedin"></span>',
+            'name': 'linkedin',
+            'target': true
+        },
     ] %}
 
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -82,12 +88,12 @@
     {% endif %}
 
     <div class="body">
-        <nav>
+        <nav class="fixed">
             <div class="nav-container">
                 <div class="nav-header">
                     <div class="nav-header-logo">
                         <a href="{{ path("app_homepage") }}">
-                            <img src="{{ asset('build/dashboard/images/logilink-logo.svg') }}" alt="Logo du site">
+                            <img src="{{ asset('build/app/images/logo_ace_couleur.svg') }}" alt="Logo du site ace coach sportif">
                         </a>
                     </div>
                 </div>

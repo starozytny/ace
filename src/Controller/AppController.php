@@ -5,12 +5,10 @@ namespace App\Controller;
 use App\Entity\Ace\AcAtelier;
 use App\Entity\Ace\AcService;
 use App\Entity\Blog\BoArticle;
-use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class AppController extends AbstractController
 {
@@ -19,7 +17,14 @@ class AppController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('app/pages/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository(BoArticle::class)->findBy([], ['createdAt' => 'ASC']);
+        if(count($articles) <= 0){
+            return $this->render('app/pages/index.html.twig');
+        }
+        return $this->render('app/pages/index.html.twig', [
+            'article' => $articles[0]
+        ]);
     }
 
     /**

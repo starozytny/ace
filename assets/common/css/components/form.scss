@@ -116,12 +116,12 @@ select{
 
   &.checked > label{
     border: 1px solid var(--grey2);
+    border-color: var(--txt);
     color: var(--beta);
     opacity: 1;
 
     &:hover{
       background-color: var(--fond);
-      border-color: var(--grey);
     }
   }
 
@@ -171,16 +171,28 @@ select{
 }
 
 .form-files{
-  @include flex(row, center, flex-start);
+  @include flex(column, flex-start, flex-start);
   width: 100%;
 
+  .preview-form-oldFile{
+    margin-bottom: 12px;
+
+    img{
+      border-radius: 4px;
+    }
+  }
+
   .form-image, .form-logo, .form-avatar{
-    margin-right: 25px;
+    margin-right: 24px;
   }
 
   .form-image, .form-logo{
     img{
-      width: 100px;
+      width: 124px;
+    }
+
+    & + .form-group{
+      width: calc(100% - 148px);
     }
   }
 
@@ -237,14 +249,19 @@ select{
 
 .form-group-error{
   label{
-    color: var(--danger);
+    color: var(--error);
   }
-  input, textarea{
-    border-color: var(--danger);
-    color: var(--danger);
+  input, textarea, select,
+    .react-selectize.default.root-node:not(.open) .react-selectize-control,
+    .simple-select.react-selectize.default.root-node.open .react-selectize-control,
+    .trumbowyg-box, .trumbowyg-editor
+  {
+    border-color: var(--error);
+    color: var(--error);
+    background-color: var(--dangerFondError);
   }
   .error{
-    color: var(--danger);
+    color: var(--error);
     padding: 6px 4px 4px 4px;
     font-size: 14px;
 
@@ -254,45 +271,22 @@ select{
   }
   .form-files{
     .dzu-dropzone{
-      border: 1px dashed var(--danger);
+      border: 1px dashed var(--error);
+      background-color: var(--dangerFondError);
 
       .dzu-inputLabel{
-        color: var(--danger);
+        color: var(--error);
       }
     }
   }
 
   .checkbox-items, .radiobox-items{
     label{
-      border-color: var(--danger);
+      border-color: var(--error);
+      background-color: var(--dangerFondError);
     }
     .checked > label {
       border-color: var(--grey2);
-    }
-  }
-}
-
-.form-files{
-  @include flex(row, flex-start, flex-start);
-
-  .form-image, .form-logo, .form-avatar{
-    margin-right: 24px;
-  }
-
-  .form-image, .form-logo{
-    img{
-      width: 124px;
-    }
-
-    & + .form-group{
-      width: calc(100% - 148px);
-    }
-  }
-
-  .form-avatar{
-    img{
-      border-radius: 100px;
-      width: 64px; height: 64px;
     }
   }
 }
@@ -348,6 +342,16 @@ select{
       margin-bottom: 0;
     }
   }
+
+  .form-files{
+    flex-direction: row;
+
+    .preview-form-oldFile{
+      margin-bottom: 0;
+      margin-right: 12px;
+    }
+  }
+
 }
 //                      __   _ ____  ___   ___    __
 //                     | _| / |___ \( _ ) / _ \  |_ |

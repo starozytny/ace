@@ -23,7 +23,20 @@
 
             <header>
                 <div class="header-container">
-                    <span>{{ app.user.lastname | upper }} {{ app.user.firstname | capitalize }}</span>
+                    <div id="notifications"></div>
+                    <div class="header-name">
+                        <div class="profil">
+                            <span>{{ app.user.lastname | upper }} {{ app.user.firstname | capitalize }}</span>
+                            <a class="logout" href="{{ path('app_logout') }}">
+                                <span>Se déconnecter</span>
+                            </a>
+                        </div>
+                        {% if app.user.avatar %}
+                            <img src="{{ asset('build/dashboard/images/' ~ app.user.avatar) }}" alt="Avatar de {{ app.user.username }}">
+                        {% else %}
+                            <img src="https://robohash.org/{{ app.user.username }}?size=42x42" alt="Avatar de {{ app.user.username }}"/>
+                        {% endif %}
+                    </div>
                 </div>
             </header>
 

@@ -25,6 +25,8 @@ export class ServiceCreate extends Component {
                         title=""
                         intro=""
                         content=""
+                        seance=""
+                        nbSeance=""
                         onUpdateList={onUpdateList}
                         onChangeContext={onChangeContext}
                         messageSuccess="Félicitation ! Vous avez ajouté un nouveau service !"
