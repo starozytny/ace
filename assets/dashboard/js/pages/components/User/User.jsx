@@ -46,9 +46,13 @@ export class User extends Component {
     constructor(props) {
         super(props);
 
+        let data = JSON.parse(props.donnees);
+        data.sort(Sort.compareLastname);
+
         this.state = {
             perPage: 10,
-            sessionName: "user.pagination"
+            sessionName: "user.pagination",
+            data: data
         }
 
         this.layout = React.createRef();
@@ -65,7 +69,11 @@ export class User extends Component {
         this.handleContentUpdate = this.handleContentUpdate.bind(this);
     }
 
-    handleGetData = (self) => { Formulaire.axiosGetDataPagination(self, Routing.generate('api_users_index'), null, this.state.perPage) }
+    handleGetData = (self) => {
+        const { data, perPage } = this.state;
+
+        self.setState({ dataImmuable: data, data: data, currentData: data.slice(0, perPage), loadPageError: false, loadData: false });
+    }
 
     handleUpdateList = (element, newContext=null) => { this.layout.current.handleUpdateList(element, newContext, Sort.compareLastname); }
 

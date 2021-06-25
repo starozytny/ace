@@ -55,18 +55,7 @@ export class Contact extends Component {
     }
 
     handleChangeContextRead = (element) => {
-        if(!element.isSeen){
-            const self = this;
-            axios.post(Routing.generate('api_contact_isSeen', {'id': element.id}), {})
-                .then(function (response) {
-                    let data = response.data;
-                    self.handleUpdateList(data, 'update');
-                })
-                .catch(function (error) {
-                    Formulaire.displayErrors(self, error)
-                })
-            ;
-        }
+        Formulaire.isSeen(this, element, Routing.generate('api_contact_isSeen', {'id': element.id}))
     }
 
     render () {

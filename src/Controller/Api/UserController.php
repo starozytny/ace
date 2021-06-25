@@ -5,9 +5,11 @@ namespace App\Controller\Api;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\ApiResponse;
+use App\Service\Data\UserService;
 use App\Service\Export;
 use App\Service\FileUploader;
 use App\Service\MailerService;
+use App\Service\NotificationService;
 use App\Service\SanitizeData;
 use App\Service\SettingsService;
 use App\Service\ValidatorService;
@@ -17,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
@@ -29,6 +32,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     const FOLDER_AVATARS = "avatars";
+    const ICON = "user";
+
     /**
      * Admin - Get array of users
      *
@@ -44,15 +49,14 @@ class UserController extends AbstractController
      * @OA\Tag(name="Users")
      *
      * @param Request $request
-     * @param UserRepository $userRepository
      * @param ApiResponse $apiResponse
+     * @param UserService $userService
      * @return JsonResponse
      */
-    public function index(Request $request, UserRepository $userRepository, ApiResponse $apiResponse): JsonResponse
+    public function index(Request $request, ApiResponse $apiResponse, UserService $userService): JsonResponse
     {
-        $order = $request->query->get('order') ?: 'ASC';
-        $users = $userRepository->findBy([], ['lastname' => $order]);
-        return $apiResponse->apiJsonResponse($users, User::ADMIN_READ);
+        $objs = $userService->getList($request->query->get('order') ?: 'ASC');
+        return $apiResponse->apiJsonResponse($objs, User::ADMIN_READ);
     }
 
     /**
@@ -82,14 +86,16 @@ class UserController extends AbstractController
      *
      * @param Request $request
      * @param ValidatorService $validator
-     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param UserPasswordHasherInterface $passwordHasher
      * @param ApiResponse $apiResponse
      * @param SanitizeData $sanitizeData
      * @param FileUploader $fileUploader
+     * @param NotificationService $notificationService
      * @return JsonResponse
      */
-    public function create(Request $request, ValidatorService $validator, UserPasswordEncoderInterface $passwordEncoder,
-                           ApiResponse $apiResponse, SanitizeData $sanitizeData, FileUploader $fileUploader): JsonResponse
+    public function create(Request $request, ValidatorService $validator, UserPasswordHasherInterface $passwordHasher,
+                           ApiResponse $apiResponse, SanitizeData $sanitizeData, FileUploader $fileUploader,
+                           NotificationService $notificationService): JsonResponse
     {
         $em = $this->getDoctrine()->getManager();
         $data = json_decode($request->get('data'));
@@ -108,7 +114,7 @@ class UserController extends AbstractController
         $user->setLastname(mb_strtoupper($sanitizeData->sanitizeString($data->lastname)));
         $user->setEmail($data->email);
         $pass = (isset($data->password) && $data->password != "") ? $data->password : uniqid();
-        $user->setPassword($passwordEncoder->encodePassword($user, $pass));
+        $user->setPassword($passwordHasher->hashPassword($user, $pass));
 
         if (isset($data->roles)) {
             $user->setRoles($data->roles);
@@ -128,6 +134,8 @@ class UserController extends AbstractController
 
         $em->persist($user);
         $em->flush();
+
+        $notificationService->createNotification("Création d'un utilisateur", self::ICON, $this->getUser());
 
         return $apiResponse->apiJsonResponse($user, User::ADMIN_READ);
     }
@@ -161,13 +169,14 @@ class UserController extends AbstractController
      *
      * @param Request $request
      * @param ValidatorService $validator
+     * @param NotificationService $notificationService
      * @param ApiResponse $apiResponse
      * @param SanitizeData $sanitizeData
      * @param User $user
      * @param FileUploader $fileUploader
      * @return JsonResponse
      */
-    public function update(Request $request, ValidatorService $validator,
+    public function update(Request $request, ValidatorService $validator, NotificationService $notificationService,
                            ApiResponse $apiResponse, SanitizeData $sanitizeData, User $user, FileUploader $fileUploader): JsonResponse
     {
         if ($this->getUser() != $user && !$this->isGranted("ROLE_ADMIN")) {
@@ -214,6 +223,8 @@ class UserController extends AbstractController
 
         $em->persist($user);
         $em->flush();
+
+        $notificationService->createNotification("Mise à jour d'un utilisateur", self::ICON, $this->getUser());
 
         return $apiResponse->apiJsonResponse($user, $groups);
     }
@@ -411,11 +422,11 @@ class UserController extends AbstractController
      * @param Request $request
      * @param $token
      * @param ValidatorService $validator
-     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param UserPasswordHasherInterface $passwordHasher
      * @param ApiResponse $apiResponse
      * @return JsonResponse
      */
-    public function passwordUpdate(Request $request, $token, ValidatorService $validator, UserPasswordEncoderInterface $passwordEncoder,
+    public function passwordUpdate(Request $request, $token, ValidatorService $validator, UserPasswordHasherInterface $passwordHasher,
                            ApiResponse $apiResponse): JsonResponse
     {
         $em = $this->getDoctrine()->getManager();
@@ -426,7 +437,7 @@ class UserController extends AbstractController
         }
 
         $user = $em->getRepository(User::class)->findOneBy(['token' => $token]);
-        $user->setPassword($passwordEncoder->encodePassword($user, $data->password));
+        $user->setPassword($passwordHasher->hashPassword($user, $data->password));
         $user->setForgetAt(null);
         $user->setForgetCode(null);
 

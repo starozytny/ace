@@ -1,7 +1,13 @@
 security:
-    encoders:
+    enable_authenticator_manager: true
+
+    password_hashers:
         App\Entity\User:
             algorithm: auto
+
+#    encoders:
+#        App\Entity\User:
+#            algorithm: auto
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -16,14 +22,14 @@ security:
             security: false
 
         main:
-            anonymous: true
+#            anonymous: true
             lazy: true
             provider: app_user_provider
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
                     - lexik_jwt_authentication.jwt_token_authenticator
-                entry_point: App\Security\LoginFormAuthenticator
+#                entry_point: App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
 
@@ -33,18 +39,19 @@ security:
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
             switch_user: true
+            entry_point: App\Security\LoginFormAuthenticator
 
     role_hierarchy:
         ROLE_DEVELOPER: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
         ROLE_ADMIN: ROLE_USER
 
     access_control:
-         - { path: ^/api/login_check,        roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/api/users/password,     roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/api/contact,            roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/login_check,        roles: PUBLIC_ACCESS }
+         - { path: ^/api/users/password,     roles: PUBLIC_ACCESS }
+         - { path: ^/api/contact,            roles: PUBLIC_ACCESS }
+         - { path: ^/api/blog,               roles: PUBLIC_ACCESS }
          - { path: ^/api/ateliers,           roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/api/services,           roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         - { path: ^/api/blog,               roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/api/settings,           roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/api,                    roles: ROLE_USER }
          - { path: ^/admin,                  roles: ROLE_ADMIN }

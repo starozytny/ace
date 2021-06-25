@@ -12,7 +12,8 @@
     --color2: #616160;
     --color3: #E7EDF1;
     --primary: #00a8e8;
-    --danger: #d57d7d;
+    --danger: #ff5444;
+    --error: #ff5444;
     --warning: #e7d087;
 
     --color0Shadow: rgba(169, 170, 201, 0.4);
@@ -20,6 +21,7 @@
     --primaryShadow2: rgba(0,168,232, 0.1);
     --dangerShadow: rgba(213,125,125, 0.4);
     --dangerShadow2: rgba(213,125,125, 0.1);
+    --dangerFondError: rgba(247, 104, 91, 0.05);
     --warningShadow: rgba(231,208,135, 0.4);
     --warningShadow2: rgba(231,208,135, 0.1);
 
@@ -56,6 +58,7 @@
 @import "components/pagination";
 @import "components/cookies";
 @import "components/page";
+@import "components/toastr-custom";
 
 html, body{
     scroll-behavior: smooth;

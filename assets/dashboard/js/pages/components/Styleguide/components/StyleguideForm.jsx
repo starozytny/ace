@@ -99,7 +99,7 @@ export class StyleguideForm extends Component {
         e.preventDefault();
 
         const { username, email, message, roles, sexe, pays, birthday,
-                createAt, arrived, postalCode, city, fruit } = this.state;
+                createAt, arrived, postalCode, city, fruit, faq } = this.state;
 
         let avatar = this.inputAvatar.current.drop.current.files;
         let files = this.inputFiles.current.drop.current.files;
@@ -119,6 +119,7 @@ export class StyleguideForm extends Component {
             {type: "array", id: 'avatar', value: avatar},
             {type: "array", id: 'files', value: files},
             {type: "text", id: 'fruit', value: fruit},
+            {type: "text", id: 'faq', value: faq},
         ])
 
         if(avatar !== ""){

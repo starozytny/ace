@@ -1,0 +1,24 @@
+@import "../vars/vars";
+
+.items-notifications{
+  .item-body{
+    flex-direction: row;
+
+    .avatar{
+      margin-right: 12px;
+      background-color: var(--fond);
+      border-radius: 50px;
+      width: 32px; height: 32px;
+      @include flex(row, center, center);
+      color: var(--grey2);
+    }
+
+    .infos{
+      width: calc(100% - 44px);
+
+      & > div:first-child{
+        width: calc(100% - 30px);
+      }
+    }
+  }
+}

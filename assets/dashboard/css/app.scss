@@ -7,6 +7,7 @@
     --primaryNuance0: #f8fafc;
     --primaryNuance1: #d8eafc;
     --danger: #f7685b;
+    --error: #ff5444;
     --warning: #fdad2d;
     --success: #2ed47a;
     --grey: #c7c7c7;
@@ -16,6 +17,7 @@
     --primaryShadow2: rgba(16, 156, 241, 0.1);
     --dangerShadow: rgba(247, 104, 91, 0.4);
     --dangerShadow2: rgba(247, 104, 91, 0.1);
+    --dangerFondError: rgba(247, 104, 91, 0.05);
     --warningShadow: rgba(255, 185, 70, 0.4);
     --warningShadow2: rgba(255, 185, 70, 0.1);
     --successShadow: rgba(46, 212, 122, 0.4);
@@ -64,6 +66,8 @@
 @import "components/legales";
 @import "components/map";
 @import "components/cookies";
+@import "components/notifications";
+@import "components/toastr-custom";
 
 html, body{
     scroll-behavior: smooth;
@@ -127,6 +131,10 @@ main{
     main{
         width: 80%;
         margin-left: 20%;
+    }
+
+    .main-content{
+        padding: 24px;
     }
 }
 

@@ -116,12 +116,12 @@ select{
 
   &.checked > label{
     border: 1px solid var(--grey2);
+    border-color: var(--txt);
     color: var(--beta);
     opacity: 1;
 
     &:hover{
       background-color: var(--fond);
-      border-color: var(--grey);
     }
   }
 
@@ -249,14 +249,19 @@ select{
 
 .form-group-error{
   label{
-    color: var(--danger);
+    color: var(--error);
   }
-  input, textarea{
-    border-color: var(--danger);
-    color: var(--danger);
+  input, textarea, select,
+    .react-selectize.default.root-node:not(.open) .react-selectize-control,
+    .simple-select.react-selectize.default.root-node.open .react-selectize-control,
+    .trumbowyg-box, .trumbowyg-editor
+  {
+    border-color: var(--error);
+    color: var(--error);
+    background-color: var(--dangerFondError);
   }
   .error{
-    color: var(--danger);
+    color: var(--error);
     padding: 6px 4px 4px 4px;
     font-size: 14px;
 
@@ -266,17 +271,19 @@ select{
   }
   .form-files{
     .dzu-dropzone{
-      border: 1px dashed var(--danger);
+      border: 1px dashed var(--error);
+      background-color: var(--dangerFondError);
 
       .dzu-inputLabel{
-        color: var(--danger);
+        color: var(--error);
       }
     }
   }
 
   .checkbox-items, .radiobox-items{
     label{
-      border-color: var(--danger);
+      border-color: var(--error);
+      background-color: var(--dangerFondError);
     }
     .checked > label {
       border-color: var(--grey2);

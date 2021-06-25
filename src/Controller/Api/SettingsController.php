@@ -118,7 +118,6 @@ class SettingsController extends AbstractController
 
         if ($file) {
             $fileName = $fileUploader->upload($file, "uploads");
-            dump($fileName);
         }
 
         return $apiResponse->apiJsonResponseSuccessful("uploaded");

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import axios                   from "axios";
+import toastr                  from "toastr";
 import Routing                 from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
 
 import { Input, Checkbox }     from "@dashboardComponents/Tools/Fields";
@@ -110,6 +111,7 @@ export class UserForm extends Component {
         // validate global
         let validate = Validateur.validateur(paramsToValidate)
         if(!validate.code){
+            toastr.warning("Veuillez vérifier les informations transmises.");
             this.setState({ errors: validate.errors });
         }else{
             Formulaire.loader(true);

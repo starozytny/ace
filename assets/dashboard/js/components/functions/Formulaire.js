@@ -40,6 +40,17 @@ function axiosGetDataPagination(self, url, sorter = null, perPage=10){
     ;
 }
 
+function updateData(self, sorter, newContext, context, data, element){
+    let nContext = (newContext !== null) ? newContext : context;
+    let newData = UpdateList.update(nContext, data, element);
+    newData.sort(sorter)
+
+    self.setState({
+        data: newData,
+        element: element
+    })
+}
+
 function updateDataPagination(self, sorter, newContext, context, data, element, perPage=10){
     let nContext = (newContext !== null) ? newContext : context;
     let newData = UpdateList.update(nContext, data, element);
@@ -66,24 +77,33 @@ function displayErrors(self, error, message="Veuillez vérifier les informations
     }
 }
 
-function axiosDeleteElement(self, element, url, title, text){
+function deleteElement(self, element, url, showLoader = true, showFire = true)
+{
+    if(showLoader){
+        loader(true);
+    }
+    axios.delete(url, {})
+        .then(function (response) {
+            if(showFire){
+                Swal.fire(response.data.message, '', 'success');
+            }
+            self.handleUpdateList(element, "delete");
+        })
+        .catch(function (error) {
+            console.log(error)
+            displayErrors(self, error, "Une erreur est survenue, veuillez contacter le support.")
+        })
+        .then(() => {
+            loader(false);
+        })
+    ;
+}
+
+function axiosDeleteElement(self, element, url, title, text, showLoader = true, showFire = true){
     Swal.fire(SwalOptions.options(title, text))
         .then((result) => {
             if (result.isConfirmed) {
-
-                loader(true);
-                axios.delete(url, {})
-                    .then(function (response) {
-                        Swal.fire(response.data.message, '', 'success');
-                        self.handleUpdateList(element, "delete");
-                    })
-                    .catch(function (error) {
-                        displayErrors(self, error, "Une erreur est survenue, veuillez contacter le support.")
-                    })
-                    .then(() => {
-                        loader(false);
-                    })
-                ;
+                deleteElement(self, element, url, showLoader, showFire);
             }
         })
     ;
@@ -133,6 +153,20 @@ function loader(status){
     }
 }
 
+function isSeen (self, element, url){
+    if(!element.isSeen){
+        axios.post(url, {})
+            .then(function (response) {
+                let data = response.data;
+                self.handleUpdateList(data, 'update');
+            })
+            .catch(function (error) {
+                displayErrors(self, error)
+            })
+        ;
+    }
+}
+
 module.exports = {
     loader,
     displayErrors,
@@ -140,5 +174,8 @@ module.exports = {
     axiosGetDataPagination,
     axiosDeleteElement,
     axiosDeleteGroupElement,
-    updateDataPagination
+    updateData,
+    updateDataPagination,
+    deleteElement,
+    isSeen
 }

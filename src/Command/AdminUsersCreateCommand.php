@@ -11,21 +11,17 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminUsersCreateCommand extends Command
 {
     protected static $defaultName = 'admin:users:create';
-    protected $passwordEncoder;
     protected $em;
     private $databaseService;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager,
-                                DatabaseService $databaseService)
+    public function __construct(EntityManagerInterface $entityManager, DatabaseService $databaseService)
     {
         parent::__construct();
 
-        $this->passwordEncoder = $passwordEncoder;
         $this->em = $entityManager;
         $this->databaseService = $databaseService;
     }
