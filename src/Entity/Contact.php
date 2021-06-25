@@ -53,7 +53,6 @@ class Contact
     /**
      * @ORM\Column(type="boolean")
      * @Groups({"admin:read"})
-     * @Assert\NotBlank()
      */
     private $isSeen;
 

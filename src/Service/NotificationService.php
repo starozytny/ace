@@ -22,6 +22,7 @@ class NotificationService
             ->setName($name)
             ->setIcon($icon)
             ->setUser($user)
+            ->setIsSeen(false)
         ;
 
         $this->em->persist($obj);

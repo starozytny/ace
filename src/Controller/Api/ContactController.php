@@ -94,6 +94,7 @@ class ContactController extends AbstractController
             ->setSubject($data->subject)
             ->setPhone($data->phone ?? null)
             ->setMessage($sanitizeData->sanitizeString($data->message))
+            ->setIsSeen(false)
         ;
 
         if($data->subject == "ateliers"){
@@ -102,11 +103,10 @@ class ContactController extends AbstractController
                 return $apiResponse->apiJsonResponseBadRequest('Veuillez sélectionner un atelier.');
             }
 
-            $contact->setSubject($atelier->getName());
+            $obj->setSubject($atelier->getName());
         }
 
-        $noErrors = $validator->validate($contact);
-
+        $noErrors = $validator->validate($obj);
         if ($noErrors !== true) {
             return $apiResponse->apiJsonResponseValidationFailed($noErrors);
         }
