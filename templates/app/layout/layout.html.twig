@@ -76,15 +76,6 @@
             }
         ] %}
         {% set menu = menu | merge(menuLogged) %}
-    {% else %}
-        {% set menuLogged = [
-            {
-                'path': path('app_login'),
-                'label': 'Mon espace',
-                'name': 'login'
-            }
-        ] %}
-        {% set menu = menu | merge(menuLogged) %}
     {% endif %}
 
     <div class="body">
