@@ -6,7 +6,11 @@ export class Slider extends Component {
 
         this.state = {
             active: 1,
-            interval: null
+            interval: null,
+            data1: JSON.parse(props.temoignages),
+            data2: JSON.parse(props.temoignages2),
+            data3: JSON.parse(props.temoignages3),
+            offset: JSON.parse(props.temoignages3).length !== 0 ? 3 : 2
         }
 
         this.handleInterval = this.handleInterval.bind(this);
@@ -21,10 +25,12 @@ export class Slider extends Component {
     }
 
     handleInterval = () => {
+        const { offset } = this.state;
+
         const self = this; let i = 1;
 
         return setInterval(() => {
-            if(i % 3 === 0){
+            if(i % offset === 0){
                 i = 1;
             }else{
                 i = i + 1;
@@ -46,12 +52,7 @@ export class Slider extends Component {
     }
 
     render () {
-        const { temoignages, temoignages2, temoignages3 } = this.props;
-        const { active } = this.state;
-
-        let data1 = JSON.parse(temoignages);
-        let data2 = JSON.parse(temoignages2);
-        let data3 = JSON.parse(temoignages3);
+        const { active, data1, data2, data3 } = this.state;
 
         let items1 = []; let i=50;
         data1.forEach((temoignage, index) => {
@@ -82,14 +83,14 @@ export class Slider extends Component {
                 <div className={"slide slide-2" + (active === 2 ? " active" : "")}>
                     {items2}
                 </div>
-                <div className={"slide slide-3" + (active === 3 ? " active" : "")}>
+                {data3.length !== 0 && <div className={"slide slide-3" + (active === 3 ? " active" : "")}>
                     {items3}
-                </div>
+                </div>}
             </div>
             <div className="slide-dot">
                 <div onClick={() => this.handleClick(1)} className={active === 1 ? " active" : ""} />
                 <div onClick={() => this.handleClick(2)} className={active === 2 ? " active" : ""}/>
-                <div onClick={() => this.handleClick(3)} className={active === 3 ? " active" : ""}/>
+                {data3.length !== 0 && <div onClick={() => this.handleClick(3)} className={active === 3 ? " active" : ""}/>}
             </div>
         </div>
     }
@@ -99,9 +100,9 @@ function Item ({ temoignage, i }) {
     return <div className="item" data-aos="zoom-in-down" data-aos-delay={i} >
         <div className="guil1"><img src={'/build/app/images/guillemet_1.png'} alt="guillemet" /></div>
         <div className="name">{temoignage.name}</div>
-        <div className="profession">{temoignage.profession}</div>
+        <div className="profession">{temoignage.work}</div>
         <div className="content">
-            {temoignage.avis}
+            {temoignage.content}
         </div>
         <div className="guil2"><img src={'/build/app/images/guillemet_1.png'} alt="guillemet" /></div>
     </div>

@@ -1,0 +1,11 @@
+@import "../vars/vars";
+
+.role{
+  display: inline-block;
+  margin-left: 8px;
+  @include fontRegular();
+  border-radius: 4px;
+  background-color: var(--primaryShadow);
+  padding: 4px 8px;
+  font-size: 12px;
+}

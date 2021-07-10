@@ -4,26 +4,53 @@ namespace App\Controller;
 
 use App\Entity\Ace\AcAtelier;
 use App\Entity\Ace\AcService;
+use App\Entity\Ace\AcTestimonial;
 use App\Entity\Blog\BoArticle;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class AppController extends AbstractController
 {
     /**
      * @Route("/", name="app_homepage")
      */
-    public function index(): Response
+    public function index(SerializerInterface $serializer): Response
     {
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository(BoArticle::class)->findBy([], ['createdAt' => 'ASC']);
         if(count($articles) <= 0){
             return $this->render('app/pages/index.html.twig');
         }
+
+        $articles = $em->getRepository(BoArticle::class)->findBy([], ['createdAt' => 'ASC']);
+
+        $temoignagesAll = $em->getRepository(AcTestimonial::class)->findAll();
+        $temoignages = [];
+        $temoignages2 = [];
+        $temoignages3 = [];
+        for($i=0; $i<count($temoignagesAll) ; $i++){
+            if($i < 3){
+                array_push($temoignages, $temoignagesAll[$i]);
+            }else if($i >= 3 && $i < 6){
+                array_push($temoignages2, $temoignagesAll[$i]);
+            }else if($i >= 6 && $i < 9){
+                array_push($temoignages3, $temoignagesAll[$i]);
+            }
+        }
+
+        $temoignages = $serializer->serialize($temoignages, 'json', ['groups' => User::VISITOR_READ]);
+        $temoignages2 = $serializer->serialize($temoignages2, 'json', ['groups' => User::VISITOR_READ]);
+        $temoignages3 = $serializer->serialize($temoignages3, 'json', ['groups' => User::VISITOR_READ]);
+
         return $this->render('app/pages/index.html.twig', [
-            'article' => $articles[0]
+            'article' => $articles[0],
+            'temoignages' => $temoignages,
+            'temoignages2' => $temoignages2,
+            'temoignages3' => $temoignages3
         ]);
     }
 

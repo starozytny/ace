@@ -12,7 +12,11 @@
         <div class="dash-line-1">
             <div class="welcome-back">
                 <div class="avatar">
-                    <img src="https://robohash.org/{{ app.user.username }}?size=126x126" alt="Avatar de {{ app.user.username }}"/>
+                    {% if app.user.avatar %}
+                        <img src="{{ asset('avatars/' ~ app.user.avatar) }}" alt="Avatar de {{ app.user.username }}">
+                    {% else %}
+                        <img src="https://robohash.org/{{ app.user.username }}?size=126x126" alt="Avatar de {{ app.user.username }}"/>
+                    {% endif %}
                 </div>
                 <div class="me">
                     <p>Bon retour,</p>

@@ -10,7 +10,7 @@
 {% block main_content %}
     <div class="first">
         <div class="first-container">
-            <h1 data-aos="fade-right" data-aos-offset="300" data-aos-delay="300">Et si votre futur se <br> conjugait au présent ?</h1>
+            <h1 data-aos="fade-right" data-aos-delay="300">Et si votre futur se <br> conjugait au présent ?</h1>
         </div>
     </div>
 
@@ -93,30 +93,35 @@
 
     <div class="who">
         <div class="who-container">
-            <h2 data-aos="fade-in">Qui suis-je ?</h2>
+            <h2 data-aos="fade-in" class="who-title">Qui suis-je ?</h2>
             <div class="content" data-aos="fade-right">
                 <p>
-                    Après plus de quinze années passées au centre des métiers du conseil, au sein de
-                    PwC et Deloitte, de la planification à la formation des consultants, je fais le choix de
-                    me diriger vers le milieu associatif. <br><br>
-                    C’est une très belle expérience humaine qui enrichit mon parcours en travaillant,
-                    dans un premier temps, auprès des personnes déficientes visuelles pendant 4 ans; je
-                    m’oriente ensuite vers l’enseignement supérieur, en école d’ingénieurs durant 5 ans,
-                    où j’ai la responsabilités des associations étudiantes. <br><br>
-                    Le dénominateur commun de chaque étape de ma carrière, c’est l’humain : je
-                    souhaite petre utile, en adéquation avec mes valeurs, en alliant la passion de mes
-                    missions. <br><br>
-                    Grâce à ce parcours riche et varié, j’ai pu constater maintes fois et encore à ce jour
-                    les ressources et le potentiel dont chaque personne dispose sans en être consciente.
+                    Après plus de quinze années passées au centre des métiers du conseil, au sein de PwC et Deloitte,
+                    de la planification à la formation des consultants, je fais le choix de me diriger vers le milieu associatif.
                     <br><br>
-                    Aujourd’hui en tant que coach professionnelle, j’accompagne les
-                    managers/entrepreneurs notamment en transition et évolution professionnelles, les
-                    étudiants dans leur cursus scolaire (orientation, gestion de projets, soft skills) et les
-                    sportifs dans la préparation mentale de leur entraînement car le sport est
-                    omniprésent dans ma vie (compétition et loisirs).
+                    C’est une très belle expérience humaine qui enrichit mon parcours en travaillant, dans un premier temps,
+                    auprès des personnes déficientes visuelles pendant 4 ans; je m’oriente ensuite vers l’enseignement
+                    supérieur, en école d’ingénieurs durant 5 ans, où j’ai la responsabilité des associations étudiantes.
+                    <br><br>
+                    Le dénominateur commun de chaque étape de ma carrière, c’est l’humain : je souhaite être utile, en
+                    adéquation avec mes valeurs, en alliant la passion à mes missions.
+                    <br><br>
+                    Grâce à ce parcours riche et varié, j’ai pu constater maintes fois et encore à ce jour les ressources
+                    et le potentiel dont chaque personne dispose sans en être consciente.
+                    <br>
+                    Aujourd’hui en tant que coach professionnelle, j’accompagne les managers/entrepreneurs notamment en
+                    transition et évolution professionnelle, les étudiants dans leur cursus scolaire (orientation, gestion
+                    de projets, soft skills) et les sportifs dans la préparation mentale de leur entrainement car le sport
+                    est omniprésent dans ma vie (compétitions et loisirs).
+                    <br><br>
+                    Chacun d’entre nous mérite d’être guidé, encouragé et valorisé afin de trouver sa voie, un équilibre,
+                    de s’épanouir quel que soit le domaine.
+                    J’ai donc à cœur de mettre à profit mon expérience, en vous accompagnant à partir de vos besoins
+                    professionnels/personnels, de révéler vos talents et votre savoir-faire pour faciliter la
+                    réalisation de vos objectifs.
                 </p>
                 <div class="image" data-aos="fade-in">
-                    <img src="{{ asset('build/app/images/service_sportif.jpg') }}" alt="valérie">
+                    <img src="{{ asset('build/app/images/Valerie.jpg') }}" alt="valérie">
                 </div>
             </div>
             <p data-aos="fade-up">
@@ -126,103 +131,27 @@
                 révéler vos talents et votre savoir-faire pour faciliter la réalisation de vos objectifs.
             </p>
             <p class="signature" data-aos="fade-up">
-                <span>Valérie Ternay</span>
+                <span class="txt-signature">Valérie Ternay</span>
                 <span>Coach professionnelle</span>
             </p>
         </div>
     </div>
 
-    {% set temoignages = [
-        {
-            'name': "Louis JOUANY", "profession": "CEO Endeavor",
-            'avis': "
-                    Valérie Ternay a démontré, avec talent, ses compétences auprès des étudiants du
-                    Groupe ESIEA. A ce poste qui venait d’être créé, elle a pris en charge le support et
-                    l’accompagnement de la vie étudiante et associative qu’elle a brillamment développé
-                    en coordination avec les équipes pédagogiques et la direction sur l’ensemble des
-                    campus. A l’écoute, avec tact, persévérance et bienveillance, elle a amené toutes les
-                    parties prenantes, individus et organisations, à une meilleure communication ainsi
-                    qu’une prise en compte et un développement de leurs potentiels respectifs. Son
-                    investissement personnel de chaque instant ainsi que les résultats obtnus ont été
-                    reconnus par toutes et tous."
-        },
-        {
-            'name': "Lionel PREVOST PhD", "profession": "Directeur de recherche à l’ESIEA",
-            'avis': "
-                    J’ai eu de nombreux échanges avec Valérie, qui m’ont permis d’apprécier ses capacités
-                    d’écoute et de synthèse ainsi que la qualité et la justesse de son accompagnement. Les
-                    retours des étudiants la concernant sont tout aussi unanimes quant à l’aide qu’elle a pu
-                    leur apporter lorsqu’ils avaient des soucis d’orientation ou personnels. Je suis
-                    convaincu que l’expérience de Valérie sera précieuse à toute entreprise faisant appel à
-                    ses services."
-        },
-        {
-            'name': "Sophia", "profession": "Etudiante à L’ESIEA",
-            'avis': "
-                    Valérie est une coach en or, elle m’a beaucoup aidée dans plusieurs domaines de ma
-                    vie : que ce soit au niveau scolaire, en me poussant toujours plus à me dépasser dans
-                    mes études ou dans le cadre de ma vie étudiante où elle m’a aidé à comprendre
-                    l’importance de la communication et du travail d’équipe. Ou encore dans le contexte
-                    de ma vie personnelle où j’ai, grâce à elle et un travail sur moi-même, pu me découvrir
-                    des axes sur lesquels je devais m’améliorer afin de devenir la personne que je veux
-                    être."
-        }
-    ] %}
-
-    {% set temoignages2 = [
-        {
-            'name': "Temoignagne 2", "profession": "CEO Endeavor",
-            'avis': "
-                    Valérie Ternay a démontré, avec talent. elle m’a beaucoup aidée dans plusieurs domaines de ma
-                    vie : que ce soit au niveau scolaire,"
-        },
-        {
-            'name': "Temoignagne 2", "profession": "Directeur de recherche à l’ESIEA",
-            'avis': "
-                    J’ai eu de nombreux échanges avec Valérie. elle m’a beaucoup aidée dans plusieurs domaines de ma
-                    vie : que ce soit au niveau scolaire,"
-        },
-        {
-            'name': "Temoignagne 2", "profession": "Etudiante à L’ESIEA",
-            'avis': "
-                    Valérie est une coach en or. elle m’a beaucoup aidée dans plusieurs domaines de ma
-                    vie : que ce soit au niveau scolaire,"
-        }
-    ] %}
-
-    {% set temoignages3 = [
-        {
-            'name': "Temoignagne 3", "profession": "CEO Endeavor",
-            'avis': "
-                    Valérie Ternay a démontré, avec talent."
-        },
-        {
-            'name': "Temoignagne 3", "profession": "Directeur de recherche à l’ESIEA",
-            'avis': "
-                    J’ai eu de nombreux échanges avec Valérie."
-        },
-        {
-            'name': "Temoignagne 3", "profession": "Etudiante à L’ESIEA",
-            'avis': "
-                    Valérie est une coach en or."
-        }
-    ] %}
-
     <div class="temoignages">
         <h2 data-aos="fade-in">Témoignages</h2>
 
-        <div id="slider" data-temoignages="{{ temoignages | json_encode() }}" data-temoignages2="{{ temoignages2 | json_encode() }}" data-temoignages3="{{ temoignages3 | json_encode() }}"></div>
+        <div id="slider" data-temoignages="{{ temoignages }}" data-temoignages2="{{ temoignages2 }}" data-temoignages3="{{ temoignages3 }}"></div>
     </div>
 
-    <div class="main-actualites">
-        <div class="main-actualites-container">
-            <h2 data-aos="fade-in">Actualités</h2>
-            <p data-aos="fade-in">
-                Découvrez de nouveaux contenus chaque semaine, ces articles sauront mettre en
-                lumière différents sujets comme orientation, performance, confiance, prise de parole...
-                N’hésitez pas à échanger avec moi !
-            </p>
-            {% if article is defined %}
+    {% if article is defined %}
+        <div class="main-actualites">
+            <div class="main-actualites-container">
+                <h2 data-aos="fade-in">Actualités</h2>
+                <p data-aos="fade-in">
+                    Découvrez de nouveaux contenus chaque semaine, ces articles sauront mettre en
+                    lumière différents sujets comme orientation, performance, confiance, prise de parole...
+                    N’hésitez pas à échanger avec moi !
+                </p>
                 <div class="main-actualites-box" data-aos="fade-up">
                     <div class="items-table">
                         <div class="items items-default items-user">
@@ -254,21 +183,15 @@
                         </div>
                     </div>
                 </div>
-            {% else %}
-                <div class="main-actualites-box">
-                    <div>
-                        <a href="{{ path('app_actualites') }}" class="btn btn-primary">Voir les articles</a>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
+            </div>
 
-        <div class="custom-shape-divider">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path class="shape-fill" d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"></path>
-            </svg>
+            <div class="custom-shape-divider">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path class="shape-fill" d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"></path>
+                </svg>
+            </div>
         </div>
-    </div>
+    {% endif %}
 
     <div class="contact">
         <div data-aos="fade-right">
@@ -280,10 +203,10 @@
 
             <div class="choice-contact">
                 <div>
-                    <span>06 29 48 05 96</span>
+                    <a href="tel:0629480596">06 29 48 05 96</a>
                 </div>
                 <div>
-                    <span>vternay@ace-coaching.fr</span>
+                    <a href="mailto:vternay@ace-coaching.fr">vternay@ace-coaching.fr</a>
                 </div>
             </div>
         </div>

@@ -5,33 +5,13 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet/dist/leaflet";
 import "leaflet-ajax/dist/leaflet.ajax.min";
 
+import Map from "@dashboardComponents/functions/map";
+
 export class StyleguideMaps extends Component{
     componentDidMount = () => {
-        let mymap = L.map('mapid').setView([51.505, -0.09], 13);
-        L.tileLayer('https://b.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: 'Tuiles de fond <a href="https://www.openstreetmap.org/copyright">OSM.org</a>',
-            maxZoom: 18,
-        }).addTo(mymap);
 
-        // let leafletIcon = L.icon({
-        //     iconUrl: '../../maps/images/marker-icon.png',
-        //     shadowUrl: '../../maps/images/marker-shadow.png',
-        //     iconSize:     [25, 41], // size of the icon
-        //     shadowSize:   [41, 41], // size of the shadow
-        //     iconAnchor:   [9, 40], // point of the icon which will correspond to marker's location 38 95
-        //     shadowAnchor: [9, 40],  // the same for the shadow 50 61
-        //     popupAnchor:  [4, -35] // point from which the popup should open relative to the iconAnchor
-        // })
-        let leafletIcon = L.divIcon({
-            className: 'custom-div-icon',
-            html: "<div style='background-color:#4838cc;' class='marker-pin'></div><i class='icon-book'>",
-            iconSize: [30, 42],
-            iconAnchor: [15, 42],
-            popupAnchor:  [0, -35]
-        })
+        let mymap = Map.createMap(51.505, -0.09);
 
-        let marker = L.marker([51.5, -0.09], {icon: leafletIcon}).addTo(mymap);
-        marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
         let circle = L.circle([51.508, -0.11], {
             color: 'red',
             fillColor: '#f03',
@@ -57,16 +37,15 @@ export class StyleguideMaps extends Component{
             }
         };
         L.geoJSON(geojsonFeature, {pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, {icon: leafletIcon});
+                return L.marker(latlng, {icon: Map.getOriginalLeafletIcon()});
             },}).addTo(mymap);
 
         axios.get('../../maps/data/ecoles.json')
             .then(function (response){
                 response.data.forEach(el => {
-                    let marker = L.marker([el.Latitude, el.Longitude], {icon: leafletIcon}).addTo(mymap);
+                    let marker = L.marker([el.Latitude, el.Longitude], {icon: Map.getLeafletMarkerIcon("book")}).addTo(mymap);
                     marker.bindPopup("<b>"+el.name+"</b> <br/>" + el.Categorie).openPopup();
                 })
-                console.log(response.data)
             })
         ;
 

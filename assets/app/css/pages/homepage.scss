@@ -260,13 +260,16 @@
   .temoignages-items {
     position: relative;
     @include flex(row, flex-start, flex-start);
+    overflow: hidden;
+    padding: 12px;
 
     .slide{
       opacity: 0;
       position: absolute;
       top: 0;
-      left: 0;
-      transition: all 0.2s ease-in-out;
+      left: -600px;
+      transition: all 0.4s ease-in-out;
+      padding: 12px;
 
       &.slide-0{
         position: relative;
@@ -276,6 +279,11 @@
 
       &.active{
         opacity: 1;
+        left: 0;
+
+        & + .slide{
+          left: 600px;
+        }
       }
     }
   }
@@ -324,6 +332,10 @@
   .image{
     margin-top: 24px;
     margin-bottom: 24px;
+
+    img{
+      width: 50%;
+    }
   }
 
   .signature{
@@ -331,10 +343,11 @@
     @include flex(column, flex-end, flex-end);
 
     span:first-child{
-      font-size: 26px;
+      font-size: 64px;
     }
     span:last-child{
       font-size: 20px;
+      padding-right: 48px;
     }
   }
 }
@@ -425,6 +438,13 @@
   .who-container{
     margin: 0 12px;
     background-color: var(--color0-four);
+
+    .image{
+
+      img{
+        width: 220px;
+      }
+    }
   }
 }
 
@@ -503,7 +523,15 @@
 
       img{
         object-fit: cover;
+        width: 320px;
         height: 100%;
+      }
+    }
+
+    .signature{
+
+      span:first-child{
+        font-size: 80px;
       }
     }
   }
@@ -575,7 +603,7 @@
 
     .choice-contact{
       @include flex(row, center, flex-start);
-      font-size: 20px;
+      font-size: 18px;
 
       & > div{
         margin-bottom: 0;

@@ -43,7 +43,7 @@ export class Categories extends Component {
 
     handleGetData = (self) => { Formulaire.axiosGetDataPagination(self, Routing.generate('api_blog_categories_index'), Sort.compareName, this.state.perPage) }
 
-    handleUpdateList = (element, newContext=null) => { this.layout.current.handleSearch(element, newContext, Sort.compareName); }
+    handleUpdateList = (element, newContext=null) => { this.layout.current.handleUpdateList(element, newContext, Sort.compareName); }
 
     handleDelete = (element) => {
         Formulaire.axiosDeleteElement(this, element, Routing.generate('api_blog_categories_delete', {'id': element.id}),

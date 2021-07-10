@@ -54,6 +54,12 @@
             'label': 'Contact',
             'name': 'contact'
         },
+        {
+            'path': "https://www.linkedin.com/in/val%C3%A9rie-ternay-36030121",
+            'label': '<span class="icon-linkedin"></span>',
+            'name': 'linkedin',
+            'target': true
+        },
     ] %}
 
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -67,15 +73,6 @@
                 'path': path('app_logout'),
                 'label': 'Déconnexion',
                 'name': 'logout'
-            }
-        ] %}
-        {% set menu = menu | merge(menuLogged) %}
-    {% else %}
-        {% set menuLogged = [
-            {
-                'path': path('app_login'),
-                'label': 'Mon espace',
-                'name': 'login'
             }
         ] %}
         {% set menu = menu | merge(menuLogged) %}

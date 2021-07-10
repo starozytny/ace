@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import axios       from "axios";
+import toastr      from "toastr";
 import Routing     from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
 
 import { Checkbox, Input, Radiobox, Select, TextArea,
@@ -33,7 +34,8 @@ export class StyleguideForm extends Component {
             arrayPostalCode: [],
             city: "",
             fruit: "",
-            faq: ""
+            faq: "",
+            question: []
         }
 
         this.inputAvatar = React.createRef();
@@ -58,6 +60,10 @@ export class StyleguideForm extends Component {
 
         if(name === "roles"){
             value = (e.currentTarget.checked) ? [...roles, ...[value]] : roles.filter(v => v !== value)
+        }
+
+        if(name === "question"){
+            value = (e.currentTarget.checked) ? [parseInt(value)] : [] // parseInt because work with int this time
         }
 
         this.setState({ [name]: value })
@@ -99,7 +105,7 @@ export class StyleguideForm extends Component {
         e.preventDefault();
 
         const { username, email, message, roles, sexe, pays, birthday,
-                createAt, arrived, postalCode, city, fruit } = this.state;
+                createAt, arrived, postalCode, city, fruit, faq, question } = this.state;
 
         let avatar = this.inputAvatar.current.drop.current.files;
         let files = this.inputFiles.current.drop.current.files;
@@ -119,7 +125,16 @@ export class StyleguideForm extends Component {
             {type: "array", id: 'avatar', value: avatar},
             {type: "array", id: 'files', value: files},
             {type: "text", id: 'fruit', value: fruit},
+            {type: "text", id: 'faq', value: faq},
+            {type: "text", id: 'question', value: question},
         ])
+
+        toastr.error("Bonjour, je suis un <b>message d'erreur</b>, je suis un peu long pour tester la taille de la boite de dialogue.")
+        toastr.info("Info. 🧐")
+        toastr.warning("Warning. 😱")
+        toastr.success("Success ! 😁")
+
+        console.log(question)
 
         if(avatar !== ""){
             let formData = new FormData();
@@ -152,7 +167,7 @@ export class StyleguideForm extends Component {
 
     render () {
         const { errors, username, email, message, roles, sexe, pays, birthday,
-                createAt, arrived, postalCode, city, fruit, faq } = this.state;
+                createAt, arrived, postalCode, city, fruit, faq, question } = this.state;
 
         let checkboxItems = [
             { value: 'ROLE_USER', label: 'Utilisateur', identifiant: 'utilisateur' },
@@ -175,6 +190,8 @@ export class StyleguideForm extends Component {
             { value: 1, label: 'Pomme', identifiant: 'pomme' },
             { value: 2, label: 'Mangue', identifiant: 'mangue' },
         ]
+
+        let switcherItems = [ { value: 0, label: 'Non', identifiant: 'non' } ]
 
         return (
             <section className="form">
@@ -223,7 +240,11 @@ export class StyleguideForm extends Component {
                             <Drop ref={this.inputAvatar} identifiant="avatar" errors={errors} accept={"image/*"} maxFiles={1}
                                   label="Téléverser un avatar" labelError="Seules les images sont acceptées.">Fichier</Drop>
                             <Drop ref={this.inputFiles} identifiant="files" errors={errors} accept={"image/*"} maxFiles={3}
-                                  label="Téléverser des fichiers" labelError="Seules les images sont acceptées.">Fichier</Drop>
+                                  label="Téléverser des fichiers" labelError="Seules les images sont acceptées.">FichierS</Drop>
+                        </div>
+
+                        <div className="line">
+                            <Checkbox isSwitcher={true} items={switcherItems} identifiant="question" valeur={question} errors={errors} onChange={this.handleChange}>Question ?</Checkbox>
                         </div>
 
                         <div className="form-button">

@@ -13,23 +13,21 @@ export class ContactItem extends Component {
 
             <div className="item-content">
                 <div className="item-body">
-                    <div className="infos">
-                        <div onClick={() => onChangeContext('read', elem)}>
+                    <div className="infos infos-col-3">
+                        <div className="col-1" onClick={() => onChangeContext('read', elem)}>
                             <div className="name">
+                                {!elem.isSeen && <span className="toSee" />}
                                 <span>{elem.name}</span>
                             </div>
                             <div className="sub">{elem.email}</div>
                             {elem.phone && <div className="sub">{Sanitize.toFormatPhone(elem.phone)}</div>}
                             <div className="role">{elem.subject}</div>
 
-                            <div className="sub">{elem.createdAtAgo}</div>
-
-                            <div className="sub sub-seen">
-                                <span className={elem.isSeen ? "icon-check" : "icon-vision-not"} />
-                                <span>{elem.isSeen ? "Lu" : "Non lu"}</span>
-                            </div>
                         </div>
-                        <div className="actions">
+                        <div className="col-2">
+                            <div className="sub">{elem.createdAtAgo}</div>
+                        </div>
+                        <div className="col-3 actions">
                             <ButtonIcon icon="trash" onClick={() => onDelete(elem)}>Supprimer</ButtonIcon>
                         </div>
                     </div>

@@ -91,6 +91,8 @@ export class CategoryForm extends Component {
                     toastr.info(messageSuccess);
                 })
                 .catch(function (error) {
+                    console.log(error)
+                    console.log(error.response)
                     Formulaire.displayErrors(self, error);
                 })
                 .then(() => {

@@ -50,6 +50,18 @@ export class UserList extends Component {
 
                 <div className="items-table">
                     <div className="items items-default items-user">
+                        <div className="item item-header">
+                            <div className="item-header-selector" />
+                            <div className="item-content">
+                                <div className="item-body item-body-image">
+                                    <div className="infos infos-col-3">
+                                        <div className="col-1">Nom/Prénom</div>
+                                        <div className="col-2">Identifiant</div>
+                                        <div className="col-3 actions">Actions</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         {data && data.length !== 0 ? data.map(elem => {
                             return <UserItem {...this.props} elem={elem} key={elem.id}/>
                         }) : <Alert>Aucun résultat</Alert>}

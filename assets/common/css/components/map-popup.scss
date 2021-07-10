@@ -1,0 +1,52 @@
+.maps-items{
+
+  .leaflet-popup-content-wrapper{
+    border-radius: 8px;
+  }
+  .leaflet-popup{
+    width: auto;
+  }
+  .leaflet-popup-content{
+    padding: 4px;
+    margin: 0;
+  }
+
+  .popmap-item{
+    @include flex(row, flex-start, flex-start);
+
+    &:hover{
+      .popmap-item-infos{
+        opacity: 1;
+      }
+    }
+
+    img{
+      width: 100px;
+      margin-right: 12px;
+      border-radius: 4px;
+    }
+
+    .popmap-item-infos{
+      font-size: 14px;
+      padding-right: 24px;
+      color: var(--txt);
+      opacity: 0.8;
+      transition: all 0.2s ease-in-out;
+
+      .label{
+        @include fontSemibold();
+      }
+      .address{
+        font-size: 12px;
+        margin-bottom: 4px;
+      }
+      .grp-price{
+        font-size: 12px;
+      }
+      .price{
+        @include fontSemibold();
+        font-size: 16px;
+      }
+    }
+  }
+}

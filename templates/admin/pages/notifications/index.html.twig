@@ -1,0 +1,17 @@
+{% extends 'admin/layout/layout.html.twig' %}
+
+{% set page_title %}Notifications{% endset %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('dashboard_notifications') }}
+{% endblock %}
+
+{% block main_content %}
+    <div id="notifications-list" data-donnees="{{ donnees }}"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dashboard_notifications') }}
+{% endblock %}

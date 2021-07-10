@@ -55,15 +55,17 @@ class FileUploader
         }
     }
 
-    public function replaceFile($fileName, $oldFileName, $folderName, $isPublic = true): ?string
+    public function replaceFile($file, $oldFileName, $folderName, $isPublic = true): ?string
     {
-        if($fileName){
+        if($file){
             $oldFile = $this->getDirectory($isPublic) . $folderName . '/' . $oldFileName;
+
+            $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME); // useless because uniqid();
             if($oldFileName && file_exists($oldFile) && $fileName !== $oldFileName){
                 unlink($oldFile);
             }
 
-            return $this->upload($fileName, $folderName, $isPublic);
+            return $this->upload($file, $folderName, $isPublic);
         }
 
         return null;

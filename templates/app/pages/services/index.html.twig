@@ -6,7 +6,9 @@
     <div class="{{ service.slug }} custom-shape-divider" style="background: url({{ asset('build/app/images/' ~ service.file1) }}) no-repeat fixed; background-size: cover;">
         <div class="title-page" data-aos="fade-right" data-aos-delay="100">
             <div class="title-page-content">
-                <p class="title">Seuls on va plus <br> vite, ensemble <br> on va plus loin</p>
+                <div class="guil1"><img src="{{ asset('build/app/images/guillemet_1_blanc.png') }}" alt="guillemet"></div>
+                <div class="title">{{ service.intro | raw }}</div>
+                <div class="guil2"><img src="{{ asset('build/app/images/guillemet_2_blanc.png') }}" alt="guillemet"></div>
             </div>
         </div>
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -22,8 +24,8 @@
                     {{ service.content | raw }}
                 </div>
 
-                <p class="seance">EN SÉANCE INDIVIDUELLE D’1H / POSSIBILITÉ DE GROUPES POUR LES ENTREPRISES</p>
-                <p class="nb-seance">LE NOMBRE DE SÉANCES EST À DÉFINIR APRÈS LE 1ER ENTRETIEN.</p>
+                <p class="seance">{{ service.seance | raw }}</p>
+                <p class="nb-seance">{{ service.nbSeance | raw }}</p>
             </div>
             <div class="illustrations">
                <div class="illustrations-col-1">

@@ -5,9 +5,11 @@ namespace App\Controller\Api;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\ApiResponse;
+use App\Service\Data\DataUser;
 use App\Service\Export;
+use App\Service\FileUploader;
 use App\Service\MailerService;
-use App\Service\SanitizeData;
+use App\Service\NotificationService;
 use App\Service\SettingsService;
 use App\Service\ValidatorService;
 use DateTime;
@@ -16,17 +18,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/api/users", name="api_users_")
  */
 class UserController extends AbstractController
 {
+    const FOLDER_AVATARS = "avatars";
+    const ICON = "user";
+
     /**
      * Admin - Get array of users
      *
@@ -36,21 +40,17 @@ class UserController extends AbstractController
      *
      * @OA\Response(
      *     response=200,
-     *     description="Returns array of users",
-     *     @Model(type=User::class, groups={"admin:read"})
+     *     description="Returns array of users"
      * )
      * @OA\Tag(name="Users")
      *
-     * @param Request $request
-     * @param UserRepository $userRepository
      * @param ApiResponse $apiResponse
+     * @param UserRepository $repository
      * @return JsonResponse
      */
-    public function index(Request $request, UserRepository $userRepository, ApiResponse $apiResponse): JsonResponse
+    public function index(ApiResponse $apiResponse, UserRepository $repository): JsonResponse
     {
-        $order = $request->query->get('order') ?: 'ASC';
-        $users = $userRepository->findBy([], ['lastname' => $order]);
-        return $apiResponse->apiJsonResponse($users, User::ADMIN_READ);
+        return $apiResponse->apiJsonResponse($repository->findAll(), User::ADMIN_READ);
     }
 
     /**
@@ -62,8 +62,7 @@ class UserController extends AbstractController
      *
      * @OA\Response(
      *     response=200,
-     *     description="Returns a new user object",
-     *     @Model(type=User::class, groups={"admin:write"})
+     *     description="Returns a new user object"
      * )
      *
      * @OA\Response(
@@ -71,25 +70,21 @@ class UserController extends AbstractController
      *     description="JSON empty or missing data or validation failed",
      * )
      *
-     * @OA\RequestBody (
-     *     @Model(type=User::class, groups={"admin:write"}),
-     *     required=true
-     * )
-     *
      * @OA\Tag(name="Users")
      *
      * @param Request $request
      * @param ValidatorService $validator
-     * @param UserPasswordEncoderInterface $passwordEncoder
      * @param ApiResponse $apiResponse
-     * @param SanitizeData $sanitizeData
+     * @param FileUploader $fileUploader
+     * @param NotificationService $notificationService
+     * @param DataUser $dataEntity
      * @return JsonResponse
      */
-    public function create(Request $request, ValidatorService $validator, UserPasswordEncoderInterface $passwordEncoder,
-                           ApiResponse $apiResponse, SanitizeData $sanitizeData): JsonResponse
+    public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse,
+                           FileUploader $fileUploader, NotificationService $notificationService, DataUser $dataEntity): JsonResponse
     {
         $em = $this->getDoctrine()->getManager();
-        $data = json_decode($request->getContent());
+        $data = json_decode($request->get('data'));
 
         if ($data === null) {
             return $apiResponse->apiJsonResponseBadRequest('Les données sont vides.');
@@ -99,39 +94,35 @@ class UserController extends AbstractController
             return $apiResponse->apiJsonResponseBadRequest('Il manque des données.');
         }
 
-        $user = new User();
-        $user->setUsername($sanitizeData->fullSanitize($data->username));
-        $user->setFirstname(ucfirst($sanitizeData->sanitizeString($data->firstname)));
-        $user->setLastname(mb_strtoupper($sanitizeData->sanitizeString($data->lastname)));
-        $user->setEmail($data->email);
-        $pass = (isset($data->password) && $data->password != "") ? $data->password : uniqid();
-        $user->setPassword($passwordEncoder->encodePassword($user, $pass));
+        $obj = $dataEntity->setData(new User(), $data);
 
-        if (isset($data->roles)) {
-            $user->setRoles($data->roles);
+        $file = $request->files->get('avatar');
+        if ($file) {
+            $fileName = $fileUploader->upload($file, self::FOLDER_AVATARS);
+            $obj->setAvatar($fileName);
         }
 
-        $noErrors = $validator->validate($user);
-
+        $noErrors = $validator->validate($obj);
         if ($noErrors !== true) {
             return $apiResponse->apiJsonResponseValidationFailed($noErrors);
         }
 
-        $em->persist($user);
+        $em->persist($obj);
         $em->flush();
 
-        return $apiResponse->apiJsonResponse($user, User::ADMIN_READ);
+        $notificationService->createNotification("Création d'un utilisateur", self::ICON, $this->getUser());
+
+        return $apiResponse->apiJsonResponse($obj, User::ADMIN_READ);
     }
 
     /**
      * Update an user
      *
-     * @Route("/{id}", name="update", options={"expose"=true}, methods={"PUT"})
+     * @Route("/{id}", name="update", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
-     *     description="Returns an user object",
-     *     @Model(type=User::class, groups={"update"})
+     *     description="Returns an user object"
      * )
      * @OA\Response(
      *     response=403,
@@ -142,64 +133,52 @@ class UserController extends AbstractController
      *     description="Validation failed",
      * )
      *
-     * @OA\RequestBody (
-     *     description="Only admin can change roles",
-     *     @Model(type=User::class, groups={"update"}),
-     *     required=true
-     * )
-     *
      * @OA\Tag(name="Users")
      *
      * @param Request $request
      * @param ValidatorService $validator
+     * @param NotificationService $notificationService
      * @param ApiResponse $apiResponse
-     * @param SanitizeData $sanitizeData
-     * @param User $user
+     * @param User $obj
+     * @param FileUploader $fileUploader
+     * @param DataUser $dataEntity
      * @return JsonResponse
      */
-    public function update(Request $request, ValidatorService $validator,
-                           ApiResponse $apiResponse, SanitizeData $sanitizeData, User $user): JsonResponse
+    public function update(Request $request, ValidatorService $validator, NotificationService $notificationService,
+                           ApiResponse $apiResponse, User $obj, FileUploader $fileUploader, DataUser $dataEntity): JsonResponse
     {
-        if ($this->getUser() != $user && !$this->isGranted("ROLE_ADMIN")) {
+        if ($this->getUser() != $obj && !$this->isGranted("ROLE_ADMIN")) {
             return $apiResponse->apiJsonResponseForbidden();
         }
 
         $em = $this->getDoctrine()->getManager();
-        $data = json_decode($request->getContent());
+        $data = json_decode($request->get('data'));
 
-        if (isset($data->username)) {
-            $user->setUsername($sanitizeData->fullSanitize($data->username));
+        if($data === null){
+            return $apiResponse->apiJsonResponseBadRequest('Les données sont vides.');
         }
 
-        if (isset($data->email)) {
-            $user->setEmail($data->email);
+        $obj = $dataEntity->setData($obj, $data);
+
+        $file = $request->files->get('avatar');
+        if ($file) {
+            $fileName = $fileUploader->replaceFile($file, $obj->getAvatar(),self::FOLDER_AVATARS);
+            $obj->setAvatar($fileName);
         }
 
-        if (isset($data->firstname)) {
-            $user->setFirstname(ucfirst($sanitizeData->sanitizeString($data->firstname)));
-        }
+        $groups = $this->isGranted("ROLE_ADMIN") ?  User::ADMIN_READ : User::USER_READ;
 
-        if (isset($data->lastname)) {
-            $user->setLastname(mb_strtoupper($sanitizeData->sanitizeString($data->lastname)));
-        }
-
-        $groups = User::USER_READ;
-        if ($this->isGranted("ROLE_ADMIN")) {
-            if (isset($data->roles)) {
-                $user->setRoles($data->roles);
-            }
-            $groups = User::ADMIN_READ;
-        }
-
-        $noErrors = $validator->validate($user);
+        $noErrors = $validator->validate($obj);
         if ($noErrors !== true) {
             return $apiResponse->apiJsonResponseValidationFailed($noErrors);
         }
 
-        $em->persist($user);
+        $em->persist($obj);
         $em->flush();
 
-        return $apiResponse->apiJsonResponse($user, $groups);
+        $notificationService->createNotification("Mise à jour d'un utilisateur", self::ICON, $this->getUser());
+
+        return $apiResponse->apiJsonResponse($obj, $groups);
     }
 
     /**
@@ -226,24 +205,26 @@ class UserController extends AbstractController
      * @OA\Tag(name="Users")
      *
      * @param ApiResponse $apiResponse
-     * @param User $user
+     * @param User $obj
+     * @param FileUploader $fileUploader
      * @return JsonResponse
      */
-    public function delete(ApiResponse $apiResponse, User $user): JsonResponse
+    public function delete(ApiResponse $apiResponse, User $obj, FileUploader $fileUploader): JsonResponse
     {
         $em = $this->getDoctrine()->getManager();
 
-        if ($user->getHighRoleCode() === User::CODE_ROLE_DEVELOPER) {
+        if ($obj->getHighRoleCode() === User::CODE_ROLE_DEVELOPER) {
             return $apiResponse->apiJsonResponseForbidden();
         }
 
-        if ($user === $this->getUser()) {
+        if ($obj === $this->getUser()) {
             return $apiResponse->apiJsonResponseBadRequest('Vous ne pouvez pas vous supprimer.');
         }
 
-        $em->remove($user);
+        $em->remove($obj);
         $em->flush();
 
+        $fileUploader->deleteFile($obj->getAvatar(), self::FOLDER_AVATARS);
         return $apiResponse->apiJsonResponseSuccessful("Supression réussie !");
     }
 
@@ -272,30 +253,39 @@ class UserController extends AbstractController
      *
      * @param Request $request
      * @param ApiResponse $apiResponse
+     * @param FileUploader $fileUploader
      * @return JsonResponse
      */
-    public function deleteGroup(Request $request, ApiResponse $apiResponse): JsonResponse
+    public function deleteGroup(Request $request, ApiResponse $apiResponse, FileUploader $fileUploader): JsonResponse
     {
         $em = $this->getDoctrine()->getManager();
         $data = json_decode($request->getContent());
 
-        $users = $em->getRepository(User::class)->findBy(['id' => $data]);
+        $objs = $em->getRepository(User::class)->findBy(['id' => $data]);
 
-        if ($users) {
-            foreach ($users as $user) {
-                if ($user->getHighRoleCode() === User::CODE_ROLE_DEVELOPER) {
+        $avatars = [];
+        if ($objs) {
+            foreach ($objs as $obj) {
+                if ($obj->getHighRoleCode() === User::CODE_ROLE_DEVELOPER) {
                     return $apiResponse->apiJsonResponseForbidden();
                 }
 
-                if ($user === $this->getUser()) {
+                if ($obj === $this->getUser()) {
                     return $apiResponse->apiJsonResponseBadRequest('Vous ne pouvez pas vous supprimer.');
                 }
 
-                $em->remove($user);
+                array_push($avatars, $obj->getAvatar());
+
+                $em->remove($obj);
             }
         }
 
         $em->flush();
+
+        foreach($avatars as $avatar){
+            $fileUploader->deleteFile($avatar, self::FOLDER_AVATARS);
+        }
+
         return $apiResponse->apiJsonResponseSuccessful("Supression de la sélection réussie !");
     }
 
@@ -338,7 +328,7 @@ class UserController extends AbstractController
 
         if ($user->getForgetAt()) {
             $interval = date_diff($user->getForgetAt(), new DateTime());
-            if ($interval->i < 30) {
+            if ($interval->y == 0 && $interval->m == 0 && $interval->d == 0 && $interval->h == 0 && $interval->i < 30) {
                 return $apiResponse->apiJsonResponseValidationFailed([[
                     'name' => 'fUsername',
                     'message' => "Un lien a déjà été envoyé. Veuillez réessayer ultérieurement."
@@ -348,7 +338,10 @@ class UserController extends AbstractController
 
         $code = uniqid($user->getId());
 
-        $user->setForgetAt(new DateTime());
+        $forgetAt = new \DateTime();
+        $forgetAt->setTimezone(new \DateTimeZone("Europe/Paris"));
+
+        $user->setForgetAt($forgetAt);
         $user->setForgetCode($code);
 
         $url = $this->generateUrl('app_password_reinit', ['token' => $user->getToken(), 'code' => $code], UrlGeneratorInterface::ABSOLUTE_URL);
@@ -384,12 +377,12 @@ class UserController extends AbstractController
      * @param Request $request
      * @param $token
      * @param ValidatorService $validator
-     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param UserPasswordHasherInterface $passwordHasher
      * @param ApiResponse $apiResponse
      * @return JsonResponse
      */
-    public function passwordUpdate(Request $request, $token, ValidatorService $validator, UserPasswordEncoderInterface $passwordEncoder,
-                           ApiResponse $apiResponse): JsonResponse
+    public function passwordUpdate(Request $request, $token, ValidatorService $validator, UserPasswordHasherInterface $passwordHasher,
+                                   ApiResponse $apiResponse): JsonResponse
     {
         $em = $this->getDoctrine()->getManager();
         $data = json_decode($request->getContent());
@@ -399,7 +392,7 @@ class UserController extends AbstractController
         }
 
         $user = $em->getRepository(User::class)->findOneBy(['token' => $token]);
-        $user->setPassword($passwordEncoder->encodePassword($user, $data->password));
+        $user->setPassword($passwordHasher->hashPassword($user, $data->password));
         $user->setForgetAt(null);
         $user->setForgetCode(null);
 

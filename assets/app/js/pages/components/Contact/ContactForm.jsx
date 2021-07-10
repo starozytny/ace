@@ -85,15 +85,20 @@ export class ContactForm extends Component {
         if(critere !== ""){
             toastr.error("Veuillez rafraichir la page.");
         }else{
-            let validate = Validateur.validateur([
+            let paramsToValidate = [
                 {type: "text", id: 'name', value: name},
                 {type: "text", id: 'email', value: email},
                 {type: "text", id: 'message', value: message},
                 {type: "text", id: 'subject', value: subject},
-            ], [
-                {type: "text", id: 'atelier', value: atelier}
-            ])
+            ]
 
+            if(subject === "ateliers"){
+                paramsToValidate = [...paramsToValidate,
+                    ...[{type: "text", id: 'atelier', value: atelier}]
+                ];
+            }
+
+            let validate = Validateur.validateur(paramsToValidate)
             if(!validate.code) {
                 this.setState({errors: validate.errors});
                 toastr.error("Veuillez vérifier que tous les champs obligatoires soient renseignés")
@@ -114,6 +119,8 @@ export class ContactForm extends Component {
                         })
                     })
                     .catch(function (error) {
+                        console.log(error)
+                        console.log(error.response)
                         Formulaire.displayErrors(self, error);
                     })
                     .then(() => {

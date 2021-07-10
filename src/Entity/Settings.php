@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SettingsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SettingsRepository::class)
@@ -22,35 +23,41 @@ class Settings
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"visitor:read"})
+     * @Assert\NotBlank()
      */
     private $websiteName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $urlHomepage;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"visitor:read"})
+     * @Assert\NotBlank()
      */
     private $emailGlobal;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"visitor:read"})
+     * @Assert\NotBlank()
      */
     private $emailContact;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"visitor:read"})
+     * @Assert\NotBlank()
      */
     private $emailRgpd;
 
     /**
      * @ORM\Column(type="text")
      * @Groups({"visitor:read"})
+     * @Assert\NotBlank()
      */
     private $logoMail;
 

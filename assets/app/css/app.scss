@@ -12,7 +12,8 @@
     --color2: #616160;
     --color3: #E7EDF1;
     --primary: #00a8e8;
-    --danger: #d57d7d;
+    --danger: #ff5444;
+    --error: #ff5444;
     --warning: #e7d087;
 
     --color0Shadow: rgba(169, 170, 201, 0.4);
@@ -20,6 +21,7 @@
     --primaryShadow2: rgba(0,168,232, 0.1);
     --dangerShadow: rgba(213,125,125, 0.4);
     --dangerShadow2: rgba(213,125,125, 0.1);
+    --dangerFondError: rgba(247, 104, 91, 0.05);
     --warningShadow: rgba(231,208,135, 0.4);
     --warningShadow2: rgba(231,208,135, 0.1);
 
@@ -54,6 +56,9 @@
 @import "components/legales";
 @import "components/page";
 @import "components/pagination";
+@import "components/cookies";
+@import "components/page";
+@import "components/toastr-custom";
 
 html, body{
     scroll-behavior: smooth;
@@ -103,16 +108,18 @@ main{
     background-color: var(--fondContent);
 }
 
+.matomo-iframe-display.remove{
+    display: none;
+}
 .choice-contact{
 
-    span:first-child{
+    a:first-child, span:first-child{
         display: inline-block;
-        text-transform: uppercase;
-        opacity: 0.6;
         margin-bottom: 4px;
+        color: var(--color0);
     }
 
-    span:last-child{
+    a:last-child, span:last-child{
         @include fontSemibold();
         color: var(--color0);
     }
@@ -121,6 +128,22 @@ main{
         @include flex(column, center, center);
         margin-bottom: 12px;
     }
+}
+
+.txt-signature{
+    @include fontSignature();
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 //                      __   _  ___ ____  _  _     __

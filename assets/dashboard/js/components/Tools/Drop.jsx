@@ -62,9 +62,12 @@ export class Drop extends Component {
     }
 
     render () {
-        const { children, accept, maxFiles, labelError, label, labelFiles="Ajouter" } = this.props;
+        const { file, folder, children, accept, maxFiles, labelError, label, labelFiles="Ajouter" } = this.props;
 
         let content = <div className="form-files">
+            {file && folder && <div className="preview-form-oldFile">
+                <img src={"/" + folder + "/" + file} alt="preview file"/>
+            </div>}
             <Dropzone
                 ref={this.drop}
                 getUploadParams={this.getUploadParams}

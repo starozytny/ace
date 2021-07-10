@@ -64,7 +64,7 @@ class SecurityController extends AbstractController
 
         if($user->getForgetAt()){
             $interval = date_diff($user->getForgetAt(), new \DateTime());
-            if ($interval->i > 30) {
+            if ($interval->y != 0 || $interval->m != 0 || $interval->d != 0 || $interval->h != 0 || $interval->i > 30) {
                 return $this->render('app/pages/security/reinit.html.twig', ['error' => true]);
             }
         }
