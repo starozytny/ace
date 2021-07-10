@@ -35,7 +35,7 @@
             let findConsent = false, find = 2;
             cookies.forEach(el => {
                 let elem = el.split("=");
-                if(elem[0].trim() === "logilinkLocalCookie"){
+                if(elem[0].trim() === "aceShanCookie"){
                     findConsent = true;
                     if(elem[1].trim() === "true"){
                         find = 1;
@@ -56,9 +56,9 @@
             _paq.push(['trackPageView']);
             _paq.push(['enableLinkTracking']);
             (function() {
-                var u="https://matomo.demodirecte.fr/";
+                var u="https://matomo.chanbora-chhun.fr/";
                 _paq.push(['setTrackerUrl', u+'matomo.php']);
-                _paq.push(['setSiteId', '21']);
+                _paq.push(['setSiteId', '99']);
                 var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
                 g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
             })();
