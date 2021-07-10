@@ -4,8 +4,6 @@ export class Slider extends Component {
     constructor(props) {
         super(props);
 
-        console.log(props)
-
         this.state = {
             active: 1,
             interval: null,
