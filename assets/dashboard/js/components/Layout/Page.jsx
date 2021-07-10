@@ -32,6 +32,16 @@ export class Page extends Component {
     }
 }
 
+function initData(donnees, sorter)
+{
+    let data = JSON.parse(donnees);
+    if(sorter){
+        data.sort(sorter);
+    }
+
+    return data;
+}
+
 export class Layout extends Component {
     constructor(props) {
         super(props);
@@ -55,6 +65,10 @@ export class Layout extends Component {
         this.handleUpdateList = this.handleUpdateList.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.handleGetFilters = this.handleGetFilters.bind(this);
+        this.handleSetDataPagination = this.handleSetDataPagination.bind(this);
+        this.handleSetData = this.handleSetData.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleDeleteGroup = this.handleDeleteGroup.bind(this);
     }
 
     componentDidMount() { this.props.onGetData(this); }
@@ -77,6 +91,17 @@ export class Layout extends Component {
     handleUpdateList = (element, newContext = null, sorter = null) => {
         const { data, context, perPage } = this.state
         Formulaire.updateDataPagination(this, sorter, newContext, context, data, element, perPage);
+    }
+
+    handleSetDataPagination = (donnees, sorter = null) => {
+        const { perPage } = this.state;
+
+        let data = initData(donnees, sorter);
+        this.setState({ dataImmuable: data, data: data, currentData: data.slice(0, perPage), loadPageError: false, loadData: false })
+    }
+
+    handleSetData = (donnees, sorter = null) => {
+        this.setState({ data: initData(donnees, sorter), loadPageError: false, loadData: false })
     }
 
     handleSearch = (search, searchFunction, haveFilter = false, filterFunction) => {
@@ -111,8 +136,17 @@ export class Layout extends Component {
         return newData;
     }
 
+    handleDelete = (self, element, url, msg, text='Cette action est irréversible.') => {
+        Formulaire.axiosDeleteElement(self, element, url, msg, text);
+    }
+
+    handleDeleteGroup = (self, url, msg) => {
+        let checked = document.querySelectorAll('.i-selector:checked');
+        Formulaire.axiosDeleteGroupElement(self, checked, url, msg)
+    }
+
     render () {
-        const { onContentList, onContentCreate, onContentUpdate, onContentRead } = this.props;
+        const { onContentList, onContentCreate, onContentUpdate, onContentRead, onContentCustomOne, onContentCustomTwo } = this.props;
         const { loadPageError, context, loadData, data, currentData, element, sessionName, filters } = this.state;
 
         let content, havePagination = false;
@@ -125,6 +159,12 @@ export class Layout extends Component {
                 break;
             case "read":
                 content = onContentRead(this.handleChangeContext, element)
+                break;
+            case "customOne":
+                content = onContentCustomOne(this.handleChangeContext, element)
+                break;
+            case "customTwo":
+                content = onContentCustomTwo(this.handleChangeContext, element)
                 break;
             default:
                 havePagination = true;

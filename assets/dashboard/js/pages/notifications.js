@@ -12,5 +12,5 @@ Routing.setRoutingData(routes);
 
 let el = document.getElementById("notifications-list");
 if(el){
-    render(<Notifications />, el)
+    render(<Notifications {...el.dataset} />, el)
 }

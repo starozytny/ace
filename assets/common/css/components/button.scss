@@ -50,7 +50,7 @@ $icons:
         "primary" var(--primary) var(--alpha) var(--primaryShadow2),
         "danger" var(--danger) var(--alpha) var(--dangerShadow2),
         "success" var(--success) var(--alpha) var(--successShadow2),
-        "warning" var(--warning) var(--alpha) var(--warningShadow2);
+        "warning" var(--warning) var(--txt) var(--warningShadow2);
 
 @each $name, $bg, $txt, $shadow in $icons {
   .btn-#{$name} {

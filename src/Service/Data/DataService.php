@@ -60,4 +60,12 @@ class DataService
         $this->em->flush();
         return $this->apiResponse->apiJsonResponseSuccessful("Supression de la sélection réussie !");
     }
+
+    public function createDateTimezoneEurope($timezone="Europe/Paris"): \DateTime
+    {
+        $date = new \DateTime();
+        $date->setTimezone(new \DateTimeZone($timezone));
+
+        return $date;
+    }
 }

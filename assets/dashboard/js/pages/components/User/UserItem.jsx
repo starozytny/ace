@@ -24,31 +24,29 @@ export class UserItem extends Component {
             <Selector id={elem.id} onSelectors={onSelectors} />
 
             <div className="item-content">
-                <div className="item-body">
-                    <div className="avatar">
+                <div className="item-body item-body-image">
+                    <div className="item-image" onClick={() => onChangeContext('read', elem)}>
                         <img src={avatar} alt={`Avatar de ${elem.username}`}/>
                     </div>
-                    <div className="infos">
-                        <div>
+                    <div className="infos infos-col-3">
+                        <div className="col-1">
                             <div className="name">
                                 <span>{elem.lastname.toUpperCase()} {elem.firstname}</span>
                                 {elem.highRoleCode !== 0 && <span className="role">{elem.highRole}</span>}
                             </div>
                             {elem.lastLoginAgo && <div className="sub">Connecté {elem.lastLoginAgo}</div>}
                         </div>
-                        <div>
+                        <div className="col-2">
                             <div className="sub sub-username">{elem.username}</div>
                             {elem.email !== "undefined@undefined.fr" ? <div className="sub">{elem.email}</div> : <div className="sub txt-danger"><span className="icon-warning" /> {elem.email}</div>}
                         </div>
-                        <div className="actions">
+                        <div className="col-3 actions">
                             {elem.highRoleCode !== 1 &&
                             <>
+                                <ButtonIcon icon="vision" onClick={() => onChangeContext("read", elem)}>Profil</ButtonIcon>
                                 <ButtonIcon icon="pencil" onClick={() => onChangeContext("update", elem)}>Modifier</ButtonIcon>
                                 <ButtonIcon icon="trash" onClick={() => onDelete(elem)}>Supprimer</ButtonIcon>
-                                <a href={url} target="_blank" className="btn-icon">
-                                    <span className="icon-share" />
-                                    <span className="tooltip">Imiter</span>
-                                </a>
+                                <ButtonIcon icon="share" element="a" target="_blank" onClick={url}>Imiter</ButtonIcon>
                             </>
                             }
                         </div>
