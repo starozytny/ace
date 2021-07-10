@@ -11,3 +11,6 @@ init_test_db:
 check_test:
 	php bin/console do:fi:lo --env=test
 	symfony php bin/phpunit
+
+yarn_start:
+	yarn-v1.22.5/bin/yarn encore production
