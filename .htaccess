@@ -80,8 +80,8 @@ RewriteEngine on
 
 # ErrorDocument 404/ https://ace.chanbora-chhun.fr
 
-RewriteCond %{HTTP_HOST} ^www.ace.chanbora-chhun.fr$
-RewriteRule ^(.*) http://ace.chanbora-chhun.fr/$1 [QSA,L,R=301]
+RewriteCond %{HTTP_HOST} ^www.ace-coaching.fr$
+RewriteRule ^(.*) http://ace-coaching.fr/$1 [QSA,L,R=301]
 
 RewriteCond %{HTTPS} off
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
@@ -97,16 +97,4 @@ SetEnv ZEND_OPTIMIZER 1
 RewriteCond %{REQUEST_URI} !^/public/
 RewriteRule ^(.*)$ /public/$1 [L]
 
-Redirect 301 http://ace.chanbora-chhun.fr/ https://ace.chanbora-chhun.fr/
-
-#----------------------------------------------------------------cp:ppd
-# Section managed by cPanel: Password Protected Directories     -cp:ppd
-# - Do not edit this section of the htaccess file!              -cp:ppd
-#----------------------------------------------------------------cp:ppd
-AuthType Basic
-AuthName "Protected 'ace.chanbora-chhun.fr'"
-AuthUserFile "/home/xubm6823/.htpasswds/ace.chanbora-chhun.fr/passwd"
-Require valid-user
-#----------------------------------------------------------------cp:ppd
-# End section managed by cPanel: Password Protected Directories -cp:ppd
-#----------------------------------------------------------------cp:ppd
+Redirect 301 http://ace-coaching.fr/ https://ace-coaching.fr/
