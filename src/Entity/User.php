@@ -42,7 +42,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank()
-     * @Groups({"admin:read", "admin:write", "update", "user:read"})
+     * @Assert\Type(type="alnum")
+     * @Groups({"admin:read", "user:read"})
      */
     private $username;
 
@@ -50,26 +51,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Email()
-     * @Groups({"admin:read", "admin:write", "update", "user:read"})
+     * @Groups({"admin:read", "user:read"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
-     * @Groups({"admin:read", "admin:write", "update"})
+     * @Groups({"admin:read"})
      * @OA\Property(type="array", @OA\Items(type="string"))
      */
     private $roles = ['ROLE_USER'];
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"admin:read", "admin:write", "update", "user:read"})
+     * @Groups({"admin:read", "user:read"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"admin:read", "admin:write", "update", "user:read"})
+     * @Groups({"admin:read", "user:read"})
      */
     private $firstname;
 
@@ -107,7 +108,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"admin:read", "admin:write", "update", "user:read"})
+     * @Groups({"admin:read", "user:read"})
      */
     private $avatar;
 
@@ -261,13 +262,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return string|null
+     * @Groups({"admin:read"})
+     */
+    public function getCreatedAtString(): ?string
+    {
+        if($this->createdAt){
+            $frenchFactory = new Factory([
+                'locale' => 'fr_FR',
+                'timezone' => 'Europe/Paris'
+            ]);
+            $time = Carbon::instance($this->createdAt);
+
+            return $frenchFactory->make($time)->isoFormat('ll');
+        }
+
+        return null;
+    }
+
+    /**
      * How long ago an user was added.
      *
      * @return string
+     * @Groups({"admin:read"})
      */
     public function getCreatedAtAgo(): string
     {
-        return Carbon::instance($this->getCreatedAt())->diffForHumans();
+        $frenchFactory = new Factory([
+            'locale' => 'fr_FR',
+            'timezone' => 'Europe/Paris'
+        ]);
+        $time = Carbon::instance($this->getCreatedAt());
+
+        return $frenchFactory->make($time)->diffForHumans();
     }
 
     public function getLastLogin(): ?\DateTimeInterface

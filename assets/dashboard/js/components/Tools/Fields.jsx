@@ -30,7 +30,9 @@ export function TextArea (props) {
  * CHECKBOX Classique
  ***************************************/
 export function Checkbox (props) {
-    const {items, identifiant, valeur, onChange, children} = props;
+    const {items, identifiant, valeur, onChange, children, isSwitcher = false} = props;
+
+    let classeItems = isSwitcher ? "switcher-items" : "checkbox-items";
 
     let itemsInputs = items.map((elem, index) => {
 
@@ -40,28 +42,32 @@ export function Checkbox (props) {
             if (el === elem.value){ isChecked = true }
         })
 
-        return <div className={"checkbox-item " + (isChecked ? 'checked' : '')} key={index}>
+        let classeItem = isSwitcher ? "switcher-item" : "checkbox-item";
+
+        return <div className={classeItem + " " + (isChecked ? 'checked' : '')} key={index}>
             <label htmlFor={elem.identifiant}>
-                {elem.label}
+                <span>{elem.label}</span>
                 <input type="checkbox" name={identifiant} id={elem.identifiant} value={elem.value} checked={isChecked ? 'checked' : ''} onChange={onChange}/>
             </label>
         </div>
     })
 
-    let content = <div className="checkbox-items">{itemsInputs}</div>
+    let content = <div className={classeItems}>{itemsInputs}</div>
     return (<ClassiqueStructure {...props} content={content} label={children} classForm="form-group-checkbox " />)
 }
 
 /***************************************
- * RADIOBOX Classique
+ * RADIOBOX Classique or Switcher
  ***************************************/
 export function Radiobox(props) {
-    const {items, identifiant, valeur, onChange, children} = props;
+    const {items, identifiant, valeur, onChange, children, convertValToInt = true} = props;
 
     let itemsInputs = items.map((elem, index) => {
 
         let isChecked = false
-        if (parseInt(valeur) === elem.value){ isChecked = true }
+
+        let vl = convertValToInt ? parseInt(valeur) : valeur;
+        if (vl === elem.value){ isChecked = true }
 
         return <div className={"radiobox-item " + (isChecked ? 'checked' : '')} key={index}>
             <label htmlFor={elem.identifiant}>
@@ -131,7 +137,7 @@ export function ClassiqueStructure({identifiant, content, errors, label, classFo
         <div className={classForm + 'form-group' + (error ? " form-group-error" : "")}>
             <label htmlFor={identifiant}>{label}</label>
             {content}
-            <div className="error">{error ? <><span className='icon-warning'/>{error}</> : null}</div>
+            <div className="error">{error ? <><span className='icon-error'/>{error}</> : null}</div>
         </div>
     )
 }

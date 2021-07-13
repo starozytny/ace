@@ -8,6 +8,13 @@ import Formulaire        from "@dashboardComponents/functions/Formulaire";
 
 import { NotificationsList }      from "./NotificationsList";
 
+const URL_DELETE_ELEMENT = 'api_notifications_delete';
+const URL_DELETE_GROUP = 'api_notifications_delete_group';
+const URL_IS_SEEN = 'api_notifications_isSeen';
+const MSG_DELETE_ELEMENT = 'Supprimer cette notification ?';
+const MSG_DELETE_GROUP = 'Aucune notification sélectionnée.';
+const SORTER = Sort.compareCreatedAt;
+
 export class Notifications extends Component {
     constructor(props) {
         super(props);
@@ -28,17 +35,16 @@ export class Notifications extends Component {
         this.handleSeen = this.handleSeen.bind(this);
     }
 
-    handleGetData = (self) => { Formulaire.axiosGetDataPagination(self, Routing.generate('api_notifications_index'), Sort.compareCreatedAt, this.state.perPage) }
+    handleGetData = (self) => { self.handleSetDataPagination(this.props.donnees, SORTER); }
 
-    handleUpdateList = (element, newContext=null) => { this.layout.current.handleUpdateList(element, newContext, Sort.compareCreatedAt); }
+    handleUpdateList = (element, newContext=null) => { this.layout.current.handleUpdateList(element, newContext, SORTER); }
 
     handleDelete = (element) => {
-        Formulaire.axiosDeleteElement(this, element, Routing.generate('api_notifications_delete', {'id': element.id}),
-            'Supprimer cette notification ?', 'Cette action est irréversible.');
+        this.layout.current.handleDelete(this, element, Routing.generate(URL_DELETE_ELEMENT, {'id': element.id}), MSG_DELETE_ELEMENT);
     }
+
     handleDeleteGroup = () => {
-        let checked = document.querySelectorAll('.i-selector:checked');
-        Formulaire.axiosDeleteGroupElement(this, checked, Routing.generate('api_notifications_delete_group'), 'Aucune notification sélectionnée.')
+        this.layout.current.handleDeleteGroup(this, Routing.generate(URL_DELETE_GROUP), MSG_DELETE_GROUP);
     }
 
     handleContentList = (currentData, changeContext) => {
@@ -49,7 +55,7 @@ export class Notifications extends Component {
                                   data={currentData} />
     }
 
-    handleSeen = (element) => { Formulaire.isSeen(this, element, Routing.generate('api_notifications_isSeen', {'id': element.id})) }
+    handleSeen = (element) => { Formulaire.isSeen(this, element, Routing.generate(URL_IS_SEEN, {'id': element.id})) }
 
     render () {
         return <>

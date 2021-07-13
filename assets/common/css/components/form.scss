@@ -43,7 +43,6 @@
     width: calc(100% - 24px);
   }
 
-
   .react-selectize.default.root-node{
     width: 100%;
 
@@ -84,6 +83,10 @@
   }
 }
 
+// **************************************
+// GENERAL INPUT
+// **************************************
+
 input, textarea, select{
   border: 1px solid var(--grey);
   padding: 8px 10px;
@@ -102,6 +105,78 @@ select{
   width: 100%;
 }
 
+// **************************************
+// SWITCHER
+// **************************************
+
+.switcher-items{
+
+  input[type='checkbox'] {
+    display: none;
+  }
+
+  .switcher-item{
+    position: relative;
+
+    label{
+      position: relative;
+      z-index: 0;
+      width: 68px;
+      height: 32px;
+      border-radius: 100px;
+      background-color: var(--grey);
+      transition: all 0.2s ease-in-out;
+
+      span{
+        opacity: 0;
+      }
+
+      &:before, &:after{
+        position: absolute;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+      }
+
+      &:before{
+        content: "";
+        background-color: var(--alpha);
+        border-radius: 100px;
+        display: block;
+        width: 24px; height: 24px;
+        box-shadow: 0 0 8px var(--greyShadow);
+        top: 4px; left: 4px;
+        z-index: 5;
+      }
+
+      &:after{
+        font-family: "icomoon" !important;
+        content: "\e90a";
+        top: 10px; left: 10px;
+        font-size: 12px;
+        z-index: 6;
+        color: var(--danger);
+      }
+    }
+
+    &.checked{
+      label{
+        background-color: var(--primaryShadow);
+
+        &:before, &:after{
+          transform: translateX(36px);
+        }
+
+        &:after{
+          content: "\e90f";
+          color: var(--primary);
+        }
+      }
+    }
+  }
+}
+// **************************************
+// RADIOBOX and CHECKBOX
+// **************************************
 .checkbox-items, .radiobox-items{
   @include flex(row, stretch, flex-start);
   flex-wrap: wrap;
@@ -115,8 +190,8 @@ select{
   margin-top: 4px;
 
   &.checked > label{
-    border: 1px solid var(--grey2);
-    border-color: var(--txt);
+    border: 1px solid var(--primary);
+    background-color: var(--primaryShadow);
     color: var(--beta);
     opacity: 1;
 
@@ -146,11 +221,22 @@ select{
 }
 
 .radiobox-item{
+  &.checked > label{
+    &:hover{
+      background-color: var(--primaryShadow);
+      border-color: var(--primary);
+    }
+  }
+}
+
+.radiobox-item{
   label{
     border-radius: 20px;
   }
 }
-
+// **************************************
+// DATE
+// **************************************
 .react-datepicker-wrapper{
   width: 100%;
 }
@@ -160,7 +246,9 @@ select{
     margin-top: 4px;
   }
 }
-
+// **************************************
+// FORM-BUTTON
+// **************************************
 .form-button{
   & > *{
     width: 100%;
@@ -169,7 +257,9 @@ select{
     margin-bottom: 12px;
   }
 }
-
+// **************************************
+// FILES
+// **************************************
 .form-files{
   @include flex(column, flex-start, flex-start);
   width: 100%;
@@ -247,18 +337,37 @@ select{
   }
 }
 
+// **************************************
+// ERROR
+// STYLE
+// **************************************
+
 .form-group-error{
   label{
     color: var(--error);
   }
   input, textarea, select,
+    .react-selectize.default.root-node .react-selectize-control .react-selectize-placeholder,
     .react-selectize.default.root-node:not(.open) .react-selectize-control,
     .simple-select.react-selectize.default.root-node.open .react-selectize-control,
-    .trumbowyg-box, .trumbowyg-editor
+    .trumbowyg-box, .trumbowyg-editor,
   {
     border-color: var(--error);
     color: var(--error);
     background-color: var(--dangerFondError);
+
+    &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: var(--error);
+      opacity: 1; /* Firefox */
+    }
+
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: var(--error);
+    }
+
+    &::-ms-input-placeholder { /* Microsoft Edge */
+      color: var(--error);
+    }
   }
   .error{
     color: var(--error);

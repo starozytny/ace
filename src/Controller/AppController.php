@@ -22,9 +22,6 @@ class AppController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository(BoArticle::class)->findBy([], ['createdAt' => 'ASC']);
-        if(count($articles) <= 0){
-            return $this->render('app/pages/index.html.twig');
-        }
 
         $articles = $em->getRepository(BoArticle::class)->findBy([], ['createdAt' => 'ASC']);
 
@@ -45,6 +42,14 @@ class AppController extends AbstractController
         $temoignages = $serializer->serialize($temoignages, 'json', ['groups' => User::VISITOR_READ]);
         $temoignages2 = $serializer->serialize($temoignages2, 'json', ['groups' => User::VISITOR_READ]);
         $temoignages3 = $serializer->serialize($temoignages3, 'json', ['groups' => User::VISITOR_READ]);
+
+        if(count($articles) <= 0){
+            return $this->render('app/pages/index.html.twig', [
+                'temoignages' => $temoignages,
+                'temoignages2' => $temoignages2,
+                'temoignages3' => $temoignages3
+            ]);
+        }
 
         return $this->render('app/pages/index.html.twig', [
             'article' => $articles[0],

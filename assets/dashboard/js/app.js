@@ -24,7 +24,8 @@ toastr.options = {
     "showEasing": "swing",
     "hideEasing": "linear",
     "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
+    "hideMethod": "fadeOut",
+    "escapeHtml": false,
 }
 
 Routing.setRoutingData(routes);

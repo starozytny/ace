@@ -32,7 +32,7 @@
                             </a>
                         </div>
                         {% if app.user.avatar %}
-                            <img src="{{ asset('build/dashboard/images/' ~ app.user.avatar) }}" alt="Avatar de {{ app.user.username }}">
+                            <img src="{{ asset('avatars/' ~ app.user.avatar) }}" alt="Avatar de {{ app.user.username }}">
                         {% else %}
                             <img src="https://robohash.org/{{ app.user.username }}?size=42x42" alt="Avatar de {{ app.user.username }}"/>
                         {% endif %}

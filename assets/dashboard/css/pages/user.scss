@@ -62,20 +62,27 @@
 }
 
 .items-table {
-  padding-top: 0;
-  padding-bottom: 0;
 
   & > .items > .item{
     align-items: flex-start;
-    padding-top: 24px;
+  }
+  
+  .item-image{
+    cursor: pointer;
+
+    img{
+      transition: all 0.2s ease-in-out;
+    }
+
+    &:hover{
+      img{
+        transform: scale(1.05);
+      }
+    }
   }
 
   .item-selector{
     transform: translateY(24px);
-  }
-
-  .item-content{
-    width: calc(100% - 24px);
   }
 }
 
@@ -86,22 +93,6 @@
 }
 
 .items-user{
-  .infos{
-    width: calc(100% - 42px - 12px);
-  }
-
-  .avatar{
-    background: var(--fond);
-    width: 42px; height: 42px;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-right: 12px;
-
-    img{
-      width: 42px; height: 42px;
-    }
-  }
-
   .sub-username{
     margin-bottom: 4px;
   }
@@ -113,19 +104,93 @@
   .sub.txt-danger{
     opacity: 1;
   }
-
-  .actions{
-    margin-top: 8px;
-  }
 }
 
-.role{
-  display: inline-block;
-  padding: 4px 8px;
-  background: var(--primaryShadow);
-  border-radius: 4px;
-  font-size: 12px;
-  opacity: 0.5;
+.user-read-infos{
+  position: relative;
+  width: calc(100% - 24px);
+  border-radius: 12px;
+  background-color: var(--alpha);
+  box-shadow: 0 0 12px var(--greyShadow);
+  padding: 12px;
+  @include flex(column, center, center);
+  max-width: 414px;
+
+  &:before{
+    content: "";
+    background-color: var(--primary);
+    display: block;
+    width: 100%; height: 100px;
+    position: absolute;
+    top: 0; left: 0;
+    z-index: 0;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .user-read-infos-container{
+    @include flex(column, center, center);
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+
+  .avatar{
+    border-radius: 100px;
+    background-color: var(--fond);
+    width: 64px;
+    height: 64px;
+    overflow: hidden;
+    margin-top: 48px;
+    margin-bottom: 24px;
+  }
+
+  .name{
+    @include fontSemibold();
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .username, .sub{
+    opacity: 0.7;
+    text-align: center;
+  }
+
+  .username{
+    margin-bottom: 8px;
+  }
+
+  .footer-infos{
+    margin-top: 24px;
+    @include flex(row, flex-start, space-between);
+    width: 100%;
+  }
+
+  .role{
+    display: inline-block;
+    padding: 4px 8px;
+    background: var(--primaryShadow);
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0.5;
+    margin-top: 4px;
+  }
+
+  img{
+    width: 64px; height: 64px;
+  }
+
+  .role-time{
+    background-color: var(--fondContent);
+  }
+
+  .actions{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: var(--fond);
+    border-radius: 4px;
+    z-index: 3;
+  }
 }
 
 //                      __   _____ __    ___    __
@@ -144,12 +209,6 @@
     }
   }
 
-  .items-table {
-    & > .items > .item {
-      padding-bottom: 24px;
-    }
-  }
-
   .preview-form-oldFile{
     img{
       width: 64px; height: 64px;
@@ -157,31 +216,12 @@
   }
 
   .items-user{
-    .infos{
-      width: calc(100% - 64px - 12px);
-    }
-
-    .avatar , .avatar > img{
-      width: 64px;
-      height: 64px;
-    }
     .role{
-      margin: 0 0 0 8px;
+      margin: 0;
     }
+  }
 
-    .infos{
-      & > div:first-child{
-        width: calc(50% - 24px);
-        margin-right: 24px;
-      }
+  .user-read-infos{
 
-      & > div:nth-child(2){
-        width: calc(50% - 90px - 24px);
-        margin-right: 24px;
-      }
-      .actions{
-        width: 90px;
-      }
-    }
   }
 }

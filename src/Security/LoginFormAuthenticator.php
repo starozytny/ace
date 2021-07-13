@@ -103,7 +103,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         /** @var User $user */
         $user = $token->getUser();
 
-        $user->setLastLogin(new \DateTimeImmutable());
+        $lastLogin = new \DateTime();
+        $lastLogin->setTimezone(new \DateTimeZone("Europe/Paris"));
+
+        $user->setLastLogin($lastLogin);
         $this->entityManager->flush();
 
         if ($this->security->isGranted('ROLE_ADMIN')){

@@ -4,10 +4,16 @@ import Routing           from '@publicFolder/bundles/fosjsrouting/js/router.min.
 
 import { Layout }        from "@dashboardComponents/Layout/Page";
 import Sort              from "@dashboardComponents/functions/sort";
-import Formulaire        from "@dashboardComponents/functions/Formulaire";
 
 import { UserList }       from "./UserList";
+import { UserRead }       from "./UserRead";
 import { UserFormulaire } from "./UserForm";
+
+const URL_DELETE_ELEMENT = 'api_users_delete';
+const URL_DELETE_GROUP = 'api_users_delete_group';
+const MSG_DELETE_ELEMENT = 'Supprimer cet utilisateur ?';
+const MSG_DELETE_GROUP = 'Aucun utilisateur sélectionné.';
+const SORTER = Sort.compareLastname;
 
 function searchFunction(dataImmuable, search){
     let newData = [];
@@ -46,13 +52,9 @@ export class User extends Component {
     constructor(props) {
         super(props);
 
-        let data = JSON.parse(props.donnees);
-        data.sort(Sort.compareLastname);
-
         this.state = {
             perPage: 10,
-            sessionName: "user.pagination",
-            data: data
+            sessionName: "user.pagination"
         }
 
         this.layout = React.createRef();
@@ -67,23 +69,19 @@ export class User extends Component {
         this.handleContentList = this.handleContentList.bind(this);
         this.handleContentCreate = this.handleContentCreate.bind(this);
         this.handleContentUpdate = this.handleContentUpdate.bind(this);
+        this.handleContentRead = this.handleContentRead.bind(this);
     }
 
-    handleGetData = (self) => {
-        const { data, perPage } = this.state;
+    handleGetData = (self) => { self.handleSetDataPagination(this.props.donnees, SORTER); }
 
-        self.setState({ dataImmuable: data, data: data, currentData: data.slice(0, perPage), loadPageError: false, loadData: false });
-    }
-
-    handleUpdateList = (element, newContext=null) => { this.layout.current.handleUpdateList(element, newContext, Sort.compareLastname); }
+    handleUpdateList = (element, newContext=null) => { this.layout.current.handleUpdateList(element, newContext, SORTER); }
 
     handleDelete = (element) => {
-        Formulaire.axiosDeleteElement(this, element, Routing.generate('api_users_delete', {'id': element.id}),
-            'Supprimer cet utilisateur ?', 'Cette action est irréversible.');
+        this.layout.current.handleDelete(this, element, Routing.generate(URL_DELETE_ELEMENT, {'id': element.id}), MSG_DELETE_ELEMENT);
     }
+
     handleDeleteGroup = () => {
-        let checked = document.querySelectorAll('.i-selector:checked');
-        Formulaire.axiosDeleteGroupElement(this, checked, Routing.generate('api_users_delete_group'), 'Aucun utilisateur sélectionné.')
+        this.layout.current.handleDeleteGroup(this, Routing.generate(URL_DELETE_GROUP), MSG_DELETE_GROUP);
     }
 
     handleGetFilters = (filters) => { this.layout.current.handleGetFilters(filters, filterFunction); }
@@ -108,10 +106,14 @@ export class User extends Component {
         return <UserFormulaire type="update" element={element} onChangeContext={changeContext} onUpdateList={this.handleUpdateList}/>
     }
 
+    handleContentRead = (changeContext, element) => {
+        return <UserRead elem={element} onChangeContext={changeContext}/>
+    }
+
     render () {
         return <>
             <Layout ref={this.layout} {...this.state} onGetData={this.handleGetData}
-                    onContentList={this.handleContentList}
+                    onContentList={this.handleContentList} onContentRead={this.handleContentRead}
                     onContentCreate={this.handleContentCreate} onContentUpdate={this.handleContentUpdate}/>
         </>
     }
