@@ -52,13 +52,6 @@ class BoArticle extends DataEntity
     private $file;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Gedmo\Slug(updatable=true, fields={"title"})
-     * @Groups({"visitor:read", "admin:write"})
-     */
-    private $slug;
-
-    /**
      * @ORM\Column(type="boolean")
      * @Groups({"visitor:read"})
      */
@@ -223,17 +216,6 @@ class BoArticle extends DataEntity
         return $this;
     }
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(?string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
 
     public function getIsPublished(): ?bool
     {
