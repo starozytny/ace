@@ -29,13 +29,6 @@ class BoCategory
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Gedmo\Slug(updatable=true, fields={"name"})
-     * @Groups({"visitor:read"})
-     */
-    private $slug;
-
-    /**
      * @ORM\OneToMany(targetEntity=BoArticle::class, mappedBy="category")
      */
     private $articles;
@@ -58,18 +51,6 @@ class BoCategory
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSlug(): string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(?string $slug): self
-    {
-        $this->slug = $slug;
 
         return $this;
     }
