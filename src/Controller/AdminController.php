@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Blog\BoArticle;
+use App\Entity\Blog\BoCategory;
 use App\Entity\Contact;
 use App\Entity\Notification;
 use App\Entity\Settings;
@@ -102,17 +104,27 @@ class AdminController extends AbstractController
     /**
      * @Route("/articles", name="blog_index")
      */
-    public function blog(): Response
+    public function blog(SerializerInterface $serializer): Response
     {
-        return $this->render('admin/pages/blog/index.html.twig');
+        $objs = $this->getAllData(BoArticle::class, $serializer, User::VISITOR_READ);
+        $categories = $this->getAllData(BoCategory::class, $serializer, User::VISITOR_READ);
+
+        return $this->render('admin/pages/blog/index.html.twig', [
+            'donnees' => $objs,
+            'categories' => $categories
+        ]);
     }
 
     /**
      * @Route("/articles/categories", name="blog_categories_index")
      */
-    public function categories(): Response
+    public function categories(SerializerInterface $serializer): Response
     {
-        return $this->render('admin/pages/blog/categories.html.twig');
+        $objs = $this->getAllData(BoCategory::class, $serializer, User::VISITOR_READ);
+
+        return $this->render('admin/pages/blog/categories.html.twig', [
+            'donnees' => $objs
+        ]);
     }
 
     /**

@@ -19,6 +19,11 @@ function switchFunction(type, search, v) {
                 return v;
             }
             break;
+        case "article":
+            if(v.title.toLowerCase().startsWith(search)){
+                return v;
+            }
+            break;
         default:
             break;
     }

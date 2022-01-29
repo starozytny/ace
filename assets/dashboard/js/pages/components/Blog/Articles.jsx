@@ -1,119 +1,73 @@
 import React, { Component } from 'react';
 
-import axios             from "axios";
-import toastr            from "toastr";
 import Routing           from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
 
-import {Layout }         from "@dashboardComponents/Layout/Page";
-import Sort              from "@dashboardComponents/functions/sort";
-import Formulaire        from "@dashboardComponents/functions/Formulaire";
+import { Layout }         from "@dashboardComponents/Layout/Page";
+import Sort              from "@commonComponents/functions/sort";
 
 import { ArticlesList }      from "./ArticlesList";
 import { ArticleFormulaire } from "./ArticleForm";
 
-function searchFunction(dataImmuable, search){
-    let newData = [];
-    newData = dataImmuable.filter(function(v) {
-        if(v.title.toLowerCase().includes(search)){
-            return v;
-        }
-    })
-
-    return newData;
-}
+const URL_DELETE_ELEMENT    = 'api_articles_delete';
+const URL_DELETE_GROUP      = 'api_articles_delete_group';
+const MSG_DELETE_ELEMENT    = 'Supprimer cet article ?';
+const MSG_DELETE_GROUP      = 'Aucun article sélectionné.';
+const URL_SWITCH_ELEMENT    = 'api_articles_article_published';
+const MSG_SWITCH_ELEMENT    = 'Article';
+const SORTER = Sort.compareCreatedAt;
 
 export class Articles extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            perPage: 10
+            perPage: 10,
+            sorter: SORTER,
+            pathDeleteElement: URL_DELETE_ELEMENT,
+            msgDeleteElement: MSG_DELETE_ELEMENT,
+            pathDeleteGroup: URL_DELETE_GROUP,
+            msgDeleteGroup: MSG_DELETE_GROUP,
+            categories: props.categories ? JSON.parse(props.categories) : [],
+            sessionName: "blog.articles.pagination"
         }
 
         this.layout = React.createRef();
 
         this.handleGetData = this.handleGetData.bind(this);
         this.handleUpdateList = this.handleUpdateList.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-        this.handleDeleteGroup = this.handleDeleteGroup.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
-        this.handleChangePublished = this.handleChangePublished.bind(this);
+        this.handleSwitchPublished = this.handleSwitchPublished.bind(this);
 
         this.handleContentList = this.handleContentList.bind(this);
         this.handleContentCreate = this.handleContentCreate.bind(this);
         this.handleContentUpdate = this.handleContentUpdate.bind(this);
     }
 
-    handleGetData = (self) => {
-        const { perPage } = this.state;
+    handleGetData = (self) => { self.handleSetDataPagination(this.props.donnees); }
 
-        axios.get(Routing.generate('api_articles_index'), {})
-            .then(function (response) {
-                let resp = response.data;
+    handleUpdateList = (element, newContext=null) => { this.layout.current.handleUpdateList(element, newContext); }
 
-                let data = JSON.parse(resp.articles);
-                let categories = JSON.parse(resp.categories);
+    handleSearch = (search) => { this.layout.current.handleSearch(search, "article"); }
 
-                data.sort(Sort.compareCreatedAt);
-                self.setState({ categories: categories, dataImmuable: data, data: data, currentData: data.slice(0, perPage) });
-            })
-            .catch(function (error) {
-                console.log(error)
-                console.log(error.response)
-                self.setState({ loadPageError: true });
-            })
-            .then(function () {
-                self.setState({ loadData: false });
-            })
-        ;
-    }
-
-    handleUpdateList = (element, newContext=null) => { this.layout.current.handleUpdateList(element, newContext, Sort.compareCreatedAt); }
-
-    handleDelete = (element) => {
-        Formulaire.axiosDeleteElement(this, element, Routing.generate('api_articles_delete', {'id': element.id}),
-            'Supprimer cet article ?', 'Cette action est irréversible.');
-    }
-    handleDeleteGroup = () => {
-        let checked = document.querySelectorAll('.i-selector:checked');
-        Formulaire.axiosDeleteGroupElement(this, checked, Routing.generate('api_articles_delete_group'), 'Aucun article sélectionné.')
-    }
-
-    handleSearch = (search) => { this.layout.current.handleSearch(search, searchFunction) }
-
-    handleChangePublished = (element) => {
-        Formulaire.loader(true);
-        let self = this;
-        axios({ method: "POST", url: Routing.generate('api_articles_article_published', {'id': element.id}) })
-            .then(function (response) {
-                let data = response.data;
-                self.handleUpdateList(data, "update");
-                toastr.info(element.isPublished ? "Article mis hors ligne" : "Article en ligne");
-            })
-            .catch(function (error) {
-                Formulaire.displayErrors(self, error);
-            })
-            .then(() => {
-                Formulaire.loader(false);
-            })
-        ;
+    handleSwitchPublished = (element) => {
+        this.layout.current.handleSwitchPublished(this, element, Routing.generate(URL_SWITCH_ELEMENT, {'id': element.id}), MSG_SWITCH_ELEMENT);
     }
 
     handleContentList = (currentData, changeContext) => {
         return <ArticlesList onChangeContext={changeContext}
-                             onDelete={this.handleDelete}
+                             onDelete={this.layout.current.handleDelete}
+                             onDeleteAll={this.layout.current.handleDeleteGroup}
                              onSearch={this.handleSearch}
-                             onDeleteAll={this.handleDeleteGroup}
-                             onChangePublished={this.handleChangePublished}
+                             onChangePublished={this.handleSwitchPublished}
                              data={currentData} />
     }
 
     handleContentCreate = (changeContext) => {
-        return <ArticleFormulaire type="create" categories={this.layout.current.state.categories} onChangeContext={changeContext} onUpdateList={this.handleUpdateList}/>
+        return <ArticleFormulaire type="create" categories={this.state.categories} onChangeContext={changeContext} onUpdateList={this.handleUpdateList}/>
     }
 
     handleContentUpdate = (changeContext, element) => {
-        return <ArticleFormulaire type="update" categories={this.layout.current.state.categories} element={element} onChangeContext={changeContext} onUpdateList={this.handleUpdateList}/>
+        return <ArticleFormulaire type="update" categories={this.state.categories} element={element} onChangeContext={changeContext} onUpdateList={this.handleUpdateList}/>
     }
 
     render () {

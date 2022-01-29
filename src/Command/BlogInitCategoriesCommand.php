@@ -26,7 +26,7 @@ class BlogInitCategoriesCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Add a short description for your command')
+            ->setDescription('Init blog category data')
         ;
     }
 
@@ -35,7 +35,7 @@ class BlogInitCategoriesCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $io->title('Reset des tables');
-        $this->databaseService->resetTable($io, ['bo_category']);
+        $this->databaseService->resetTable($io, [BoCategory::class]);
 
         $users = array(
             [

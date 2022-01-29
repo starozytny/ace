@@ -58,6 +58,7 @@ Encore
     .addEntry('app', './assets/app/js/app.js')
     .addEntry('security', './assets/app/js/pages/security.js')
     .addEntry('contact', './assets/app/js/pages/contact.js')
+    .addEntry('app_blog', './assets/app/js/pages/blog.js')
     .addEntry('services', './assets/app/js/pages/services.js')
     .addEntry('ateliers', './assets/app/js/pages/ateliers.js')
     .addEntry('actualites', './assets/app/js/pages/actualites.js')
@@ -76,6 +77,7 @@ Encore
     .addEntry('dashboard_testimonials', './assets/dashboard/js/pages/testimonials.js')
 
     .addEntry('user_profil', './assets/user/js/pages/profil.js')
+    .addEntry('user_blog', './assets/user/js/pages/blog.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     //.enableStimulusBridge('./assets/controllers.json')

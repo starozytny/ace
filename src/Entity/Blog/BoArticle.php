@@ -2,9 +2,10 @@
 
 namespace App\Entity\Blog;
 
+use App\Entity\DataEntity;
 use App\Repository\Blog\BoArticleRepository;
-use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -13,8 +14,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @UniqueEntity(fields={"title"})
  * @UniqueEntity(fields={"slug"})
  */
-class BoArticle
+class BoArticle extends DataEntity
 {
+    const FOLDER_ARTICLES = "articles";
+
+    const VISIBILITY_ALL = 0;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -28,17 +33,6 @@ class BoArticle
      * @Groups({"visitor:read", "admin:write"})
      */
     private $title;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Groups({"visitor:write"})
-     */
-    private $updatedAt;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -59,14 +53,15 @@ class BoArticle
     private $file;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Gedmo\Slug(updatable=true, fields={"title"})
      * @Groups({"visitor:read", "admin:write"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="boolean")
-     *  @Groups({"visitor:read"})
+     * @Groups({"visitor:read"})
      */
     private $isPublished;
 
@@ -76,6 +71,41 @@ class BoArticle
      * @Groups({"visitor:read"})
      */
     private $category;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"visitor:write"})
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Groups({"visitor:read"})
+     */
+    private $visibleBy = self::VISIBILITY_ALL;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"visitor:read"})
+     */
+    private $file1;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"visitor:read"})
+     */
+    private $file2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"visitor:read"})
+     */
+    private $file3;
 
     public function __construct()
     {
@@ -132,11 +162,7 @@ class BoArticle
      */
     public function getCreateAtStringLong(): ?string
     {
-        if($this->createdAt == null){
-            return null;
-        }
-        Carbon::setLocale('fr');
-        return Carbon::instance($this->getCreatedAt())->isoFormat('ll');
+        return $this->getFullDateString($this->createdAt);
     }
 
     public function getUpdatedAt(): ?\DateTimeInterface
@@ -146,6 +172,7 @@ class BoArticle
 
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
+        $updatedAt->setTimezone(new \DateTimeZone("Europe/Paris"));
         $this->updatedAt = $updatedAt;
 
         return $this;
@@ -158,10 +185,7 @@ class BoArticle
      */
     public function getUpdatedAtAgo(): ?string
     {
-        if($this->updatedAt == null){
-            return null;
-        }
-        return Carbon::instance($this->updatedAt)->diffForHumans();
+        return $this->getHowLongAgo($this->updatedAt);
     }
 
     public function getIntroduction(): ?string
@@ -205,7 +229,7 @@ class BoArticle
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
 
@@ -234,5 +258,101 @@ class BoArticle
         $this->category = $category;
 
         return $this;
+    }
+
+    public function getVisibleBy(): ?int
+    {
+        return $this->visibleBy;
+    }
+
+    public function setVisibleBy(int $visibleBy): self
+    {
+        $this->visibleBy = $visibleBy;
+
+        return $this;
+    }
+
+    public function getFile1(): ?string
+    {
+        return $this->file1;
+    }
+
+    public function setFile1(?string $file1): self
+    {
+        $this->file1 = $file1;
+
+        return $this;
+    }
+
+    public function getFile2(): ?string
+    {
+        return $this->file2;
+    }
+
+    public function setFile2(?string $file2): self
+    {
+        $this->file2 = $file2;
+
+        return $this;
+    }
+
+    public function getFile3(): ?string
+    {
+        return $this->file3;
+    }
+
+    public function setFile3(?string $file3): self
+    {
+        $this->file3 = $file3;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     * @Groups({"visitor:read"})
+     */
+    public function getVisibleByString(): string
+    {
+        $values = ["Tout le monde", "Membres"];
+
+        return $values[$this->visibleBy];
+    }
+
+
+    /**
+     * @return string
+     * @Groups({"visitor:read"})
+     */
+    public function getFileFile(): string
+    {
+        return $this->file ? "/" . self::FOLDER_ARTICLES ."/" . $this->file : "https://robohash.org/" . $this->id . "?size=64x64";
+    }
+
+    /**
+     * @return string
+     * @Groups({"visitor:read"})
+     */
+    public function getFile1File(): ?string
+    {
+        return $this->file1 ? "/" . self::FOLDER_ARTICLES ."/" . $this->file1 : null;
+    }
+
+    /**
+     * @return string
+     * @Groups({"visitor:read"})
+     */
+    public function getFile2File(): ?string
+    {
+        return $this->file2 ? "/" . self::FOLDER_ARTICLES ."/" . $this->file2 : null;
+    }
+
+    /**
+     * @return string
+     * @Groups({"visitor:read"})
+     */
+    public function getFile3File(): ?string
+    {
+        return $this->file3 ? "/" . self::FOLDER_ARTICLES ."/" . $this->file3 : null;
     }
 }

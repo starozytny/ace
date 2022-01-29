@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Blog\BoArticle;
+use App\Entity\User;
+use App\Repository\Blog\BoArticleRepository;
 use App\Entity\Ace\AcAtelier;
 use App\Entity\Ace\AcService;
 use App\Entity\Ace\AcTestimonial;
@@ -97,6 +100,29 @@ class AppController extends AbstractController
     public function contact($subject, $atelier): Response
     {
         return $this->render('app/pages/contact/index.html.twig', ['subject' => $subject, 'atelier' => $atelier]);
+    }
+
+    /**
+     * @Route("/actualites", name="app_blog")
+     */
+    public function blog(BoArticleRepository $repository, SerializerInterface $serializer): Response
+    {
+        $objs = $repository->findBy(['isPublished' => true, "visibleBy" => BoArticle::VISIBILITY_ALL], ["createdAt" => "ASC", "updatedAt" => "ASC"]);
+        $objs = $serializer->serialize($objs, 'json', ['groups' => User::VISITOR_READ]);
+
+        return $this->render('app/pages/blog/index.html.twig',  [
+            'donnees' => $objs
+        ]);
+    }
+
+    /**
+     * @Route("/actualites/{slug}", options={"expose"=true}, name="app_blog_read")
+     */
+    public function readBlog(BoArticle $obj): Response
+    {
+        return $this->render('app/pages/blog/read.html.twig',  [
+            'elem' => $obj
+        ]);
     }
 
     /**

@@ -2,14 +2,12 @@
 
 namespace App\Controller\Api\Blog;
 
-use App\Entity\Blog\BoArticle;
 use App\Entity\Blog\BoCategory;
 use App\Entity\User;
-use App\Repository\Blog\BoArticleRepository;
 use App\Service\ApiResponse;
-use App\Service\FileUploader;
-use App\Service\SanitizeData;
+use App\Service\Data\Blog\DataBlog;
 use App\Service\ValidatorService;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,14 +15,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /**
  * @Route("/api/blog", name="api_blog_categories_")
  */
 class CategoryController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * Get array of categories
      *
@@ -42,22 +45,30 @@ class CategoryController extends AbstractController
      */
     public function index(Request $request, ApiResponse $apiResponse): JsonResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $order = $request->query->get('order') ?: 'ASC';
         $categories = $em->getRepository(BoCategory::class)->findBy([], ['name' => $order]);
 
         return $apiResponse->apiJsonResponse($categories, User::VISITOR_READ);
     }
 
-    public function setCategory(BoCategory $category, $request): BoCategory
+    public function submitForm($type, BoCategory $category, Request $request, ApiResponse $apiResponse,
+                               ValidatorService $validator, DataBlog $dataEntity): JsonResponse
     {
-        $name = $request->get('name');
-        $slug = new AsciiSlugger();
+        $em = $this->doctrine->getManager();
+        $data = json_decode($request->getContent());
 
-        $category->setName(trim($name));
-        $category->setSlug($slug->slug(trim($name)));
+        $category = $dataEntity->setDataCategory($category, $data);
 
-        return $category;
+        $noErrors = $validator->validate($category);
+        if ($noErrors !== true) {
+            return $apiResponse->apiJsonResponseValidationFailed($noErrors);
+        }
+
+        $em->persist($category);
+        $em->flush();
+
+        return $apiResponse->apiJsonResponse($category, User::VISITOR_READ);
     }
 
     /**
@@ -87,30 +98,20 @@ class CategoryController extends AbstractController
      * @param Request $request
      * @param ValidatorService $validator
      * @param ApiResponse $apiResponse
+     * @param DataBlog $dataEntity
      * @return JsonResponse
      */
-    public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse): JsonResponse
+    public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse, DataBlog $dataEntity): JsonResponse
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $category = $this->setCategory(new BoCategory(), $request);
-
-        $noErrors = $validator->validate($category);
-        if ($noErrors !== true) {
-            return $apiResponse->apiJsonResponseValidationFailed($noErrors);
-        }
-
-        $em->persist($category);
-        $em->flush();
-        return $apiResponse->apiJsonResponse($category, User::VISITOR_READ);
+        return $this->submitForm("create", new BoCategory(), $request, $apiResponse, $validator, $dataEntity);
     }
 
     /**
-     * Update an category
+     * Admin - Update a category
      *
      * @Security("is_granted('ROLE_ADMIN')")
      *
-     * @Route("/categories/{id}", name="update", options={"expose"=true}, methods={"POST"})
+     * @Route("/categories/{id}", name="update", options={"expose"=true}, methods={"PUT"})
      *
      * @OA\Response(
      *     response=200,
@@ -132,25 +133,16 @@ class CategoryController extends AbstractController
      *
      * @OA\Tag(name="Articles")
      *
+     * @param BoCategory $obj
      * @param Request $request
      * @param ValidatorService $validator
      * @param ApiResponse $apiResponse
-     * @param BoCategory $category
+     * @param DataBlog $dataEntity
      * @return JsonResponse
      */
-    public function update(Request $request, ValidatorService $validator, ApiResponse $apiResponse, BoCategory $category): JsonResponse
+    public function update(BoCategory $obj, Request $request, ValidatorService $validator, ApiResponse $apiResponse, DataBlog $dataEntity): JsonResponse
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $category = $this->setCategory($category, $request);
-
-        $noErrors = $validator->validate($category);
-        if ($noErrors !== true) {
-            return $apiResponse->apiJsonResponseValidationFailed($noErrors);
-        }
-
-        $em->flush();
-        return $apiResponse->apiJsonResponse($category, User::VISITOR_READ);
+        return $this->submitForm("update", $obj, $request, $apiResponse, $validator, $dataEntity);
     }
 
     private function canDeleteCategory($em, BoCategory $category): bool
@@ -171,7 +163,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * Admin - Delete an category
+     * Admin - Delete a category
      *
      * @Security("is_granted('ROLE_ADMIN')")
      *
@@ -194,7 +186,7 @@ class CategoryController extends AbstractController
      */
     public function delete(ApiResponse $apiResponse, BoCategory $category): JsonResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         if($this->canDeleteCategory($em, $category)){
             $em->remove($category);
@@ -230,7 +222,7 @@ class CategoryController extends AbstractController
      */
     public function deleteGroup(Request $request, ApiResponse $apiResponse): JsonResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $data = json_decode($request->getContent());
 
         $categories = $em->getRepository(BoCategory::class)->findBy(['id' => $data]);

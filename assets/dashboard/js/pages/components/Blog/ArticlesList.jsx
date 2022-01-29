@@ -24,20 +24,20 @@ export class ArticlesList extends Component {
                 </div>
 
                 <div className="items-table">
-                    <div className="items items-default items-user">
+                    <div className="items items-default">
                         {data && data.length !== 0 ? data.map(elem => {
                             return <ArticlesItem {...this.props} elem={elem} key={elem.id}/>
                         }) : <Alert>Aucun résultat</Alert>}
                     </div>
                 </div>
 
-                <div className="page-actions">
+                {data && data.length !== 0 && <div className="page-actions">
                     <div className="selectors-actions">
                         <div className="item" onClick={onDeleteAll}>
                             <ButtonIcon icon="trash" text="Supprimer la sélection" />
                         </div>
                     </div>
-                </div>
+                </div>}
 
             </div>
         </>
