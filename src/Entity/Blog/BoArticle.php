@@ -5,7 +5,6 @@ namespace App\Entity\Blog;
 use App\Entity\DataEntity;
 use App\Repository\Blog\BoArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -50,6 +49,12 @@ class BoArticle extends DataEntity
      * @Groups({"visitor:read", "admin:write"})
      */
     private $file;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"visitor:read", "admin:write"})
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="boolean")
@@ -216,6 +221,17 @@ class BoArticle extends DataEntity
         return $this;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
 
     public function getIsPublished(): ?bool
     {
