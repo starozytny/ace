@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=BoArticleRepository::class)
  * @UniqueEntity(fields={"title"})
+ * @UniqueEntity(fields={"slug"})
  */
 class BoArticle extends DataEntity
 {
@@ -52,7 +53,7 @@ class BoArticle extends DataEntity
     private $file;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      * @Gedmo\Slug(updatable=true, fields={"title"})
      * @Groups({"visitor:read", "admin:write"})
      */
