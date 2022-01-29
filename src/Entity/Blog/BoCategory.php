@@ -29,7 +29,8 @@ class BoCategory
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
+     * @Gedmo\Slug(updatable=true, fields={"name"})
      * @Groups({"visitor:read"})
      */
     private $slug;
