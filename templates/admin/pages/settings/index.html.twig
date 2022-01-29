@@ -8,7 +8,9 @@
 {% endblock %}
 
 {% block main_content %}
-    <div id="settings"></div>
+    <div id="settings">
+        {% include "dashboard/layout/components/spinner.html.twig" %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}

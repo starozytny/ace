@@ -19,23 +19,28 @@ export class Menu extends Component {
         let tab = location.pathname.split("/");
         tab = tab.filter(elem => elem !== "");
 
+        let find = false;
         tab.forEach(element => {
             JSON.parse(menu).forEach(el => {
                 if(el.dropdown && el.dropdown === true){
                     el.items.forEach(elem => {
                         if(element === elem.name){
+                            find = true;
                             this.setState({active: element})
                         }
                     })
                 }else{
                     if(element === el.name){
+                        find = true;
                         this.setState({active: element})
                     }
                 }
-
             })
-
         });
+
+        if(!find){
+            this.setState({active: 'accueil'})
+        }
     }
 
     handleOpenMenu = () => {

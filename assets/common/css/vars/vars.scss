@@ -1,0 +1,58 @@
+@mixin flex($direction: row, $align: center, $justify: center) {
+  display: flex;flex-direction: $direction;
+  align-items: $align;justify-content: $justify;
+}
+
+@mixin maxscreen(){
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@mixin scrollbar(){
+  /* width */
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: var(--fondScroll);
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
+@mixin toolbarCreateSearch($width: 170){
+  .toolbar{
+    .filter-search{
+      width: 100%;
+
+      .search{
+        width: 100%;
+      }
+      input[type="search"]{
+        border-radius: 4px;
+      }
+    }
+  }
+  @media (min-width:768px) {
+    .toolbar{
+      .create{
+        width: #{$width}px;
+      }
+      .filter-search{
+        width: calc(100% - #{$width}px - 24px);
+      }
+    }
+  }
+}

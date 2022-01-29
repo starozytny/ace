@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Ace\AcAtelier;
-use App\Entity\Ace\AcService;
-use App\Entity\Ace\AcTestimonial;
 use App\Entity\Blog\BoArticle;
 use App\Entity\User;
+use App\Repository\Ace\AcAtelierRepository;
+use App\Repository\Ace\AcServiceRepository;
+use App\Repository\Ace\AcTestimonialRepository;
+use App\Repository\Blog\BoArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -18,24 +19,21 @@ class AppController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function index(SerializerInterface $serializer): Response
+    public function index(BoArticleRepository $articleRepository, AcTestimonialRepository $testimonialRepository, SerializerInterface $serializer): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $articles = $em->getRepository(BoArticle::class)->findBy([], ['createdAt' => 'ASC']);
+        $articles = $articleRepository->findBy(['isPublished' => true, "visibleBy" => BoArticle::VISIBILITY_ALL], ["createdAt" => "ASC", "updatedAt" => "ASC"]);
 
-        $articles = $em->getRepository(BoArticle::class)->findBy([], ['createdAt' => 'ASC']);
-
-        $temoignagesAll = $em->getRepository(AcTestimonial::class)->findAll();
+        $temoignagesAll = $testimonialRepository->findAll();
         $temoignages = [];
         $temoignages2 = [];
         $temoignages3 = [];
         for($i=0; $i<count($temoignagesAll) ; $i++){
             if($i < 3){
-                array_push($temoignages, $temoignagesAll[$i]);
-            }else if($i >= 3 && $i < 6){
-                array_push($temoignages2, $temoignagesAll[$i]);
-            }else if($i >= 6 && $i < 9){
-                array_push($temoignages3, $temoignagesAll[$i]);
+                $temoignages[] = $temoignagesAll[$i];
+            }else if($i < 6){
+                $temoignages2[] = $temoignagesAll[$i];
+            }else if($i < 9){
+                $temoignages3[] = $temoignagesAll[$i];
             }
         }
 
@@ -102,10 +100,9 @@ class AppController extends AbstractController
     /**
      * @Route("/services/{slug}", name="app_services")
      */
-    public function service($slug): Response
+    public function service(AcServiceRepository $serviceRepository, $slug): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $service = $em->getRepository(AcService::class)->findOneBy(['slug' => $slug]);
+        $service = $serviceRepository->findOneBy(['slug' => $slug]);
         return $this->render('app/pages/services/index.html.twig', [
             'service' => $service
         ]);
@@ -114,10 +111,9 @@ class AppController extends AbstractController
     /**
      * @Route("/ateliers", name="app_ateliers")
      */
-    public function ateliers(): Response
+    public function ateliers(AcAtelierRepository $atelierRepository): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $ateliers = $em->getRepository(AcAtelier::class)->findAll();
+        $ateliers = $atelierRepository->findAll();
         return $this->render('app/pages/ateliers/index.html.twig', [
             'ateliers' => $ateliers
         ]);
@@ -126,18 +122,22 @@ class AppController extends AbstractController
     /**
      * @Route("/actualites", name="app_actualites")
      */
-    public function actualites(): Response
+    public function actualites(BoArticleRepository $repository, SerializerInterface $serializer): Response
     {
-        return $this->render('app/pages/actualites/index.html.twig');
+        $objs = $repository->findBy(['isPublished' => true, "visibleBy" => BoArticle::VISIBILITY_ALL], ["createdAt" => "ASC", "updatedAt" => "ASC"]);
+        $objs = $serializer->serialize($objs, 'json', ['groups' => User::VISITOR_READ]);
+
+        return $this->render('app/pages/actualites/index.html.twig', [
+            'donnees' => $objs
+        ]);
     }
 
     /**
      * @Route("/actualites/article/{slug}", options={"expose"=true}, name="app_article")
      */
-    public function article($slug): Response
+    public function article(BoArticleRepository $articleRepository, $slug): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository(BoArticle::class)->findOneBy(['slug' => $slug]);
+        $article = $articleRepository->findOneBy(['slug' => $slug]);
         if(!$article){
             throw new NotFoundHttpException();
         }

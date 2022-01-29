@@ -13,7 +13,7 @@ export class AteliersItem extends Component {
             <div className="item-content">
                 <div className="item-body">
                     <div className="avatar">
-                        <img src={location.origin + `/ateliers/${elem.file}`} alt={`Illustration de ${elem.name}`}/>
+                        <img src={elem.fileFile ? elem.fileFile : "https://via.placeholder.com/150"} alt={`Illustration de ${elem.name}`}/>
                     </div>
                     <div className="infos">
                         <div>

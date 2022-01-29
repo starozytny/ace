@@ -27,7 +27,7 @@ export class StyleguideAside extends Component {
                     <Button type="default" onClick={this.handleOpen}>Test Aside</Button>
                 </div>
 
-                <Aside ref={this.aside}>Test titre aside</Aside>
+                <Aside ref={this.aside} content={content}>Test titre aside</Aside>
             </section>
         )
     }

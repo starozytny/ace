@@ -1,66 +1,5 @@
 @import "../vars/vars";
 
-.toolbar{
-  .dropdown-items{
-    .item{
-      @include flex(row, flex-start, flex-start);
-
-      input{
-        width: 16px;
-        margin-right: 4px;
-        cursor: pointer;
-      }
-
-      label{
-        cursor: pointer;
-      }
-    }
-  }
-
-  .filters-items-checked {
-    & > .item{
-      position: relative;
-      transition: all 0.2s ease-in-out;
-
-      input{
-        display: none;
-      }
-
-      label{
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-      }
-
-      [class^="icon-"]{
-        display: inline-block;
-        font-size: 8px;
-        padding-left: 8px;
-        font-weight: 600;
-        cursor: var(--danger);
-      }
-
-      &:before{
-        content: '';
-        position: absolute;
-        top: 10px; left: 0;
-        display: block;
-        width: 0;
-        height: 1px;
-        background: var(--grey);
-        transition: all 0.2s ease-in-out;
-      }
-
-      &:hover{
-        opacity: 0.7;
-
-        &:before{
-          width: 100%;
-        }
-      }
-    }
-  }
-}
-
 .items-table {
 
   & > .items > .item{
@@ -165,22 +104,13 @@
     width: 100%;
   }
 
-  .role{
-    display: inline-block;
-    padding: 4px 8px;
-    background: var(--primaryShadow);
-    border-radius: 4px;
-    font-size: 12px;
-    opacity: 0.5;
-    margin-top: 4px;
-  }
-
   img{
-    width: 64px; height: 64px;
+    object-fit: cover;
   }
 
   .role-time{
     background-color: var(--fondContent);
+    color: var(--txt);
   }
 
   .actions{

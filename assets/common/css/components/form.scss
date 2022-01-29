@@ -12,13 +12,32 @@
   }
 
   h2{
-    margin-bottom: 8px;
+    margin-bottom: 24px;
   }
 
   .form-infos{
     opacity: 0.7;
     max-width: 414px;
     margin-bottom: 24px;
+  }
+
+  .line-separator{
+    margin-top: 12px;
+    width: 100%;
+
+    .title{
+      margin-top: 12px;
+      margin-bottom: 12px;
+      background-color: var(--fondContent);
+      padding: 12px;
+      @include fontSemibold();
+      text-transform: uppercase;
+      width: calc(100% - 24px);
+    }
+  }
+
+  .line-buttons{
+    margin-top: 24px;
   }
 }
 
@@ -45,6 +64,7 @@
 
   .react-selectize.default.root-node{
     width: 100%;
+    @include fontRegular();
 
     &:not(.open){
       .react-selectize-control{
@@ -52,7 +72,7 @@
         border: 1px solid var(--grey);
 
         .react-selectize-placeholder{
-
+          color: var(--grey2);
         }
       }
     }
@@ -62,9 +82,13 @@
 .line{
   @include flex(column, stretch, flex-start);
   width: 100%;
-  margin-bottom: 16px;
 
-  & > .form-group:not(:last-child){
+  &:not(:last-child){
+    margin-bottom: 4px;
+  }
+
+  & > .form-files,
+  & > .form-group{
     margin-bottom: 8px;
   }
 
@@ -94,15 +118,23 @@ input, textarea, select{
   font-size: 14px;
   width: calc(100% - 20px);
   outline: none;
+  background-color: var(--alpha);
+  color: var(--txt);
 
   &:focus{
-    border: 1px solid var(--grey2);
+    border: 1px solid var(--txt);
   }
 }
 
 select{
   padding: 6.5px 10px;
   width: 100%;
+}
+.react-selectize{
+  color: var(--txt);
+}
+.trumbowyg-box, .trumbowyg-editor{
+  margin-bottom: 0 !important;
 }
 
 // **************************************
@@ -126,6 +158,7 @@ select{
       border-radius: 100px;
       background-color: var(--grey);
       transition: all 0.2s ease-in-out;
+      cursor: pointer;
 
       span{
         opacity: 0;
@@ -191,12 +224,13 @@ select{
 
   &.checked > label{
     border: 1px solid var(--primary);
-    background-color: var(--primaryShadow);
-    color: var(--beta);
+    background-color: var(--alpha);
+    color: var(--primary);
     opacity: 1;
 
     &:hover{
       background-color: var(--fond);
+      border-style: dashed;
     }
   }
 
@@ -210,7 +244,6 @@ select{
 
     &:hover{
       opacity: 1;
-      color: var(--txt);
       border-color: var(--txt);
     }
   }
@@ -223,8 +256,9 @@ select{
 .radiobox-item{
   &.checked > label{
     &:hover{
-      background-color: var(--primaryShadow);
+      background-color: var(--alpha);
       border-color: var(--primary);
+      border-style: solid;
     }
   }
 }
@@ -337,6 +371,10 @@ select{
   }
 }
 
+.trumbowyg-box, .trumbowyg-editor{
+  margin-top: 0 !important;
+}
+
 // **************************************
 // ERROR
 // STYLE
@@ -347,10 +385,10 @@ select{
     color: var(--error);
   }
   input, textarea, select,
-    .react-selectize.default.root-node .react-selectize-control .react-selectize-placeholder,
-    .react-selectize.default.root-node:not(.open) .react-selectize-control,
-    .simple-select.react-selectize.default.root-node.open .react-selectize-control,
-    .trumbowyg-box, .trumbowyg-editor,
+  .react-selectize.default.root-node .react-selectize-control .react-selectize-placeholder,
+  .react-selectize.default.root-node:not(.open) .react-selectize-control,
+  .simple-select.react-selectize.default.root-node.open .react-selectize-control,
+  .trumbowyg-box, .trumbowyg-editor,
   {
     border-color: var(--error);
     color: var(--error);
@@ -403,7 +441,42 @@ select{
 .form{
   .password-rules{
     font-size: 14px;
-    opacity: 0.7;
+    opacity: 0.8;
+  }
+}
+
+.multi-select.react-selectize.default.root-node .simple-value{
+  border-radius: 4px;
+
+  [class^="icon-"]{
+    font-size: 10px;
+    transform: translate(2px, -1px);
+  }
+
+  span{
+    padding: 3px 4px 2px 4px;
+  }
+}
+
+// **************************************
+// DARK-MODE
+// STYLE
+// **************************************
+.dark-mode{
+  input, textarea, select {
+    background-color: var(--alpha);
+    color: var(--txt);
+  }
+  .react-selectize.default.root-node {
+    &:not(.open) {
+      .react-selectize-control {
+        background: var(--alpha);
+      }
+
+      .react-selectize-placeholder{
+        color: var(--grey);
+      }
+    }
   }
 }
 
@@ -415,25 +488,36 @@ select{
 //                     | |   /_/  \___/ \___/   | |
 //                     |__|                    |__|
 @media (min-width:768px) {
+  .line{
+    &.line-2, &.line-3, &.line-4, &.line-infinite{
+      flex-direction: row;
+    }
+  }
   .line.line-2{
-    flex-direction: row;
-
     & > .form-group:first-child{
-      margin-right: 10px;
+      margin-right: 6px;
       width: 50%;
     }
     & > .form-group:last-child{
-      margin-left: 10px;
+      margin-left: 6px;
       width: 50%;
     }
   }
 
   .line.line-3{
-    flex-direction: row;
-
     & > .form-group{
       width: 33%;
     }
+    & > .form-group:not(:last-child){
+      margin-right: 12px;
+    }
+  }
+
+  .line.line-4{
+    & > .form-group{
+      width: 25%;
+    }
+
     & > .form-group:not(:last-child){
       margin-right: 12px;
     }
@@ -460,8 +544,18 @@ select{
       margin-right: 12px;
     }
   }
+}
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
 
 }
+
 //                      __   _ ____  ___   ___    __
 //                     | _| / |___ \( _ ) / _ \  |_ |
 //    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
@@ -471,5 +565,40 @@ select{
 @media (min-width:1280px) {
   .form {
     padding: 24px;
+  }
+
+  .line.line-2{
+    & > .form-group:first-child{
+      margin-right: 12px;
+    }
+    & > .form-group:last-child{
+      margin-left: 12px;
+    }
+  }
+
+  .line.line-3,
+  .line.line-4{
+    & > .form-group:not(:last-child){
+      margin-right: 24px;
+    }
+  }
+
+  .form-button{
+    & > *:not(:last-child){
+      margin-right: 24px;
+    }
+  }
+}
+
+//                      __   _  __    ___   ___    __
+//                     | _| / |/ /_  / _ \ / _ \  |_ |
+//    _____ _____ _____| |  | | '_ \| | | | | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | | (_) | |_| | |_| |  | |_____|_____|_____|
+//                     | |  |_|\___/ \___/ \___/   | |
+//                     |__|                       |__|
+@media (min-width: 1600px){
+  .form .password-rules,
+  .form-group-error .error{
+    font-size: 15px;
   }
 }

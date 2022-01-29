@@ -1,0 +1,92 @@
+header{
+  padding: 12px;
+  background-color: var(--fond);
+
+  .header-container{
+    position: relative;
+    @include flex(row, center, flex-end);
+    flex-wrap: wrap;
+    margin: 12px 0;
+
+    .header-name{
+      @include flex(row, center, flex-end);
+      width: 100%;
+      margin-top: 12px;
+
+      img{
+        width: 42px; height: 42px;
+        border-radius: 50px;
+        box-shadow: 0 2px 6px var(--greyShadow);
+        background-color: var(--fondContent);
+        margin-left: 12px;
+        transform: translateY(-2px);
+      }
+    }
+
+    .profil{
+      @include flex(column, flex-start, flex-start);
+
+      & > span:first-child{
+        @include fontSemibold();
+      }
+    }
+
+    .logout{
+      opacity: 0.6;
+      color: var(--txt);
+
+      &:hover{
+        opacity: 1;
+      }
+    }
+  }
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  header{
+    .header-container{
+      .header-name {
+        width: auto;
+      }
+      a{
+        span:last-child{
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
+  header{
+    padding: 12px 24px;
+  }
+}
+
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+  header{
+    padding: 32px;
+
+    .header-container{
+      @include maxscreen();
+    }
+  }
+}

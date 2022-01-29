@@ -8,7 +8,7 @@ import { Alert }               from "@dashboardComponents/Tools/Alert";
 import { Button }              from "@dashboardComponents/Tools/Button";
 import { FormLayout }          from "@dashboardComponents/Layout/Elements";
 
-import Validateur              from "@dashboardComponents/functions/validateur";
+import Validateur              from "@commonComponents/functions/validateur";
 import Formulaire              from "@dashboardComponents/functions/Formulaire";
 
 export function TestimonialFormulaire ({ type, onChangeContext, onUpdateList, element })

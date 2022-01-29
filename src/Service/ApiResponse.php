@@ -15,6 +15,7 @@ class ApiResponse
     {
         $this->serializer = $serializer;
     }
+
     public function apiJsonResponse($data, $groups = [], $code = 200): JsonResponse
     {
         $data = $this->serializer->serialize($data, "json", ['groups' => $groups]);
@@ -24,6 +25,16 @@ class ApiResponse
         $response->setStatusCode($code);
 
         return $response;
+    }
+
+    public function apiJsonResponseData($data, $code = 200): JsonResponse
+    {
+        return new JsonResponse(['data' => $data], $code);
+    }
+
+    public function apiJsonResponseCustom($data, $code = 200): JsonResponse
+    {
+        return new JsonResponse($data, $code);
     }
 
     public function apiJsonResponseSuccessful($message): JsonResponse

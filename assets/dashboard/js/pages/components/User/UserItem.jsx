@@ -7,18 +7,14 @@ import { Selector }     from "@dashboardComponents/Layout/Selector";
 
 export class UserItem extends Component {
     render () {
-        const { elem, onChangeContext, onDelete, onSelectors } = this.props
+        const { developer, elem, onChangeContext, onDelete, onSelectors } = this.props
 
-        let url = Routing.generate('user_homepage', {'_switch_user' : elem.username})
-
+        let routeName = 'user_homepage'
         if(elem.highRoleCode === 2){
-            url = Routing.generate('admin_homepage', {'_switch_user' : elem.username})
+            routeName = 'admin_homepage'
         }
 
-        let avatar = `https://robohash.org/${elem.username}?size=64x64`;
-        if(elem.avatar){
-            avatar = "/avatars/" + elem.avatar;
-        }
+        let url = Routing.generate(routeName, {'_switch_user' : elem.username})
 
         return <div className="item">
             <Selector id={elem.id} onSelectors={onSelectors} />
@@ -26,7 +22,7 @@ export class UserItem extends Component {
             <div className="item-content">
                 <div className="item-body item-body-image">
                     <div className="item-image" onClick={() => onChangeContext('read', elem)}>
-                        <img src={avatar} alt={`Avatar de ${elem.username}`}/>
+                        <img src={elem.avatarFile} alt={`Avatar de ${elem.username}`}/>
                     </div>
                     <div className="infos infos-col-3">
                         <div className="col-1">
@@ -34,7 +30,7 @@ export class UserItem extends Component {
                                 <span>{elem.lastname.toUpperCase()} {elem.firstname}</span>
                                 {elem.highRoleCode !== 0 && <span className="role">{elem.highRole}</span>}
                             </div>
-                            {elem.lastLoginAgo && <div className="sub">Connecté {elem.lastLoginAgo}</div>}
+                            {elem.highRoleCode !== 1 && elem.lastLoginAgo && <div className="sub">Connecté {elem.lastLoginAgo}</div>}
                         </div>
                         <div className="col-2">
                             <div className="sub sub-username">{elem.username}</div>
@@ -46,7 +42,7 @@ export class UserItem extends Component {
                                 <ButtonIcon icon="vision" onClick={() => onChangeContext("read", elem)}>Profil</ButtonIcon>
                                 <ButtonIcon icon="pencil" onClick={() => onChangeContext("update", elem)}>Modifier</ButtonIcon>
                                 <ButtonIcon icon="trash" onClick={() => onDelete(elem)}>Supprimer</ButtonIcon>
-                                <ButtonIcon icon="share" element="a" target="_blank" onClick={url}>Imiter</ButtonIcon>
+                                {developer === 1 && <ButtonIcon icon="share" element="a" target="_blank" onClick={url}>Imiter</ButtonIcon>}
                             </>
                             }
                         </div>

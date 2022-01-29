@@ -6,6 +6,7 @@ namespace App\Service\Data;
 
 use App\Entity\User;
 use App\Service\ApiResponse;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -26,6 +27,24 @@ class DataService
 
         $this->em->flush();
         return $this->apiResponse->apiJsonResponse($obj, $groups);
+    }
+
+    public function switchIsPublished($obj, $groups = User::ADMIN_READ): JsonResponse
+    {
+        $obj->setIsPublished(!$obj->getIsPublished());
+
+        $this->em->flush();
+        return $this->apiResponse->apiJsonResponse($obj, $groups);
+    }
+
+    public function deleteWithImg($obj, $img, FileUploader $fileUploader, $folder): JsonResponse
+    {
+        $this->em->remove($obj);
+        $this->em->flush();
+
+        $fileUploader->deleteFile($img, $folder);
+
+        return $this->apiResponse->apiJsonResponseSuccessful("Supression réussie !");
     }
 
     public function delete($obj, $isSeen = false, $messageError = "Vous n'avez pas lu ce message."): JsonResponse
@@ -61,7 +80,7 @@ class DataService
         return $this->apiResponse->apiJsonResponseSuccessful("Supression de la sélection réussie !");
     }
 
-    public function createDateTimezoneEurope($timezone="Europe/Paris"): \DateTime
+    public function createDate($timezone="Europe/Paris"): \DateTime
     {
         $date = new \DateTime();
         $date->setTimezone(new \DateTimeZone($timezone));

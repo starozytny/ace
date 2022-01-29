@@ -2,43 +2,11 @@
 @import "~toastr";
 @import "~react-selectize/dist/index.min.css";
 
+@import "../../common/css/color";
+
 :root{
-    --primary: #109cf1;
-    --primaryNuance0: #f8fafc;
-    --primaryNuance1: #d8eafc;
-    --danger: #f7685b;
-    --error: #ff5444;
-    --warning: #fdad2d;
-    --success: #2ed47a;
-    --grey: #c7c7c7;
-    --grey2: #929292;
-
-    --primaryShadow: rgba(16, 156, 241, 0.4);
-    --primaryShadow2: rgba(16, 156, 241, 0.1);
-    --dangerShadow: rgba(247, 104, 91, 0.4);
-    --dangerShadow2: rgba(247, 104, 91, 0.1);
-    --dangerFondError: rgba(247, 104, 91, 0.05);
-    --warningShadow: rgba(255, 185, 70, 0.4);
-    --warningShadow2: rgba(255, 185, 70, 0.1);
-    --successShadow: rgba(46, 212, 122, 0.4);
-    --successShadow2: rgba(46, 212, 122, 0.1);
-    --greyShadow: rgba(199,199,199, 0.2);
-    --greyShadow2: rgba(199,199,199, 0.1);
-
-    --overlay: rgba(14, 14, 14, 0.5);
-
-    --alpha: #fff;
-    --beta: #000;
-
-    --tableBlack: #323C47;
-    --tableGray: #707683;
-
+    --color0: #a9aac9;
     --txtBlue: #334D6E;
-    --txt: #101010;
-
-    --fond: #e8e8e8;
-    --fondContent: #f6f6f6;
-    --fondMenu: #212121;
 }
 
 @import "vars/fonts";
@@ -48,6 +16,7 @@
 @import "components/header";
 @import "components/footer";
 
+@import "components/spinner";
 @import "components/page";
 @import "components/submenu";
 @import "components/loader";
@@ -68,6 +37,12 @@
 @import "components/cookies";
 @import "components/notifications";
 @import "components/toastr-custom";
+@import "components/progress";
+@import "components/filter";
+@import "components/accordion";
+@import "components/button-dropdown";
+@import "components/helpBubble";
+@import "components/theme";
 
 html, body{
     scroll-behavior: smooth;

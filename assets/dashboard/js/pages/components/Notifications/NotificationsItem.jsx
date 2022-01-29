@@ -17,10 +17,10 @@ export class NotificationsItem extends Component {
                     </div>
                     <div className="infos">
                         <div onClick={() => onSeen(elem)}>
-                            <div className="name">
+                            <a className="name" href={elem.url}>
                                 {!elem.isSeen && <span className="toSee" />}
                                 <span>{elem.name}</span>
-                            </div>
+                            </a>
                             <div className="sub">{elem.createdAtAgo}</div>
                         </div>
                         <div className="actions">

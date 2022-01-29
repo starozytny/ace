@@ -5,7 +5,7 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet/dist/leaflet";
 import "leaflet-ajax/dist/leaflet.ajax.min";
 
-import Map from "@dashboardComponents/functions/map";
+import Map from "@commonComponents/functions/map";
 
 export class StyleguideMaps extends Component{
     componentDidMount = () => {

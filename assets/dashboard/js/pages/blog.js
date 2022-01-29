@@ -12,10 +12,10 @@ Routing.setRoutingData(routes);
 
 let el = document.getElementById("blog");
 if(el){
-    render(<Articles />, el)
+    render(<Articles {...el.dataset}/>, el)
 }
 
 el = document.getElementById("blog-categories");
 if(el){
-    render(<Categories />, el)
+    render(<Categories {...el.dataset}/>, el)
 }

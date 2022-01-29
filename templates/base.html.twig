@@ -64,9 +64,8 @@
             })();
         </script>
         <!-- End Matomo Code -->
-        {% block javascripts %}{% endblock %}
     </head>
-<body>
+<body id="theme-body">
 
     {% if is_granted('IS_IMPERSONATOR') %}
         <div class="impersonate">
@@ -84,5 +83,6 @@
         {% block body %}{% endblock %}
     </div>
 
+    {% block javascripts %}{% endblock %}
 </body>
 </html>

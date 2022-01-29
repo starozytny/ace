@@ -31,8 +31,6 @@ class PhoneExtension extends AbstractExtension
         $d = substr($arg1,6,2);
         $e = substr($arg1,8,2);
 
-        $arg1 = $a . ' ' . $b . ' ' . $c . ' ' . $d . ' ' . $e;
-
-        return $arg1;
+        return $a . ' ' . $b . ' ' . $c . ' ' . $d . ' ' . $e;
     }
 }

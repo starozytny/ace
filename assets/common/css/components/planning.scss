@@ -1,0 +1,47 @@
+.days{
+  @include flex(row, center, flex-start);
+  overflow-x: auto;
+  border-bottom: 1px solid var(--fond);
+  padding-bottom: 24px;
+  margin-bottom: 12px;
+
+  .day:not(:last-child){
+    margin-right: 12px;
+  }
+
+  .day{
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-radius: 4px;
+
+    &:not(.active):hover{
+      transform: translateY(-5px);
+    }
+
+    &.active{
+      background: var(--primary);
+      color: var(--alpha);
+    }
+    &.disabled{
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      &:hover{
+        transform: none;
+      }
+    }
+  }
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .days{
+    justify-content: center;
+  }
+}

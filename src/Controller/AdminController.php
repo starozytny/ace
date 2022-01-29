@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Blog\BoArticle;
+use App\Entity\Blog\BoCategory;
 use App\Entity\Contact;
 use App\Entity\Notification;
 use App\Entity\Settings;
 use App\Entity\User;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,12 +21,35 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class AdminController extends AbstractController
 {
-    private function getAllData($classe, SerializerInterface $serializer): string
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
     {
-        $em = $this->getDoctrine()->getManager();
+        $this->doctrine = $doctrine;
+    }
+    
+    private function getAllData($classe, SerializerInterface $serializer, $groups = User::ADMIN_READ): string
+    {
+        $em = $this->doctrine->getManager();
         $objs = $em->getRepository($classe)->findAll();
 
-        return $serializer->serialize($objs, 'json', ['groups' => User::ADMIN_READ]);
+        return $serializer->serialize($objs, 'json', ['groups' => $groups]);
+    }
+
+    private function getRenderView(Request $request, SerializerInterface $serializer, $class, $route): Response
+    {
+        $objs = $this->getAllData($class, $serializer);
+        $search = $request->query->get('search');
+        if($search){
+            return $this->render($route, [
+                'donnees' => $objs,
+                'search' => $search
+            ]);
+        }
+
+        return $this->render($route, [
+            'donnees' => $objs
+        ]);
     }
 
     /**
@@ -31,7 +57,7 @@ class AdminController extends AbstractController
      */
     public function index(): Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $users = $em->getRepository(User::class)->findAll();
         $settings = $em->getRepository(Settings::class)->findAll();
 
@@ -70,29 +96,35 @@ class AdminController extends AbstractController
     /**
      * @Route("/utilisateurs", name="users_index")
      */
-    public function users(SerializerInterface $serializer): Response
+    public function users(Request $request, SerializerInterface $serializer): Response
     {
-        $objs = $this->getAllData(User::class, $serializer);
-
-        return $this->render('admin/pages/user/index.html.twig', [
-            'donnees' => $objs
-        ]);
+        return $this->getRenderView($request, $serializer, User::class, 'admin/pages/user/index.html.twig');
     }
 
     /**
      * @Route("/articles", name="blog_index")
      */
-    public function blog(): Response
+    public function blog(SerializerInterface $serializer): Response
     {
-        return $this->render('admin/pages/blog/index.html.twig');
+        $objs = $this->getAllData(BoArticle::class, $serializer, User::VISITOR_READ);
+        $categories = $this->getAllData(BoCategory::class, $serializer, User::VISITOR_READ);
+
+        return $this->render('admin/pages/blog/index.html.twig', [
+            'donnees' => $objs,
+            'categories' => $categories
+        ]);
     }
 
     /**
      * @Route("/articles/categories", name="blog_categories_index")
      */
-    public function categories(): Response
+    public function categories(SerializerInterface $serializer): Response
     {
-        return $this->render('admin/pages/blog/categories.html.twig');
+        $objs = $this->getAllData(BoCategory::class, $serializer, User::VISITOR_READ);
+
+        return $this->render('admin/pages/blog/categories.html.twig', [
+            'donnees' => $objs
+        ]);
     }
 
     /**
@@ -106,13 +138,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/contact", name="contact_index")
      */
-    public function contact(SerializerInterface $serializer): Response
+    public function contact(Request $request, SerializerInterface $serializer): Response
     {
-        $objs = $this->getAllData(Contact::class, $serializer);
-
-        return $this->render('admin/pages/contact/index.html.twig', [
-            'donnees' => $objs
-        ]);
+        return $this->getRenderView($request, $serializer, Contact::class, 'admin/pages/contact/index.html.twig');
     }
 
     /**

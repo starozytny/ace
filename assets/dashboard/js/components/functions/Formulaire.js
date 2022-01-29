@@ -1,7 +1,7 @@
 const axios       = require("axios");
 const toastr      = require("toastr");
 const Swal        = require("sweetalert2");
-const SwalOptions = require("@dashboardComponents/functions/swalOptions");
+const SwalOptions = require("@commonComponents/functions/swalOptions");
 const UpdateList  = require("@dashboardComponents/functions/updateList");
 
 function axiosGetData(self, url, sorter = null){
@@ -43,7 +43,9 @@ function axiosGetDataPagination(self, url, sorter = null, perPage=10){
 function updateData(self, sorter, newContext, context, data, element){
     let nContext = (newContext !== null) ? newContext : context;
     let newData = UpdateList.update(nContext, data, element);
-    newData.sort(sorter)
+    if(sorter){
+        newData.sort(sorter)
+    }
 
     self.setState({
         data: newData,
@@ -51,16 +53,26 @@ function updateData(self, sorter, newContext, context, data, element){
     })
 }
 
-function updateDataPagination(self, sorter, newContext, context, data, element, perPage=10){
+function updateDataPagination(sorter, newContext, context, data, element){
     let nContext = (newContext !== null) ? newContext : context;
     let newData = UpdateList.update(nContext, data, element);
-    newData.sort(sorter)
+    if(sorter){
+        newData.sort(sorter)
+    }
+
+    return newData;
+}
+
+function updatePerPage(self, sorter, data, perPage){
+    if(sorter) {
+        data.sort(sorter)
+    }
 
     self.setState({
-        dataImmuable: newData,
-        data: newData,
-        currentData: newData.slice(0,perPage),
-        element: element
+        data: data,
+        currentData: data.slice(0, perPage),
+        perPage: perPage,
+        sorter: sorter
     })
 }
 
@@ -90,7 +102,6 @@ function deleteElement(self, element, url, showLoader = true, showFire = true)
             self.handleUpdateList(element, "delete");
         })
         .catch(function (error) {
-            console.log(error)
             displayErrors(self, error, "Une erreur est survenue, veuillez contacter le support.")
         })
         .then(() => {
@@ -150,6 +161,16 @@ function axiosDeleteGroupElement(self, checked, url,
     }
 }
 
+function showErrors(self, validate, text="Veuillez vérifier les informations transmises.", toTop = true)
+{
+    if(toTop){
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+    toastr.warning(text);
+    self.setState({ errors: validate.errors });
+}
+
 function loader(status){
     let loader = document.querySelector('#loader');
     if(status){
@@ -173,6 +194,46 @@ function isSeen (self, element, url){
     }
 }
 
+function switchPublished (self, element, url, nameEntity=""){
+    axios({ method: "POST", url: url })
+        .then(function (response) {
+            let data = response.data;
+            self.handleUpdateList(data, "update");
+            toastr.info(nameEntity + (element.isPublished ? " hors ligne" : " en ligne"));
+        })
+        .catch(function (error) {
+            displayErrors(self, error);
+        })
+    ;
+}
+
+function switchFunction (self, elementValue, url, nameEntity="", txtOff=" hors ligne", txtOn=" en ligne"){
+    axios({ method: "POST", url: url })
+        .then(function (response) {
+            let data = response.data;
+            if(self.handleUpdateList){
+                self.handleUpdateList(data, "update");
+            }
+            toastr.info(nameEntity + (elementValue ? txtOff : txtOn));
+        })
+        .catch(function (error) {
+            displayErrors(self, error);
+        })
+    ;
+}
+
+function updateValueCheckbox(e, items, value){
+    return (e.currentTarget.checked) ? [...items, ...[value]] : items.filter(v => v !== value)
+}
+
+function setValueEmptyIfNull (value, defaultValue = "") {
+    return value === null ? defaultValue : value;
+}
+
+function setDateOrEmptyIfNull (value, defaultValue = "") {
+    return value ? new Date(value) : defaultValue;
+}
+
 module.exports = {
     loader,
     displayErrors,
@@ -183,5 +244,12 @@ module.exports = {
     updateData,
     updateDataPagination,
     deleteElement,
-    isSeen
+    isSeen,
+    switchPublished,
+    updateValueCheckbox,
+    updatePerPage,
+    showErrors,
+    switchFunction,
+    setValueEmptyIfNull,
+    setDateOrEmptyIfNull
 }

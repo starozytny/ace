@@ -1,21 +1,26 @@
-import React from "react";
-import { SimpleSelect } from 'react-selectize';
+import React, { Component } from "react";
+
+import { MultiSelect, SimpleSelect } from 'react-selectize';
 
 /***************************************
  * INPUT Classique
  ***************************************/
 export function Input (props) {
-    const { type="text", identifiant, valeur, onChange, children, placeholder, min="", max="" } = props;
+    const { type="text", identifiant, valeur, onChange, children, placeholder, min="", max="", step=1,
+        isMultiple=false, acceptFiles="" } = props;
 
     let content = <input type={type} name={identifiant} id={identifiant} placeholder={placeholder} value={valeur} onChange={onChange}/>
 
     if(type === "number"){
-        content = <input type={type} min={min} max={max} name={identifiant} id={identifiant} placeholder={placeholder} value={valeur} onChange={onChange}/>
+        content = <input type={type} min={min} max={max} step={step} name={identifiant} id={identifiant} placeholder={placeholder} value={valeur} onChange={onChange}/>
+    }
+
+    if(type === "file"){
+        content = <input type={type} multiple={isMultiple} name={identifiant} id={identifiant} accept={acceptFiles} onChange={onChange}/>
     }
 
     return (<ClassiqueStructure {...props} content={content} label={children} />)
 }
-
 /***************************************
  * TEXTAREA Classique
  ***************************************/
@@ -86,14 +91,15 @@ export function Radiobox(props) {
  * SELECT Classique
  ***************************************/
 export function Select(props) {
-    const { items, identifiant, valeur, onChange, children } = props;
+    const { items, identifiant, valeur, onChange, children, noEmpty=false } = props;
 
     let choices = items.map((item, index) =>
         <option key={index} value={item.value}>{item.label}</option>
     )
 
     let content = <select value={valeur} id={identifiant} name={identifiant} onChange={onChange}>
-        <option value="" />
+        {noEmpty ? null : <option value="" />}
+
         {choices}
     </select>
     return (<ClassiqueStructure {...props} content={content} label={children} />)
@@ -105,18 +111,56 @@ export function Select(props) {
 export function SelectReactSelectize(props) {
     const { items, identifiant, valeur, onChange, children, placeholder } = props;
 
-    let choices = items.map((item, index) =>
-        <option key={index} value={item.value}>{item.label}</option>
-    )
+    let defaultValeur = "";
+    let choices = items.map((item, index) => {
+        if(item.value === valeur){
+            defaultValeur = {value: item.value, label: item.label}
+        }
+        return <option key={index} value={item.value}>{item.label}</option>
+    })
 
     let content = <>
-        <SimpleSelect placeholder={placeholder} onValueChange={onChange}>
+        <SimpleSelect defaultValue={defaultValeur} placeholder={placeholder} onValueChange={onChange}>
             {choices}
         </SimpleSelect>
         <input type="hidden" name={identifiant} value={valeur}/>
     </>
 
     return (<ClassiqueStructure {...props} content={content} label={children} />)
+}
+
+export class SelectizeMultiple extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            items: props.items,
+            valeurs: props.valeur
+        }
+
+        this.handleUpdateValeurs = this.handleUpdateValeurs.bind(this);
+    }
+
+    handleUpdateValeurs = (valeurs) => { this.setState({ valeurs }) }
+
+    render () {
+        const { identifiant, onChangeAdd, onChangeDel, children, placeholder } = this.props;
+        const { items, valeurs } = this.state;
+
+        let content = <>
+            <MultiSelect defaultValues={valeurs} options={items} values={valeurs} placeholder={placeholder} onValuesChange={onChangeAdd}
+                         renderValue = {function(item){
+                             return <div className="simple-value" onClick={() => onChangeDel(item)}>
+                                 <span className="icon-cancel"/>
+                                 <span>{item.label}</span>
+                             </div>
+                         }}
+            />
+            <input type="hidden" name={identifiant} value={valeurs}/>
+        </>
+
+        return <ClassiqueStructure {...this.props} content={content} label={children} />
+    }
 }
 
 /***************************************

@@ -10,34 +10,23 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class DatabaseService
 {
-    private $entityManager;
+    private $em;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
+        $this->em = $entityManager;
     }
 
     public function resetTable(SymfonyStyle $io, $list)
     {
         foreach ($list as $item) {
-            $connection = $this->entityManager->getConnection();
-
-            $connection->beginTransaction();
-            try {
-                $connection->query('SET FOREIGN_KEY_CHECKS=0');
-                $connection->executeUpdate(
-                    $connection->getDatabasePlatform()->getTruncateTableSQL(
-                        $item, true
-                    )
-                );
-                $connection->query('SET FOREIGN_KEY_CHECKS=1');
-                $connection->commit();
-            } catch (DBALException $e) {
-                $io->error('Database reset [FAIL] : ' . $e);
+            $objs = $this->em->getRepository($item)->findAll();
+            foreach($objs as $obj){
+                $this->em->remove($obj);
             }
 
+            $this->em->flush();
         }
         $io->text('Reset [OK]');
-
     }
 }

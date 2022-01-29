@@ -8,7 +8,10 @@
 {% endblock %}
 
 {% block main_content %}
-    <div id="user" data-donnees="{{ donnees }}"></div>
+    <div id="user" data-donnees="{{ donnees }}"
+         data-developer="{{ app.user.highRoleCode }}" {% if search is defined %}data-search="{{ search }}"{% endif %}>
+        {% include "dashboard/layout/components/spinner.html.twig" %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}

@@ -1,6 +1,16 @@
 {% extends 'app/layout/layout.html.twig' %}
 
-{% block title %}A.C.E, Coach sportif, connectez vos rêves à la réalité | Valérie Ternay{% endblock %}
+{% block title %}A.C.E, Coach professionnelle, connectez vos rêves à la réalité | Valérie Ternay{% endblock %}
+
+{% block meta_description %}
+    Chacun d’entre nous mérite d’être guidé, encouragé et valorisé afin de trouver sa voie, un équilibre,
+    de s’épanouir quel que soit le domaine. J’ai donc à cœur de mettre à profit mon expérience, en vous accompagnant à partir de vos besoins
+    professionnels/personnels, de révéler vos talents et votre savoir-faire pour faciliter la
+    réalisation de vos objectifs.
+{% endblock %}
+{% block meta_keywords %}
+    coach toulouse, coach sportif toulouse, coach professionnelle, coach valerie, coach ternay, coach valerie toulouse
+{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -92,7 +102,7 @@
     </div>
 
     <div class="who">
-        <div class="who-container">
+        <div class="who-container" id="a-propos">
             <h2 data-aos="fade-in" class="who-title">Qui suis-je ?</h2>
             <div class="content" data-aos="fade-right">
                 <p>
@@ -108,7 +118,7 @@
                     <br><br>
                     Grâce à ce parcours riche et varié, j’ai pu constater maintes fois et encore à ce jour les ressources
                     et le potentiel dont chaque personne dispose sans en être consciente.
-                    <br>
+                    <br><br>
                     Aujourd’hui en tant que coach professionnelle, j’accompagne les managers/entrepreneurs notamment en
                     transition et évolution professionnelle, les étudiants dans leur cursus scolaire (orientation, gestion
                     de projets, soft skills) et les sportifs dans la préparation mentale de leur entrainement car le sport
@@ -116,6 +126,7 @@
                     <br><br>
                     Chacun d’entre nous mérite d’être guidé, encouragé et valorisé afin de trouver sa voie, un équilibre,
                     de s’épanouir quel que soit le domaine.
+                    <br><br>
                     J’ai donc à cœur de mettre à profit mon expérience, en vous accompagnant à partir de vos besoins
                     professionnels/personnels, de révéler vos talents et votre savoir-faire pour faciliter la
                     réalisation de vos objectifs.
@@ -124,12 +135,6 @@
                     <img src="{{ asset('build/app/images/Valerie.jpg') }}" alt="valérie">
                 </div>
             </div>
-            <p data-aos="fade-up">
-                Chacun d’entre nous mérite d’être guidé, encouragé et valorisé afin de trouver sa voie, un équilibre, de s’épanouir quel que soit le
-                domaine. <br><br>
-                J’ai donc à coeur de mettre à profit mon expérience, en vous accompagnant à partir de vos besoins professionnels/personnels, de
-                révéler vos talents et votre savoir-faire pour faciliter la réalisation de vos objectifs.
-            </p>
             <p class="signature" data-aos="fade-up">
                 <span class="txt-signature">Valérie Ternay</span>
                 <span>Coach professionnelle</span>
@@ -137,7 +142,7 @@
         </div>
     </div>
 
-    <div class="temoignages">
+    <div class="temoignages" id="temoignages">
         <h2 data-aos="fade-in">Témoignages</h2>
 
         <div id="slider" data-temoignages="{{ temoignages }}" data-temoignages2="{{ temoignages2 }}" data-temoignages3="{{ temoignages3 }}"></div>
@@ -163,7 +168,9 @@
                                             <div class="cat">
                                                 <span>{{ article.category.name }}</span>
                                             </div>
-                                            <img src="{{ asset("articles/" ~ article.file) }}">
+                                            {% if article.fileFile %}
+                                                <img src="{{ asset(article.fileFile) }}" alt="Illustration article">
+                                            {% endif %}
                                         </div>
                                         <div class="article">
                                             <div class="name">

@@ -1,20 +1,16 @@
 @import "../vars/vars";
 
-@import "../components/toolbar-create-search";
+#blog-categories{
+  @include toolbarCreateSearch(201);
+}
+
+#blog{
+  @include toolbarCreateSearch(171);
+}
 
 .link{
   [class^="icon-"]{
     display: inline-block;
     margin-left: 4px;
   }
-}
-
-.role{
-  margin-left: 8px;
-  display: inline-block;
-  padding: 4px 8px;
-  background: var(--primaryShadow);
-  border-radius: 4px;
-  font-size: 12px;
-  opacity: 0.5;
 }

@@ -1,0 +1,113 @@
+@import "../vars/vars";
+
+.profil-card{
+  padding: 12px;
+  background-color: var(--alpha);
+  border: 1px solid var(--grey);
+  border-radius: 8px;
+}
+
+.profil-card-avatar{
+  @include flex(row, center, center);
+  width: 100%;
+  margin-bottom: 12px;
+
+  img{
+    max-width: 120px;
+    border-radius: 200px;
+    background-color: var(--fondContent);
+  }
+}
+
+.profil-card-header{
+  text-align: center;
+
+  .title{
+    @include fontSemibold();
+  }
+}
+
+.profil-card-body{
+  border-top: 1px solid var(--grey);
+  border-bottom: 1px solid var(--grey);
+  padding: 12px 0;
+  margin: 12px 0;
+
+  .item{
+    @include flex(row, center, flex-start);
+
+    &:not(:last-child){
+      margin-bottom: 4px;
+    }
+
+    [class^="icon-"]{
+      display: inline-block;
+      transform: translateY(-2px);
+      margin-right: 4px;
+      color: var(--grey2);
+    }
+  }
+}
+
+.profil-card-footer{
+  text-align: center;
+}
+
+#profil-users{
+  margin-top: 24px;
+
+  .role + .sub{
+    margin-top: 6px;
+  }
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .profil-page{
+    @include flex(row, flex-start, flex-start);
+    width: calc(100% + 12px);
+
+    & > *{
+      width: calc(50% - 12px);
+      margin-right: 12px;
+    }
+  }
+
+  #profil-users{
+    margin-top: 0;
+  }
+}
+
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+  .profil-page{
+    width: 100%;
+
+    & > .col-1{
+      width: calc(36% - 24px);
+      margin-right: 24px;
+    }
+
+    & > .col-2{
+      width: 64%;
+      margin-right: 0;
+    }
+  }
+  .profil-card{
+    padding: 24px;
+  }
+
+  .profil-card-footer{
+    margin-top: 24px;
+  }
+}

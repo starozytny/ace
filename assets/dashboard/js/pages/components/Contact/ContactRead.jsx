@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Button }        from "@dashboardComponents/Tools/Button";
-import Sanitize          from "@dashboardComponents/functions/sanitaze";
+import Sanitize          from "@commonComponents/functions/sanitaze";
 
 export class ContactRead extends Component {
     render () {

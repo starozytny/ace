@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 
-import axios from "axios";
-import Routing           from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
+import axios            from "axios";
+import Routing          from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
 
 import { Button }       from "@dashboardComponents/Tools/Button";
 import { Alert }        from "@dashboardComponents/Tools/Alert";
 import { Input }        from "@dashboardComponents/Tools/Fields";
 import { Drop }         from "@dashboardComponents/Tools/Drop";
+
 import Formulaire       from "@dashboardComponents/functions/Formulaire";
-import Validateur       from "@dashboardComponents/functions/validateur";
+import Validateur       from "@commonComponents/functions/validateur";
 
 function getBase64(file, self) {
-    var reader = new FileReader();
+    let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
         self.setState({logoMail: reader.result })

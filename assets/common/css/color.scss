@@ -1,0 +1,67 @@
+:root{
+  --primary: #1e87f0;
+  --primaryNuance0: #d8eafc;
+  --primaryNuance1: #d8eafc;
+
+  --danger: #f7685b;
+  --dangerNuance0: #ffdde4;
+  --error: #ff5444;
+
+  --warning: #fdad2d;
+  --warningNuance0: #fff0dc;
+
+  --success: #2ed47a;
+
+  --grey: #c7c7c7;
+  --grey2: #929292;
+  --grey3: #6e6e6e;
+
+  --primaryShadow: rgba(16, 156, 241, 0.4);
+  --primaryShadow2: rgba(16, 156, 241, 0.1);
+
+  --dangerShadow: rgba(247, 104, 91, 0.4);
+  --dangerShadow2: rgba(247, 104, 91, 0.1);
+  --dangerFondError: rgba(247, 104, 91, 0.05);
+
+  --warningShadow: rgba(255, 185, 70, 0.4);
+  --warningShadow2: rgba(255, 185, 70, 0.1);
+
+  --successShadow: rgba(46, 212, 122, 0.4);
+  --successShadow2: rgba(46, 212, 122, 0.1);
+
+  --greyShadow: rgba(199,199,199, 0.2);
+  --greyShadow2: rgba(199,199,199, 0.1);
+
+  --overlay: rgba(14, 14, 14, 0.5);
+
+  --alpha: #fff;
+  --beta: #000;
+
+  --tableBlack: #323C47;
+  --tableGray: #707683;
+
+  --txt: #101010;
+  --fond: #e8e8e8;
+  --fondContent: #f6f6f6;
+  --fondMenu: #fafafa;
+  //--fondMenu: #212121;
+}
+
+.dark-mode{
+  --primaryNuance0: #2a2a2a;
+
+  --grey: #484848;
+
+  --greyShadow: rgba(72,72,72, 0.2);
+  --greyShadow2: rgba(72,72,72, 0.1);
+
+  --alpha: #212121;
+  --beta: #fff;
+
+  --txt: #e8e8e8;
+  --fond: #222125;
+  --fondContent: #312e34;
+  --fondMenu: #19191e;
+
+  --fondScroll: #36343a;
+}

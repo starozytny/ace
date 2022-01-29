@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\NotificationRepository;
-use Carbon\Carbon;
-use Carbon\Factory;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=NotificationRepository::class)
  */
-class Notification
+class Notification extends DataEntity
 {
     /**
      * @ORM\Id
@@ -38,6 +36,7 @@ class Notification
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"admin:read"})
      * @Assert\NotBlank()
      */
     private $createdAt;
@@ -53,11 +52,15 @@ class Notification
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"admin:read"})
+     */
+    private $url;
+
     public function __construct()
     {
-        $createdAt = new \DateTime();
-        $createdAt->setTimezone(new \DateTimeZone("Europe/Paris"));
-        $this->createdAt = $createdAt;
+        $this->createdAt = $this->initNewDate();
         $this->isSeen = false;
     }
 
@@ -103,23 +106,13 @@ class Notification
     }
 
     /**
-     * How long ago an user was logged for the last time.
+     * How long ago a user was logged for the last time.
      *
      * @Groups({"admin:read"})
      */
     public function getCreatedAtAgo(): ?string
     {
-        if($this->getCreatedAt()){
-            $frenchFactory = new Factory([
-                'locale' => 'fr_FR',
-                'timezone' => 'Europe/Paris'
-            ]);
-            $time = Carbon::instance($this->getCreatedAt());
-
-            return $frenchFactory->make($time)->diffForHumans();
-        }
-
-        return null;
+        return $this->getHowLongAgo($this->createdAt);
     }
 
     public function getIsSeen(): ?bool
@@ -142,6 +135,18 @@ class Notification
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }

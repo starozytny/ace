@@ -1,0 +1,13 @@
+{% extends 'user/pages/blog/template.html.twig' %}
+
+{% set page_title %}{{ elem.title }}{% endset %}
+
+{% block main_content %}
+    <div class="main-content">
+        <div class="article">
+            <h1 class="title">
+                {{ elem.title }}
+            </h1>
+        </div>
+    </div>
+{% endblock %}

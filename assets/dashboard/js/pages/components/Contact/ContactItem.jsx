@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { ButtonIcon }   from "@dashboardComponents/Tools/Button";
 import { Selector }     from "@dashboardComponents/Layout/Selector";
-import Sanitize         from "@dashboardComponents/functions/sanitaze";
+import Sanitize         from "@commonComponents/functions/sanitaze";
 
 export class ContactItem extends Component {
     render () {

@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ContactRepository;
-use Carbon\Carbon;
-use Carbon\Factory;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=ContactRepository::class)
  */
-class Contact
+class Contact extends DataEntity
 {
     /**
      * @ORM\Id
@@ -54,7 +52,7 @@ class Contact
      * @ORM\Column(type="boolean")
      * @Groups({"admin:read"})
      */
-    private $isSeen;
+    private $isSeen = false;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -70,10 +68,7 @@ class Contact
 
     public function __construct()
     {
-        $createdAt = new \DateTime();
-        $createdAt->setTimezone(new \DateTimeZone("Europe/Paris"));
-        $this->createdAt = $createdAt;
-        $this->isSeen = false;
+        $this->createdAt = $this->initNewDate();
     }
 
     public function getId(): ?int
@@ -130,20 +125,14 @@ class Contact
     }
 
     /**
-     * How long ago an user was added.
+     * How long ago a user was added.
      *
      * @return string
      * @Groups({"admin:read"})
      */
     public function getCreatedAtAgo(): string
     {
-        $frenchFactory = new Factory([
-            'locale' => 'fr_FR',
-            'timezone' => 'Europe/Paris'
-        ]);
-        $createdAt = Carbon::instance($this->getCreatedAt());
-
-        return $frenchFactory->make($createdAt)->diffForHumans();
+        return $this->getHowLongAgo($this->createdAt);
     }
 
     public function getIsSeen(): ?bool

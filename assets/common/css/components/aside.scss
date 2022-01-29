@@ -1,3 +1,7 @@
+.swal2-container{
+  z-index: 10600 !important;
+}
+
 .aside{
   position: fixed;
   top: 0; right: 0;
@@ -34,6 +38,8 @@
   @include scrollbar();
 
   .form{
+    padding: 0;
+
     form{
       & > .alert{
         width: calc(100% - 24px);
@@ -107,6 +113,12 @@
 @media (min-width:1280px) {
   .aside{
     width: 35%;
+  }
+
+  .aside-content {
+    .form {
+      padding: 0;
+    }
   }
 }
 

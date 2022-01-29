@@ -1,0 +1,37 @@
+.progress{
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 100px;
+  background-color: var(--greyShadow);
+
+  &:after{
+    content: "";
+    display: block;
+    background-color: var(--primary);
+    height: 4px;
+    position: absolute;
+    top: 0; left: 0;
+    border-radius: 100px;
+  }
+  &.progress-25{
+    &:after{
+      width: 25%;
+    }
+  }
+  &.progress-50{
+    &:after{
+      width: 50%;
+    }
+  }
+  &.progress-75{
+    &:after{
+      width: 75%;
+    }
+  }
+  &.progress-100{
+    &:after{
+      width: 100%;
+    }
+  }
+}

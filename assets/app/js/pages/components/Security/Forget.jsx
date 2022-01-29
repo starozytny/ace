@@ -7,7 +7,7 @@ import { Aside }        from "@dashboardComponents/Tools/Aside";
 import { Input }        from "@dashboardComponents/Tools/Fields";
 import { Button }       from "@dashboardComponents/Tools/Button";
 import { Alert }        from "@dashboardComponents/Tools/Alert";
-import Validateur       from "@dashboardComponents/functions/validateur";
+import Validateur       from "@commonComponents/functions/validateur";
 import Formulaire       from "@dashboardComponents/functions/Formulaire";
 
 export class Forget extends Component {
