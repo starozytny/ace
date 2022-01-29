@@ -6,8 +6,8 @@ use App\Entity\Blog\BoArticle;
 use App\Entity\User;
 use App\Repository\Ace\AcAtelierRepository;
 use App\Repository\Ace\AcServiceRepository;
+use App\Repository\Ace\AcTestimonialRepository;
 use App\Repository\Blog\BoArticleRepository;
-use App\Entity\Ace\AcTestimonial;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,11 +19,11 @@ class AppController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function index(BoArticleRepository $repository, SerializerInterface $serializer): Response
+    public function index(BoArticleRepository $articleRepository, AcTestimonialRepository $testimonialRepository, SerializerInterface $serializer): Response
     {
-        $articles = $repository->findBy([], ['createdAt' => 'ASC']);
+        $articles = $articleRepository->findBy([], ['createdAt' => 'ASC']);
 
-        $temoignagesAll = $em->getRepository(AcTestimonial::class)->findAll();
+        $temoignagesAll = $testimonialRepository->findAll();
         $temoignages = [];
         $temoignages2 = [];
         $temoignages3 = [];

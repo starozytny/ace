@@ -4,7 +4,7 @@ import Routing           from '@publicFolder/bundles/fosjsrouting/js/router.min.
 
 import { Page }          from "@dashboardComponents/Layout/Page";
 import { LoaderElement } from "@dashboardComponents/Layout/Loader";
-import Sort              from "@dashboardComponents/functions/sort";
+import Sort              from "@commonComponents/functions/sort";
 import Formulaire        from "@dashboardComponents/functions/Formulaire";
 
 import { AteliersList }  from "./AteliersList";
