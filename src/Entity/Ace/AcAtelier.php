@@ -11,6 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class AcAtelier
 {
+    const FOLDER_ATELIERS = "ateliers";
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -112,5 +114,14 @@ class AcAtelier
         $this->file = $file;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     * @Groups({"visitor:read"})
+     */
+    public function getFileFile(): ?string
+    {
+        return $this->file ? "/" . self::FOLDER_ATELIERS ."/" . $this->file : null;
     }
 }

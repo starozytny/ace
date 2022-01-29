@@ -42,8 +42,18 @@ export class Ateliers extends Component {
     handleUpdateData = (data) => { this.setState({ currentData: data })  }
 
     handleUpdateList = (element, newContext=null) => {
-        const { data, context, perPage } = this.state
-        Formulaire.updateDataPagination(Sort.compareName, newContext, context, data, element, perPage);
+        const { data, dataImmuable, currentData, context, perPage } = this.state;
+
+        let newData = Formulaire.updateDataPagination(SORTER, newContext, context, data, element, perPage);
+        let newDataImmuable = Formulaire.updateDataPagination(SORTER, newContext, context, dataImmuable, element, perPage);
+        let newCurrentData = Formulaire.updateDataPagination(SORTER, newContext, context, currentData, element, perPage);
+
+        this.setState({
+            data: newData,
+            dataImmuable: newDataImmuable,
+            currentData: newCurrentData,
+            element: element
+        })
     }
 
     handleChangeContext = (context, element=null) => {
