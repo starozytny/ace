@@ -9,7 +9,7 @@ section{
     margin-bottom: 24px;
   }
 
-  .buttons-items{
+  .buttons-items, .alerts-items{
 
     & > *{
       margin-bottom: 12px;
@@ -19,4 +19,8 @@ section{
       margin-right: 12px;
     }
   }
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--disabled{
+  display: none;
 }

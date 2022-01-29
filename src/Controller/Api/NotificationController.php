@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Repository\NotificationRepository;
 use App\Service\ApiResponse;
 use App\Service\Data\DataService;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,13 @@ use OpenApi\Annotations as OA;
  */
 class NotificationController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * Get array of notifications
      *
@@ -58,6 +66,37 @@ class NotificationController extends AbstractController
     public function isSeen(Notification $obj, DataService $dataService): JsonResponse
     {
         return $dataService->isSeenToTrue($obj);
+    }
+
+    /**
+     * Set all to seen
+     *
+     * @Route("/all/seen", name="isSeen_all", options={"expose"=true}, methods={"POST"})
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="Return message successful",
+     * )
+     *
+     * @OA\Tag(name="Notification")
+     *
+     * @param NotificationRepository $notificationRepository
+     * @param ApiResponse $apiResponse
+     * @return JsonResponse
+     */
+    public function allSeen(NotificationRepository $notificationRepository, ApiResponse $apiResponse): JsonResponse
+    {
+        $em = $this->doctrine->getManager();
+        $objs = $notificationRepository->findBy(['isSeen' => false]);
+
+        foreach($objs as $obj){
+            $obj->setIsSeen(true);
+        }
+
+        $objs = $notificationRepository->findAll();
+
+        $em->flush();
+        return $apiResponse->apiJsonResponse($objs, User::ADMIN_READ);
     }
 
     /**

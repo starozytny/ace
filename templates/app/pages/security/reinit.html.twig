@@ -14,7 +14,9 @@
                 <a href="{{ path('app_homepage') }}" class="btn btn-default">Revenir à la page d'accueil</a>
             </div>
         {% else %}
-            <div id="reinit" data-token={{ token }}></div>
+            <div id="reinit" data-token={{ token }}>
+                {% include "dashboard/layout/components/spinner.html.twig" %}
+            </div>
         {% endif %}
     </div>
 {% endblock %}

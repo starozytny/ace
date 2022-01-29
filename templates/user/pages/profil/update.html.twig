@@ -1,0 +1,9 @@
+{% extends 'user/pages/profil/template.html.twig' %}
+
+{% set page_title %}Mon profil{% endset %}
+
+{% block main_content %}
+    <div id="profil-update" data-donnees="{{ donnees }}">
+        {% include "dashboard/layout/components/spinner.html.twig" %}
+    </div>
+{% endblock %}

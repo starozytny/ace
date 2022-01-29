@@ -1,38 +1,6 @@
+@import "../../../common/css/vars/vars";
+
 @mixin fontRegular() { font-family: 'hkGroteskregular', sans-serif; }
 @mixin fontSemibold() { font-family: 'hkGrotesksemibold', sans-serif; }
 @mixin fontBold() { font-family: 'hkGroteskbold', sans-serif; }
 @mixin fontSignature() { font-family: 'apaluregular', sans-serif; }
-
-@mixin flex($direction: row, $align: center, $justify: center) {
-  display: flex;flex-direction: $direction;
-  align-items: $align;justify-content: $justify;
-}
-
-@mixin maxscreen(){
-  max-width: 1280px;
-  margin: 0 auto;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-@mixin scrollbar(){
-  /* width */
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background: #888;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-}

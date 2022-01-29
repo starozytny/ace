@@ -6,6 +6,7 @@
 parameters:
     public_directory: '%kernel.project_dir%/public/'
     private_directory: '%kernel.project_dir%/documents/'
+    pdf_style_directory: '%kernel.project_dir%/public/pdf/css/'
 
 services:
     # default configuration for services in *this* file
@@ -15,6 +16,7 @@ services:
         bind:
             $publicDirectory: '%public_directory%'
             $privateDirectory: '%private_directory%'
+            $pdfStyleDirectory: '%pdf_style_directory%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

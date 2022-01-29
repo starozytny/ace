@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import { Alert } from "@dashboardComponents/Tools/Alert";
-
 export class Search extends Component {
     constructor() {
         super();
@@ -22,10 +20,11 @@ export class Search extends Component {
     }
 
     render () {
+        const { placeholder = "Recherche..." } = this.props;
         const { search } = this.state;
 
         return <div className={`search ${search !== "" ? " active" : ""}`}>
-            <input type="search" name="search" id="search" value={search} placeholder="Recherche..." onChange={this.handleChange} />
+            <input type="search" name="search" id="search" value={search} placeholder={placeholder} onChange={this.handleChange} />
             <span className="icon-search" />
         </div>
     }

@@ -20,7 +20,7 @@ class PriceExtension extends AbstractExtension
     {
         $arg1 = number_format($arg1, 2, ",", ' ');
         $arg1 = str_replace('.00','', $arg1);
-        $arg1 = str_replace(',00','', $arg1);
-        return $arg1;
+
+        return str_replace(',00','', $arg1);
     }
 }

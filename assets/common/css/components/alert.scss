@@ -4,15 +4,12 @@
   border-radius: 4px;
   transition: all 0.2s ease-in-out;
   width: calc(100% - 24px);
-  margin-bottom: 12px;
 
   p{
     font-size: 14px;
-    opacity: 0.9;
   }
 
   [class^="icon-"] {
-    opacity: 0.9;
 
     & + p,
     & + div{
@@ -37,15 +34,48 @@
 $icons:
         "default" var(--alpha) var(--txt) var(--greyShadow),
         "default-reverse" var(--fond) var(--txt) var(--greyShadow),
-        "primary" var(--primary) var(--alpha) var(--primaryShadow2),
-        "danger" var(--danger) var(--alpha) var(--dangerShadow2),
-        "warning" var(--warning) var(--txt) var(--warningShadow2)
+        "primary" var(--primaryNuance1) var(--primary) var(--primaryShadow2),
+        "danger" var(--dangerNuance0) var(--danger) var(--dangerShadow2),
+        "warning" var(--warningNuance0) var(--warning) var(--warningShadow2)
 ;
 
 @each $name, $bg, $txt, $shadow in $icons {
   .alert-#{$name} {
     background: $bg;
     color: $txt;
-    box-shadow: 0 5px 10px $shadow;
+    //box-shadow: 0 5px 10px $shadow;
+  }
+}
+
+.dark-mode{
+  $icons:
+          "primary" var(--primaryShadow) var(--txt),
+          "danger" var(--dangerShadow) var(--txt),
+          "warning" var(--warningShadow) var(--txt)
+;
+
+  @each $name, $bg, $txt, $shadow in $icons {
+    .alert-#{$name} {
+      background: $bg;
+      color: $txt;
+    }
+  }
+
+  .alert-default-reverse{
+    background-color: var(--fondContent);
+  }
+}
+
+//                      __   _  __    ___   ___    __
+//                     | _| / |/ /_  / _ \ / _ \  |_ |
+//    _____ _____ _____| |  | | '_ \| | | | | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | | (_) | |_| | |_| |  | |_____|_____|_____|
+//                     | |  |_|\___/ \___/ \___/   | |
+//                     |__|                       |__|
+@media (min-width: 1600px){
+  .alert p,
+  .alert [class^="icon-"] + p,
+  .alert [class^="icon-"] + div{
+    font-size: 15px;
   }
 }

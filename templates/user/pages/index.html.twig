@@ -12,11 +12,11 @@
         <div class="dash-line-1">
             <div class="welcome-back">
                 <div class="avatar">
-                    <img src="https://robohash.org/{{ app.user.username }}?size=126x126" alt="Avatar de {{ app.user.username }}"/>
+                    <img src="https://robohash.org/{{ app.user.userIdentifier }}?size=126x126" alt="Avatar de {{ app.user.userIdentifier }}"/>
                 </div>
                 <div class="me">
                     <p>Bon retour,</p>
-                    <p class="username">{{ app.user.username | capitalize }}</p>
+                    <p class="username">{{ app.user.userIdentifier | capitalize }}</p>
                 </div>
             </div>
         </div>

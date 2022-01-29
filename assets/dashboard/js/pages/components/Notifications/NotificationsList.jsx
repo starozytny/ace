@@ -19,13 +19,14 @@ export class NotificationsList extends Component {
                     </div>
                 </div>
 
-                <div className="page-actions">
+                {(data && data.length !== 0) && <div className="page-actions">
                     <div className="selectors-actions">
                         <div className="item" onClick={onDeleteAll}>
                             <ButtonIcon icon="trash" text="Supprimer la sélection" />
                         </div>
                     </div>
-                </div>
+                </div>}
+
 
             </div>
         </>

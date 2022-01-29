@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Service\Expiration;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -11,6 +13,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+    
     /**
      * @Route("/login", options={"expose"=true}, name="app_login")
      * @param AuthenticationUtils $authenticationUtils
@@ -47,11 +56,12 @@ class SecurityController extends AbstractController
      * @Route("/reinitialisation/mot-de-passe/{token}-{code}", name="app_password_reinit")
      * @param $token
      * @param $code
+     * @param Expiration $expiration
      * @return Response
      */
-    public function reinit($token, $code): Response
+    public function reinit($token, $code, Expiration $expiration): Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $user = $em->getRepository(User::class)->findOneBy(['token' => $token]);
         if(!$user){
             throw new NotFoundHttpException("Cet utilisateur n'existe pas.");
@@ -63,8 +73,7 @@ class SecurityController extends AbstractController
         }
 
         if($user->getForgetAt()){
-            $interval = date_diff($user->getForgetAt(), new \DateTime());
-            if ($interval->y != 0 || $interval->m != 0 || $interval->d != 0 || $interval->h != 0 || $interval->i > 30) {
+            if ($expiration->isExpiredByMinutes($user->getForgetAt(), new \DateTime(), 30)) {
                 return $this->render('app/pages/security/reinit.html.twig', ['error' => true]);
             }
         }

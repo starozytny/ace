@@ -1,0 +1,152 @@
+.theme-container{
+  position: relative;
+
+  .switcher-items .switcher-item label{
+    padding: 4px 8px;
+
+    &:before{
+      width: 16px; height: 16px;
+    }
+
+    &:after{
+      content: "\e97c";
+      top: 8px; left: 7px;
+      font-size: 9px;
+      color: var(--grey);
+    }
+  }
+
+  .switcher-items .switcher-item.checked label:before,
+  .switcher-items .switcher-item.checked label:after{
+    transform: translateX(24px);
+  }
+  .switcher-items .switcher-item.checked label:after {
+    content: "\e97b";
+  }
+}
+
+.dark-mode{
+  #toast-container{
+    .toast-message, .toast-close-button{
+      color: var(--alpha);
+    }
+  }
+
+  .swal2-popup,
+  .swal2-popup.swal2-modal.swal2-icon-warning.swal2-show{
+    background-color: var(--fond);
+  }
+  .swal2-title, .swal2-content{
+    color: var(--txt);
+  }
+
+  .nav-mobile{
+    color: var(--alpha);
+  }
+
+  a{
+    color:var(--txt);
+  }
+
+  .items-default, .card-ad{
+
+    .role, .badge{
+      opacity: 0.8;
+    }
+
+    .actions{
+      a, .btn-icon{
+        color: var(--grey2);
+
+        &:hover{
+          color: var(--txt);
+        }
+      }
+    }
+  }
+
+  .items-table{
+    & > .items{
+      & > .item:not(:last-child){
+        border-color: var(--greyShadow);
+      }
+    }
+  }
+
+  .notif-card .notif-body,
+  .notif-cancel{
+    border-color: var(--greyShadow);
+  }
+
+  .react-selectize,
+  .steps > .item.active .number,
+  .react-selectize.dropdown-menu.default .option-wrapper .simple-option,
+  .checkbox-item.checked > label, .radiobox-item.checked > label{
+    color: var(--txt);
+  }
+
+  .multi-select.react-selectize .dropdown-menu.default.react-selectize.multi-select,
+  .simple-select.react-selectize .dropdown-menu.default.react-selectize.simple-select {
+    background-color: var(--fondContent);
+  }
+
+  .multi-select.react-selectize.default.root-node.open .react-selectize-control,
+  .simple-select.react-selectize.default.root-node.open .react-selectize-control,
+  .react-selectize.dropdown-menu.default .option-wrapper.highlight{
+    background-color: var(--fond);
+  }
+
+  .multi-select.react-selectize.default.root-node.open .react-selectize-control,
+  .simple-select.react-selectize.default.root-node.open .react-selectize-control,
+  .react-selectize.dropdown-menu.default:not(.flipped){
+    border-color: var(--txt);
+  }
+
+  .multi-select.react-selectize.default.root-node .simple-value{
+    background-color: var(--fondContent);
+    color: var(--txt);
+    border-color: var(--primary);
+  }
+
+  .fc-theme-standard .fc-scrollgrid{
+    background-color: var(--fond);
+  }
+
+  .fc-theme-standard .fc-scrollgrid,
+  .fc-theme-standard td, .fc-theme-standard th{
+    border-color: var(--grey2);
+  }
+
+  #calendar{
+    .fc-timegrid-event-harness-inset .fc-timegrid-event {
+      box-shadow: none;
+    }
+    .event{
+      background-color: var(--fondContent);
+
+      .status{
+        opacity: 0.9;
+      }
+    }
+  }
+
+  .pagination{
+    & > li{
+      & > a:hover{
+        color: var(--txt);
+      }
+    }
+  }
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .theme-container {
+    margin-right: 36px;
+  }
+}

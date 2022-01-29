@@ -8,7 +8,9 @@
 {% endblock %}
 
 {% block main_content %}
-    <div id="notifications-list" data-donnees="{{ donnees }}"></div>
+    <div id="notifications-list" data-donnees="{{ donnees }}">
+        {% include "dashboard/layout/components/spinner.html.twig" %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}

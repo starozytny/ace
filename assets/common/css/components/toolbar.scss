@@ -1,0 +1,208 @@
+.toolbar{
+  padding-bottom: 24px;
+
+  .dropdown-items{
+    .item{
+      @include flex(row, flex-start, flex-start);
+
+      input{
+        width: 16px;
+        margin-right: 4px;
+        cursor: pointer;
+      }
+
+      label{
+        cursor: pointer;
+      }
+    }
+  }
+
+  & > .item{
+    width: 100%;
+  }
+
+  .create{
+    .btn{
+      width: 100%;
+    }
+    a.btn{
+      width: calc(100% - 48px);
+    }
+  }
+
+  .filter-search{
+    margin-top: 24px;
+    @include flex(row, flex-start, flex-start);
+    flex-wrap: wrap;
+
+    .filter{
+      position: relative;
+      width: 100px;
+    }
+
+    .search{
+      position: relative;
+      width: calc(100% - 100px);
+
+      [class^="icon-"]{
+        position: absolute;
+        display: block;
+        top: 12px; left: 12px;
+        opacity: 0.7;
+        transition: all 0.2s ease-in-out;
+      }
+
+      &.active{
+        [class^="icon-"] {
+          color: var(--primary);
+        }
+      }
+    }
+
+    .dropdown-btn{
+      padding: 10.5px 12px;
+      border-radius: 3px 0 0 3px;
+      justify-content: space-between;
+      border-right: none;
+    }
+
+    input[type="search"]{
+      padding: 12px 10px 12px 40px;
+      width: 100%;
+      border-radius: 0 3px 3px 0;
+
+      &:focus{
+        border-color: var(--grey);
+      }
+
+      &:hover + [class^="icon-"],
+      &:focus + [class^="icon-"]{
+        color: var(--primary);
+      }
+    }
+  }
+
+  .filters-items-checked{
+    @include flex(row, flex-start, flex-start);
+    flex-wrap: wrap;
+    margin-top: 12px;
+
+    & > .item{
+      margin: 0 8px 8px 0;
+      width: auto;
+
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .toolbar{
+    @include flex(row, flex-start, flex-start);
+    flex-wrap: wrap;
+
+    & > .item{
+      width: auto;
+    }
+
+    .create{
+      .btn{
+        width: auto;
+      }
+    }
+
+    .filter-search{
+      margin-top: 0;
+      margin-left: 24px;
+
+      .dropdown-btn {
+        padding: 11px 12px;
+      }
+    }
+  }
+
+  .sorter-pagination{
+    @include flex(row, flex-start, space-between);
+    margin-bottom: 16px;
+  }
+
+  .actions-pagination, .actions-sorter{
+    .line{
+      margin-bottom: 0;
+      justify-content: flex-end;
+    }
+
+    .line > .form-group:not(:last-child){
+      margin-bottom: 0;
+    }
+
+    .form-group{
+      flex-direction: row;
+      align-items: center;
+
+      select{
+        width: 64px;
+        margin-left: 12px;
+      }
+    }
+  }
+
+  .actions-pagination{
+    width: 65%;
+
+    .line.line-2{
+      flex-direction: column;
+
+      & > .form-group:first-child{
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+    .pagination-container{
+      @include flex(row, flex-start, flex-end);
+      margin-top: 12px;
+    }
+    .pagination{
+      margin: 0;
+    }
+  }
+
+  .actions-sorter{
+    width: 35%;
+
+    .form-group{
+      select{
+        width: 125px;
+      }
+    }
+  }
+}
+
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+  .actions-pagination{
+    .line.line-2{
+      flex-direction: row;
+
+      & > .form-group:first-child{
+        width: 50%;
+      }
+    }
+    .pagination-container{
+      margin-top: 0;
+    }
+  }
+}

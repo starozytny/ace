@@ -7,6 +7,12 @@
         'icon': 'home',
         'label': 'Dashboard',
         'name': 'espace-membre'
+    },
+    {
+        'path': path('user_profil'),
+        'icon': 'user',
+        'label': 'Mon profil',
+        'name': 'profil'
     }
 ] %}
 
@@ -36,3 +42,7 @@
     ]%}
     {% set menuBottom = menuAdd | merge(menuBottom) %}
 {% endif %}
+
+{% block footer %}
+    {% include "app/layout/components/footer.html.twig" %}
+{% endblock %}

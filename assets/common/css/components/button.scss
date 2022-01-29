@@ -20,11 +20,11 @@ button.swal2-cancel.swal2-styled{
   }
 
   &:hover{
-    opacity: .8;
+    opacity: .85;
   }
 
   &.active{
-    opacity: 0.9;
+    opacity: 1;
   }
 }
 
@@ -35,14 +35,7 @@ button.swal2-cancel.swal2-styled{
 .btn-icon{
   position: relative;
   padding: 8px;
-  opacity: 0.7;
-
-  &:hover{
-    .tooltip{
-      opacity: 1;
-      z-index: 1;
-    }
-  }
+  opacity: 0.85;
 }
 
 $icons:
@@ -53,24 +46,26 @@ $icons:
         "warning" var(--warning) var(--txt) var(--warningShadow2);
 
 @each $name, $bg, $txt, $shadow in $icons {
+  .btn-outline-#{$name},
+  .btn-#{$name} {
+    box-shadow: 0 4px 12px $shadow;
+  }
   .btn-#{$name} {
     background: $bg;
     color: $txt;
     border: 1px solid transparent;
-    box-shadow: 0 4px 12px $shadow;
   }
 
   .btn-outline-#{$name} {
     background-color: var(--alpha);
     color: $bg;
     border: 1px solid $bg;
-    box-shadow: 0 4px 12px $shadow;
   }
 }
 
 $icons:
-        "confirm" var(--primary) var(--alpha) var(--primaryShadow),
-        "cancel" var(--danger) var(--alpha) var(--dangerShadow)
+        "confirm" var(--primary) var(--alpha) var(--primaryShadow2),
+        "cancel" var(--danger) var(--alpha) var(--dangerShadow2)
 ;
 
 @each $name, $bg, $txt, $shadow in $icons {
@@ -78,11 +73,10 @@ $icons:
     background: $bg;
     color: $txt;
     border: 1px solid transparent;
-    box-shadow: 0 5px 10px $shadow;
+    box-shadow: 0 4px 12px $shadow;
 
     &:hover{
       box-shadow: 0 8px 10px $shadow;
-
     }
   }
 }
@@ -98,4 +92,34 @@ $icons:
 .btn-outline-default{
   color: var(--txt);
   border-color: var(--grey);
+}
+
+.dark-mode{
+  $icons:
+          "primary" var(--txt),
+          "danger" var(--txt),
+          "success" var(--txt);
+
+  @each $name, $txt in $icons {
+    .btn-#{$name} {
+      color: $txt;
+    }
+  }
+
+  button.swal2-confirm.swal2-styled,
+  button.swal2-cancel.swal2-styled{
+    color: var(--txt);
+  }
+}
+
+//                      __   _  __    ___   ___    __
+//                     | _| / |/ /_  / _ \ / _ \  |_ |
+//    _____ _____ _____| |  | | '_ \| | | | | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | | (_) | |_| | |_| |  | |_____|_____|_____|
+//                     | |  |_|\___/ \___/ \___/   | |
+//                     |__|                       |__|
+@media (min-width: 1600px){
+  .btn-icon [class^="icon-"]{
+    font-size: 16px;
+  }
 }

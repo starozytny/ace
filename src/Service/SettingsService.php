@@ -26,25 +26,29 @@ class SettingsService
         return $set[0];
     }
 
-    public function getWebsiteName(){
+    public function getWebsiteName(): ?string
+    {
         $setting = $this->getSettings();
 
         return $setting->getWebsiteName();
     }
 
-    public function getEmailExpediteurGlobal(){
+    public function getEmailExpediteurGlobal(): ?string
+    {
         $setting = $this->getSettings();
 
         return $setting->getEmailGlobal();
     }
 
-    public function getEmailContact(){
+    public function getEmailContact(): ?string
+    {
         $setting = $this->getSettings();
 
         return $setting->getEmailContact();
     }
 
-    public function getEmailRgpd(){
+    public function getEmailRgpd(): ?string
+    {
         $setting = $this->getSettings();
 
         return $setting->getEmailRgpd();

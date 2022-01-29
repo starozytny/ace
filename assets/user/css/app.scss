@@ -1,0 +1,145 @@
+@import "~normalize.css";
+@import "~toastr";
+@import "~react-selectize/dist/index.min.css";
+
+@import "../../common/css/color";
+
+:root{
+
+}
+
+@import "vars/fonts";
+@import "vars/vars";
+
+@import "components/menu";
+@import "components/header";
+@import "components/footer";
+
+@import "components/spinner";
+@import "components/page";
+@import "components/submenu";
+@import "components/loader";
+@import "components/pagination";
+@import "components/toolbar";
+@import "components/table";
+@import "components/impersonate";
+
+@import "components/button";
+@import "components/alert";
+@import "components/tooltip";
+@import "components/form";
+@import "components/dropdown";
+@import "components/aside";
+@import "components/exception";
+@import "components/legales";
+@import "components/map";
+@import "components/cookies";
+@import "components/notifications";
+@import "components/toastr-custom";
+@import "components/progress";
+@import "components/filter";
+@import "components/accordion";
+@import "components/button-dropdown";
+@import "components/helpBubble";
+@import "components/theme";
+
+html, body{
+    scroll-behavior: smooth;
+}
+
+body {
+    color: var(--txt);
+    @include fontRegular();
+}
+
+img{
+    width: 100%;
+}
+
+a{
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+h1, h2, h3, h4, p{
+    margin: 0;
+}
+
+h1{
+    @include fontBold();
+}
+
+h2{
+    @include fontSemibold();
+    text-transform: uppercase;
+}
+
+.txt-danger{
+    color: var(--danger);
+}
+
+main{
+    background-color: var(--fondContent);
+}
+
+.main-content{
+    min-height: 100vh;
+    padding: 12px;
+    margin-top: 12px;
+}
+
+.maj-settings{
+    color: var(--danger);
+    text-decoration: underline;
+}
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
+    .body{
+        @include flex(row, flex-start, flex-start);
+    }
+    main{
+        width: 80%;
+        margin-left: 20%;
+    }
+
+    .main-content{
+        padding: 24px;
+    }
+}
+
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+    main{
+        width: 84%;
+        margin-left: 16%;
+    }
+    .main-content{
+        padding: 24px 32px;
+    }
+}
+
+//                      __   _  __    ___   ___    __
+//                     | _| / |/ /_  / _ \ / _ \  |_ |
+//    _____ _____ _____| |  | | '_ \| | | | | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | | (_) | |_| | |_| |  | |_____|_____|_____|
+//                     | |  |_|\___/ \___/ \___/   | |
+//                     |__|                       |__|
+@media (min-width: 1600px){
+    main{
+        width: 86%;
+        margin-left: 14%;
+    }
+    .main-content{
+        @include maxscreen();
+    }
+}

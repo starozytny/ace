@@ -1,0 +1,19 @@
+.spinner{
+  @include flex(row, center, flex-start);
+  background-color: var(--alpha);
+  border: 1px solid var(--grey);
+  border-radius: 4px;
+  padding: 12px;
+
+  [class^="icon-"]{
+    display: inline-block;
+    font-size: 26px;
+    margin-right: 8px;
+    animation: 2s linear 0s infinite spine;
+  }
+
+  @keyframes spine {
+    0% { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+  }
+}

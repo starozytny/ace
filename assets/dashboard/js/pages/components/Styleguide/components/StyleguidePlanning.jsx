@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
-import {Days} from "@dashboardComponents/Tools/Days";
+import { Days } from "@dashboardComponents/Tools/Days";
 
 export class StyleguidePlanning extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            data: [],
+            data: [ {day: 1}, {day: 4} ],
             dayActive: 1
         }
 

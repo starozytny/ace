@@ -8,6 +8,7 @@ use App\Repository\SettingsRepository;
 use App\Service\ApiResponse;
 use App\Service\FileUploader;
 use App\Service\ValidatorService;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,13 +19,19 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/api/settings", name="api_settings_")
+ * @Security("is_granted('ROLE_ADMIN')")
  */
 class SettingsController extends AbstractController
 {
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+    
     /**
      * Get settings data
-     *
-     * @Security("is_granted('ROLE_ADMIN')")
      *
      * @Route("/", name="index", options={"expose"=true}, methods={"GET"})
      *
@@ -50,8 +57,6 @@ class SettingsController extends AbstractController
     /**
      * Update settings data
      *
-     * @Security("is_granted('ROLE_ADMIN')")
-     *
      * @Route("/update", name="update", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
@@ -68,7 +73,7 @@ class SettingsController extends AbstractController
      */
     public function update(Request $request, ApiResponse $apiResponse, SettingsRepository $repository, ValidatorService $validatorService): JsonResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $settings = $repository->findAll();
         $settings = (count($settings) == 0) ? new Settings() : $settings[0];
 
@@ -96,8 +101,6 @@ class SettingsController extends AbstractController
 
     /**
      * Test upload
-     *
-     * @Security("is_granted('ROLE_ADMIN')")
      *
      * @Route("/upload", name="test_upload", options={"expose"=true}, methods={"POST"})
      *

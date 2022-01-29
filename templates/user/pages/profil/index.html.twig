@@ -1,0 +1,28 @@
+{% extends 'user/pages/profil/template.html.twig' %}
+
+{% set page_title %}Mon profil{% endset %}
+
+{% block main_content %}
+    <div class="main-content">
+        <div class="profil-page">
+            <div class="col-1">
+                <div class="profil-card">
+                    <div class="profil-card-header">
+                        <div class="title">{{ obj.firstname }} {{ obj.lastname }}</div>
+                    </div>
+                    <div class="profil-card-body">
+                        <div class="items">
+                            <div class="item">{{ obj.username }}</div>
+                            <div class="item">{{ obj.email }}</div>
+                        </div>
+                    </div>
+                    <div class="profil-card-footer">
+                        <a href="{{ path('user_profil_update') }}" class="btn btn-primary">Modifier ses informations</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-2"></div>
+        </div>
+    </div>
+{% endblock %}

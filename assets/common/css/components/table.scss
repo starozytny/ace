@@ -1,0 +1,467 @@
+.role, .badge{
+  display: inline-block;
+  padding: 4px 8px 2px 8px;
+  background: var(--primaryShadow);
+  border-radius: 4px;
+  font-size: 14px;
+  opacity: 0.8;
+  color: var(--alpha);
+  @include fontSemibold();
+}
+
+.badge, .role{
+  font-size: 14px;
+  color: var(--alpha);
+
+  $status:
+          "0" var(--danger),
+          "1" var(--primary),
+          "2" var(--warning),
+          "3" var(--grey3),
+          "default" var(--grey),
+          "danger" var(--danger),
+          "warning" var(--warning),
+          "primary" var(--primary),
+;
+
+  @each $number, $bg in $status {
+    &.badge-#{$number},
+    &.role-#{$number}{
+      background-color: $bg;
+    }
+  }
+}
+
+.items-table{
+  .badge + .sub,
+  .role + .sub,
+  .badge + .name,
+  .role + .name{
+    margin-top: 8px;
+  }
+}
+
+.items-table{
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: var(--alpha);
+  border-radius: 4px;
+  box-shadow: 0 0 10px var(--greyShadow2);
+  margin-bottom: 16px;
+
+  & > .items{
+    & > .item{
+      @include flex(row, center, flex-start);
+      padding: 24px 12px 12px 12px;
+
+      &:hover{
+        background-color: var(--primaryNuance0);
+      }
+    }
+
+    & > .item:not(:last-child){
+      border-bottom: 1px solid var(--fond);
+    }
+
+    & > .item-header{
+      display: none;
+    }
+  }
+
+  .item-content{
+    @include flex(column, flex-start, space-between);
+    width: 100%;
+  }
+
+  .item-body{
+    @include flex(column, flex-start, flex-start);
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .badges + .name{
+    margin-top: 8px;
+  }
+
+  .badges{
+    & > .badge:not(:last-child),
+    & > .role:not(:last-child){
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .selector{
+    width: 14px;
+    margin-right: 14px;
+
+    input{
+      display: none;
+    }
+
+    .item-selector{
+      position: relative;
+      display: block;
+      width: 14px; height: 14px;
+      border: 1px solid var(--grey);
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:before{
+        content: "";
+        display: block;
+        width: calc(100% - 2px); height: calc(100% - 2px);
+        position: absolute;
+        top: 1px; left: 1px;
+        background: var(--primary);
+        border-radius: 4px;
+        opacity: 0;
+        transition: all 0.2s ease-in-out;
+      }
+
+      &:hover{
+        &:before{
+          opacity: 0.5;
+        }
+      }
+
+      &.true{
+        &:before{
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.items-default{
+
+  .item{
+    transition: all 0.2s ease-in-out;
+
+    .item-content{
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  .item-body{
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .infos{
+    width: 100%;
+    @include flex(column, flex-start, space-between);
+  }
+
+  .infos-header{
+    display: none;
+  }
+
+  .name, .sub{
+    word-break: break-all;
+  }
+
+  .name{
+    @include flex(column, flex-start, flex-start);
+    @include fontSemibold();
+  }
+
+  .sub{
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  .createAt{
+    opacity: 0.7;
+    font-size: 14px;
+    margin-bottom: 8px;
+    margin-top: 4px;
+  }
+
+  .role{
+    margin-top: 4px;
+  }
+
+  .infos{
+    .actions{
+      width: 100%;
+      @include flex(row, flex-start, flex-end);
+      margin-top: 8px;
+    }
+
+    .col-1, .col-2, .col-3, .col-4, .col-5{
+      width: 100%;
+    }
+
+    .col-1{
+      & + *{
+        &:not(.actions){
+          margin-top: 8px;
+        }
+      }
+    }
+  }
+
+  .item-body-image{
+    .infos{
+      width: calc(100% - 42px - 12px);
+    }
+
+    .item-image{
+      background: var(--fond);
+      width: 42px; height: 42px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-right: 12px;
+
+      img{
+        width: 42px; height: 42px;
+      }
+    }
+  }
+
+  .infos-col-4, .infos-col-5{
+    .col-3{
+      margin-top: 8px;
+    }
+  }
+
+  .infos-col-5{
+    .col-4{
+      margin-top: 8px;
+    }
+  }
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .items-table {
+    & > .items {
+      & > .item{
+        padding-top: 12px;
+        padding-right: 4px;
+      }
+      & > .item-header {
+        display: flex;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: var(--grey2);
+        border-bottom: none;
+        overflow: hidden;
+        @include fontSemibold();
+        padding-right: 12px;
+
+        .item-body-image{
+          padding-left: 74px;
+
+          .col-1{
+            transform: translateX(-74px);
+          }
+        }
+
+        .item-header-selector{
+          width: 14px;
+          margin-right: 14px;
+        }
+
+        &:hover{
+          background: transparent;
+
+          & > .item-content{
+            transform: translateX(0px);
+            padding-left: 0;
+          }
+        }
+      }
+    }
+  }
+  .items-default{
+
+    .role{
+      margin-top: 0;
+    }
+
+    .infos{
+      flex-direction: row;
+    }
+
+    .infos-2{
+      & > div:not(.actions){
+        width: 33%;
+      }
+    }
+
+    .infos-3{
+      & > div:not(.actions){
+        width: 25%;
+      }
+    }
+
+    .name{
+      flex-direction: row;
+      align-items: center;
+
+      & + *{
+        display: inline-block;
+        margin-top: 8px;
+      }
+
+      & > *:not(:first-child) {
+        margin-left: 8px;
+      }
+    }
+
+    .infos{
+      .actions{
+        width: auto;
+        margin-top: 0;
+      }
+      .col-1{
+        & + *{
+          &:not(.actions){
+            margin-top: 0;
+          }
+        }
+      }
+    }
+
+    .item-body-image{
+      .infos{
+        width: calc(100% - 64px - 12px);
+        align-items: flex-start;
+      }
+
+      .item-image , .item-image > img{
+        width: 64px;
+        height: 64px;
+      }
+    }
+
+    .infos-col-2{
+      .col-1{
+        width: calc(100% - 24px - 120px);
+        margin-right: 24px;
+      }
+      .col-2{
+        width: 120px;
+      }
+    }
+
+    .infos-col-3{
+      .col-1{
+        width: calc(100% - 40% - 48px - 120px);
+        margin-right: 24px;
+      }
+      .col-2{
+        width: calc(40% - 24px);
+        margin-right: 24px;
+      }
+      .col-3{
+        width: 120px;
+      }
+    }
+
+    .infos-col-4{
+      .col-1{
+        width: calc(100% - 50% - 72px - 120px);
+        margin-right: 24px;
+      }
+      .col-2{
+        width: calc(25% - 24px);
+        margin-right: 24px;
+      }
+      .col-3{
+        width: calc(25% - 24px);
+        margin-right: 24px;
+        margin-top: 0;
+      }
+      .col-4{
+        width: 120px;
+      }
+    }
+
+    .infos-col-5{
+      .col-1{
+        width: calc(100% - 60% - 96px - 120px);
+        margin-right: 24px;
+      }
+      .col-2{
+        width: calc(20% - 24px);
+        margin-right: 24px;
+      }
+      .col-3{
+        width: calc(20% - 24px);
+        margin-right: 24px;
+        margin-top: 0;
+      }
+      .col-4{
+        width: calc(20% - 24px);
+        margin-right: 24px;
+        margin-top: 0;
+      }
+      .col-5{
+        width: 120px;
+      }
+    }
+  }
+}
+
+//                      __   _  __    ___   ___    __
+//                     | _| / |/ /_  / _ \ / _ \  |_ |
+//    _____ _____ _____| |  | | '_ \| | | | | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | | (_) | |_| | |_| |  | |_____|_____|_____|
+//                     | |  |_|\___/ \___/ \___/   | |
+//                     |__|                       |__|
+@media (min-width: 1600px){
+  .role{
+    font-size: 13px;
+  }
+
+  .items-default .sub {
+    font-size: 15px;
+  }
+
+  .items-default{
+    .infos-col-2{
+      .col-1{
+        width: calc(100% - 24px - 128px);
+      }
+      .col-2{
+        width: 128px;
+      }
+    }
+
+    .infos-col-3{
+      .col-1{
+        width: calc(100% - 40% - 48px - 128px);
+      }
+      .col-3{
+        width: 128px;
+      }
+    }
+
+    .infos-col-4{
+      .col-1{
+        width: calc(100% - 50% - 72px - 128px);
+      }
+      .col-4{
+        width: 128px;
+      }
+    }
+
+    .infos-col-5{
+      .col-1{
+        width: calc(100% - 60% - 96px - 128px);
+      }
+      .col-5{
+        width: 128px;
+      }
+    }
+  }
+}

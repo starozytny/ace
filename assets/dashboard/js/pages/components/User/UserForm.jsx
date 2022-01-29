@@ -1,31 +1,36 @@
 import React, { Component } from 'react';
 
 import axios                   from "axios";
-import toastr                  from "toastr";
 import Routing                 from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
 
 import { Input, Checkbox }     from "@dashboardComponents/Tools/Fields";
 import { Alert }               from "@dashboardComponents/Tools/Alert";
 import { Button }              from "@dashboardComponents/Tools/Button";
-
-import Validateur              from "@dashboardComponents/functions/validateur";
-import Formulaire              from "@dashboardComponents/functions/Formulaire";
+import { Drop }                from "@dashboardComponents/Tools/Drop";
 import { FormLayout }          from "@dashboardComponents/Layout/Elements";
-import {Drop} from "@dashboardComponents/Tools/Drop";
+
+import Validateur              from "@commonComponents/functions/validateur";
+import Helper                  from "@commonComponents/functions/helper";
+import Formulaire              from "@dashboardComponents/functions/Formulaire";
+
+const URL_CREATE_ELEMENT     = "api_users_create";
+const URL_UPDATE_GROUP       = "api_users_update";
+const TXT_CREATE_BUTTON_FORM = "Enregistrer";
+const TXT_UPDATE_BUTTON_FORM = "Enregistrer les modifications";
 
 export function UserFormulaire ({ type, onChangeContext, onUpdateList, element })
 {
     let title = "Ajouter un utilisateur";
-    let url = Routing.generate('api_users_create');
-    let msg = "Félicitation ! Vous avez ajouté un nouveau utilisateur !"
+    let url = Routing.generate(URL_CREATE_ELEMENT);
+    let msg = "Félicitations ! Vous avez ajouté un nouveau utilisateur !"
 
-    if(type === "update"){
+    if(type === "update" || type === "profil"){
         title = "Modifier " + element.username;
-        url = Routing.generate('api_users_update', {'id': element.id});
-        msg = "Félicitation ! La mise à jour s'est réalisé avec succès !";
+        url = Routing.generate(URL_UPDATE_GROUP, {'id': element.id});
+        msg = "Félicitations ! La mise à jour s'est réalisée avec succès !";
     }
 
-    let form = <UserForm
+    let form = <Form
         context={type}
         url={url}
         username={element ? element.username : ""}
@@ -42,7 +47,7 @@ export function UserFormulaire ({ type, onChangeContext, onUpdateList, element }
     return <FormLayout onChangeContext={onChangeContext} form={form}>{title}</FormLayout>
 }
 
-export class UserForm extends Component {
+export class Form extends Component {
     constructor(props) {
         super(props);
 
@@ -66,18 +71,19 @@ export class UserForm extends Component {
     }
 
     componentDidMount() {
-        document.body.scrollTop = 0; // For Safari
-        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-        document.getElementById("username").focus()
+        Helper.toTop();
+        let username = document.getElementById("username");
+        if(username){ username.focus(); }
     }
 
     handleChange = (e) => {
+        const { roles } = this.state
+
         let name = e.currentTarget.name;
         let value = e.currentTarget.value;
 
-        const {roles} = this.state
         if(name === "roles"){
-            value = (e.currentTarget.checked) ? [...roles, ...[value]] :  roles.filter(v => v !== value)
+            value = Formulaire.updateValueCheckbox(e, roles, value);
         }
 
         this.setState({[name]: value})
@@ -92,13 +98,13 @@ export class UserForm extends Component {
         this.setState({ success: false})
 
         let paramsToValidate = [
-            {type: "text", id: 'username', value: username},
+            {type: "text", id: 'username',  value: username},
             {type: "text", id: 'firstname', value: firstname},
-            {type: "text", id: 'lastname', value: lastname},
-            {type: "email", id: 'email', value: email},
-            {type: "array", id: 'roles', value: roles}
+            {type: "text", id: 'lastname',  value: lastname},
+            {type: "email", id: 'email',    value: email},
+            {type: "array", id: 'roles',    value: roles}
         ];
-        if(context === "create"){
+        if(context === "create" || context === "profil"){
             if(password !== ""){
                 paramsToValidate = [...paramsToValidate,
                     ...[{type: "password", id: 'password', value: password, idCheck: 'passwordConfirm', valueCheck: passwordConfirm}]
@@ -106,13 +112,13 @@ export class UserForm extends Component {
             }
         }
 
-        let avatar = this.inputAvatar.current.drop.current.files;
+        let inputAvatar = this.inputAvatar.current;
+        let avatar = inputAvatar ? inputAvatar.drop.current.files : [];
 
         // validate global
         let validate = Validateur.validateur(paramsToValidate)
         if(!validate.code){
-            toastr.warning("Veuillez vérifier les informations transmises.");
-            this.setState({ errors: validate.errors });
+            Formulaire.showErrors(this, validate);
         }else{
             Formulaire.loader(true);
             let self = this;
@@ -127,7 +133,10 @@ export class UserForm extends Component {
             axios({ method: "POST", url: url, data: formData, headers: {'Content-Type': 'multipart/form-data'} })
                 .then(function (response) {
                     let data = response.data;
-                    self.props.onUpdateList(data);
+                    Helper.toTop();
+                    if(self.props.onUpdateList){
+                        self.props.onUpdateList(data);
+                    }
                     self.setState({ success: messageSuccess, errors: [] });
                     if(context === "create"){
                         self.setState( {
@@ -156,8 +165,8 @@ export class UserForm extends Component {
         const { errors, success, username, firstname, lastname, email, password, passwordConfirm, roles, avatar } = this.state;
 
         let rolesItems = [
-            { 'value': 'ROLE_ADMIN', 'label': 'Admin', 'identifiant': 'admin' },
-            { 'value': 'ROLE_USER', 'label': 'Utilisateur', 'identifiant': 'utilisateur' },
+            { value: 'ROLE_ADMIN', label: 'Admin',          identifiant: 'admin' },
+            { value: 'ROLE_USER',  label: 'Utilisateur',    identifiant: 'utilisateur' },
         ]
 
         return <>
@@ -168,8 +177,8 @@ export class UserForm extends Component {
 
                 {success !== false && <Alert type="info">{success}</Alert>}
 
-                <div className="line line-2">
-                    <Input valeur={username} identifiant="username" errors={errors} onChange={this.handleChange} >Nom utilisateur</Input>
+                <div className={"line" + (context !== "profil" ? " line-2" : "")}>
+                    {context !== "profil" && <Input valeur={username} identifiant="username" errors={errors} onChange={this.handleChange}>Nom utilisateur</Input>}
                     <Input valeur={email} identifiant="email" errors={errors} onChange={this.handleChange} type="email" >Adresse e-mail</Input>
                 </div>
 
@@ -178,29 +187,20 @@ export class UserForm extends Component {
                     <Input valeur={lastname} identifiant="lastname" errors={errors} onChange={this.handleChange} >Nom</Input>
                 </div>
 
-                <div className="line line-2">
+                {context !== "profil" && <div className="line line-2">
                     <Checkbox items={rolesItems} identifiant="roles" valeur={roles} errors={errors} onChange={this.handleChange}>Roles</Checkbox>
 
                     <Drop ref={this.inputAvatar} identifiant="avatar" file={avatar} folder="avatars" errors={errors} accept={"image/*"} maxFiles={1}
-                          label="Téléverser un avatar" labelError="Seules les images sont acceptées.">Fichier</Drop>
-                </div>
+                          label="Téléverser un avatar" labelError="Seules les images sont acceptées.">Avatar (facultatif)</Drop>
+                </div>}
 
-                {context === "create" ? <>
+                {(context === "create" || context === "profil") ? <>
                     <Alert type="reverse">
                         Laisser le champs vide génére un mot de passe aléatoire. L'utilisateur pourra utilise la
                         fonction <u>Mot de passe oublié ?</u> pour créer son mot de passe.
                     </Alert>
                     <div className="line">
-                        {context === "create" && <div className="password-rules">
-                            <p>Règles de création de mot de passe :</p>
-                            <ul>
-                                <li>Au moins 12 caractères</li>
-                                <li>Au moins 1 minuscule</li>
-                                <li>Au moins 1 majuscule</li>
-                                <li>Au moins 1 chiffre</li>
-                                <li>Au moins 1 caractère spécial</li>
-                            </ul>
-                        </div>}
+                        <PasswordRules />
                     </div>
                     <div className="line line-2">
                         <Input type="password" valeur={password} identifiant="password" errors={errors} onChange={this.handleChange} >Mot de passe (facultatif)</Input>
@@ -210,10 +210,23 @@ export class UserForm extends Component {
 
                 <div className="line">
                     <div className="form-button">
-                        <Button isSubmit={true}>{context === "create" ? "Ajouter l'utilisateur" : 'Modifier l\'utilisateur'}</Button>
+                        <Button isSubmit={true}>{context === "create" ? TXT_CREATE_BUTTON_FORM : TXT_UPDATE_BUTTON_FORM}</Button>
                     </div>
                 </div>
             </form>
         </>
     }
+}
+
+export function PasswordRules() {
+    return <div className="password-rules">
+        <p>Règles de création de mot de passe :</p>
+        <ul>
+            <li>Au moins 12 caractères</li>
+            <li>Au moins 1 minuscule</li>
+            <li>Au moins 1 majuscule</li>
+            <li>Au moins 1 chiffre</li>
+            <li>Au moins 1 caractère spécial</li>
+        </ul>
+    </div>
 }

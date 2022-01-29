@@ -13,6 +13,7 @@ use App\Service\NotificationService;
 use App\Service\SanitizeData;
 use App\Service\SettingsService;
 use App\Service\ValidatorService;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,6 +27,13 @@ use OpenApi\Annotations as OA;
 class ContactController extends AbstractController
 {
     const ICON = "chat-2";
+
+    private $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * Admin - Get array of contacts
@@ -53,7 +61,7 @@ class ContactController extends AbstractController
     }
 
     /**
-     * Create an message contact
+     * Create a message contact
      *
      * @Route("/", name="create", options={"expose"=true}, methods={"POST"})
      *
@@ -76,7 +84,7 @@ class ContactController extends AbstractController
     public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse, NotificationService $notificationService,
                            MailerService $mailerService, SettingsService $settingsService, SanitizeData $sanitizeData): JsonResponse
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
         $data = json_decode($request->getContent());
 
         if ($data === null) {
@@ -128,7 +136,12 @@ class ContactController extends AbstractController
         $em->persist($obj);
         $em->flush();
 
-        $notificationService->createNotification("Demande de contact", self::ICON, $this->getUser());
+        $notificationService->createNotification(
+            "Demande de contact",
+            self::ICON,
+            $this->getUser(),
+            $this->generateUrl('admin_contact_index', ['search' => $obj->getId()])
+        );
 
         return $apiResponse->apiJsonResponseSuccessful("Message envoyé.");
     }
@@ -199,6 +212,6 @@ class ContactController extends AbstractController
      */
     public function deleteSelected(Request $request, DataService $dataService): JsonResponse
     {
-        return $dataService->deleteSelected(Contact::class, json_decode($request->getContent()), true);
+        return $dataService->deleteSelected(Contact::class, json_decode($request->getContent()));
     }
 }
