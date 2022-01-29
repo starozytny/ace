@@ -59,24 +59,31 @@ export class AtelierForm extends Component {
             {type: "text", id: 'max', value: max},
         ];
 
+        let formData = new FormData();
+
         // validate global
         let validate = Validateur.validateur(paramsToValidate)
+
+        if(file.length !== 0){
+            if(file[0]){
+                formData.append('file', file[0].file);
+            }
+        }else{
+            validate.errors.push({
+                name: "file",
+                message: "Champs obligatoire"
+            })
+        }
 
         // check validate success
         if(!validate.code){
             this.setState({ errors: validate.errors });
         }else{
-            let formData = new FormData();
+
             formData.append('name', name);
             formData.append('content', content.html);
             formData.append('min', min);
             formData.append('max', max);
-
-            if(file !== ""){
-                if(file[0]){
-                    formData.append('file', file[0].file);
-                }
-            }
 
             Formulaire.loader(true);
             let self = this;
