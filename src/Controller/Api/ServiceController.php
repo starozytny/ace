@@ -62,16 +62,16 @@ class ServiceController extends AbstractController
             $service->setFile1($fileName1);
         }
         if($fileName2){
-            $service->setFile1($fileName2);
+            $service->setFile2($fileName2);
         }
         if($fileName3){
-            $service->setFile1($fileName3);
+            $service->setFile3($fileName3);
         }
         if($fileName4){
-            $service->setFile1($fileName4);
+            $service->setFile4($fileName4);
         }
         if($fileName5){
-            $service->setFile1($fileName5);
+            $service->setFile5($fileName5);
         }
 
         if($service->getSlug() !== "etudiants-lyceens" && $service->getSlug() !== "entreprises"
