@@ -11,6 +11,8 @@ import { ServicesList }  from "./ServicesList";
 import { ServiceUpdate } from "./ServiceUpdate";
 import { ServiceCreate } from "./ServiceCreate";
 
+const SORTER = Sort.compareTitle;
+
 export class Services extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +24,8 @@ export class Services extends Component {
             data: null,
             currentData: null,
             element: null,
-            perPage: 10
+            perPage: 10,
+            sorter: SORTER
         }
 
         this.page = React.createRef();
@@ -34,13 +37,23 @@ export class Services extends Component {
         this.handleDeleteGroup = this.handleDeleteGroup.bind(this);
     }
 
-    componentDidMount() { Formulaire.axiosGetDataPagination(this, Routing.generate('api_services_index'), Sort.compareTitle, this.state.perPage) }
+    componentDidMount() { Formulaire.axiosGetDataPagination(this, Routing.generate('api_services_index'), SORTER, this.state.perPage) }
 
     handleUpdateData = (data) => { this.setState({ currentData: data })  }
 
     handleUpdateList = (element, newContext=null) => {
-        const { data, context, perPage } = this.state
-        Formulaire.updateDataPagination(this, Sort.compareTitle, newContext, context, data, element, perPage);
+        const { data, dataImmuable, currentData, context, perPage } = this.state;
+
+        let newData = Formulaire.updateDataPagination(SORTER, newContext, context, data, element, perPage);
+        let newDataImmuable = Formulaire.updateDataPagination(SORTER, newContext, context, dataImmuable, element, perPage);
+        let newCurrentData = Formulaire.updateDataPagination(SORTER, newContext, context, currentData, element, perPage);
+
+        this.setState({
+            data: newData,
+            dataImmuable: newDataImmuable,
+            currentData: newCurrentData,
+            element: element
+        })
     }
 
     handleChangeContext = (context, element=null) => {
