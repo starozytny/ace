@@ -12,7 +12,7 @@ class DataBlog extends DataConstructor
     public function setDataCategory(BoCategory $obj, $data): BoCategory
     {
         return ($obj)
-            ->setSlug(null)
+            ->setSlug($this->sanitizeData->slugString($data->name))
             ->setName(trim($data->name))
         ;
     }
@@ -28,7 +28,7 @@ class DataBlog extends DataConstructor
         }
 
         return ($obj)
-            ->setSlug(null)
+            ->setSlug($this->sanitizeData->slugString($data->title))
             ->setTitle($this->sanitizeData->trimData($data->title))
             ->setIntroduction($this->sanitizeData->trimData($data->introduction->html))
             ->setContent($this->sanitizeData->trimData($data->content->html))
