@@ -23,9 +23,12 @@
                     {{ article.createAtStringLong }}
                 </div>
 
-                <div class="article-image">
-                    <img src="{{ asset('articles/' ~ article.file) }}" alt="Illustration article">
-                </div>
+                {% if article.fileFile %}
+                    <div class="article-image">
+                        <img src="{{ asset(article.fileFile) }}" alt="Illustration article">
+                    </div>
+                {% endif %}
+
 
                 <div class="article-content">
                     {{ article.content | raw }}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Routing          from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
+
 import { ButtonIcon }   from "@dashboardComponents/Tools/Button";
 import { Selector }     from "@dashboardComponents/Layout/Selector";
 
@@ -20,8 +22,8 @@ export class ArticlesItem extends Component {
                             </div>
                             <div className="sub">Créé : {elem.createAtString} {elem.updatedAtAgo && "- Modifié : " + elem.updatedAtAgo}</div>
                             <div className="sub link">
-                                {location.origin + "/articles/" + elem.slug}
-                                <a href="" target="_blank"> <span className="icon-link-2" /> </a>
+                                {location.origin + Routing.generate('app_article', {'slug': elem.slug})}
+                                <a href={Routing.generate('app_article', {'slug': elem.slug})} target="_blank"> <span className="icon-link-2" /> </a>
                             </div>
                         </div>
                         <div className="actions">
