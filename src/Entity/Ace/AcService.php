@@ -11,6 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class AcService
 {
+    const FOLDER_SERVICES = "services";
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -220,5 +222,47 @@ class AcService
         $this->nbSeance = $nbSeance;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     * @Groups({"visitor:read"})
+     */
+    public function getFile1File(): ?string
+    {
+        return $this->file1 ? "/" . self::FOLDER_SERVICES ."/" . $this->file1 : "/page_accueil.jpg";
+    }
+
+    /**
+     * @return string
+     * @Groups({"visitor:read"})
+     */
+    public function getFile2File(): ?string
+    {
+        return $this->file2 ? "/" . self::FOLDER_SERVICES ."/" . $this->file2 : "/page_accueil.jpg";
+    }
+    /**
+     * @return string
+     * @Groups({"visitor:read"})
+     */
+    public function getFile3File(): ?string
+    {
+        return $this->file3 ? "/" . self::FOLDER_SERVICES ."/" . $this->file3 : "/page_accueil.jpg";
+    }
+    /**
+     * @return string
+     * @Groups({"visitor:read"})
+     */
+    public function getFile4File(): ?string
+    {
+        return $this->file4 ? "/" . self::FOLDER_SERVICES ."/" . $this->file4 : "/page_accueil.jpg";
+    }
+    /**
+     * @return string
+     * @Groups({"visitor:read"})
+     */
+    public function getFile5File(): ?string
+    {
+        return $this->file5 ? "/" . self::FOLDER_SERVICES ."/" . $this->file5 : "/page_accueil.jpg";
     }
 }

@@ -3,7 +3,7 @@
 {% block title %}{{ service.title }} {{ parent() }}{% endblock %}
 
 {% block main_content %}
-    <div class="{{ service.slug }} custom-shape-divider" style="background: url({{ asset('build/app/images/' ~ service.file1) }}) no-repeat fixed; background-size: cover;">
+    <div class="{{ service.slug }} custom-shape-divider" style="background: url({{ asset(service.file1File) }}) no-repeat fixed; background-size: cover;">
         <div class="title-page" data-aos="fade-right" data-aos-delay="100">
             <div class="title-page-content">
                 <div class="guil1"><img src="{{ asset('build/app/images/guillemet_1_blanc.png') }}" alt="guillemet"></div>
@@ -30,18 +30,18 @@
             <div class="illustrations">
                <div class="illustrations-col-1">
                    <div>
-                       <img class="img-1" data-aos="zoom-in" data-aos-delay="100" src="{{ asset('build/app/images/' ~ service.file2) }}" alt="Illustration service">
+                       <img class="img-1" data-aos="zoom-in" data-aos-delay="100" src="{{ asset(service.file2File) }}" alt="Illustration service">
                    </div>
                    <div>
-                       <img class="img-2" data-aos="zoom-in" data-aos-delay="150" src="{{ asset('build/app/images/' ~ service.file3) }}" alt="Illustration service">
+                       <img class="img-2" data-aos="zoom-in" data-aos-delay="150" src="{{ asset(service.file3File) }}" alt="Illustration service">
                    </div>
                </div>
                 <div class="illustrations-col-2">
                     <div>
-                        <img class="img-3" data-aos="zoom-in" data-aos-delay="200" src="{{ asset('build/app/images/' ~ service.file4) }}" alt="Illustration service">
+                        <img class="img-3" data-aos="zoom-in" data-aos-delay="200" src="{{ asset(service.file4File) }}" alt="Illustration service">
                     </div>
                     <div>
-                        <img class="img-4" data-aos="zoom-in" data-aos-delay="250" src="{{ asset('build/app/images/' ~ service.file5) }}" alt="Illustration service">
+                        <img class="img-4" data-aos="zoom-in" data-aos-delay="250" src="{{ asset(service.file5File) }}" alt="Illustration service">
                     </div>
                 </div>
             </div>
