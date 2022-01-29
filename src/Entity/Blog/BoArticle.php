@@ -12,7 +12,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=BoArticleRepository::class)
  * @UniqueEntity(fields={"title"})
- * @UniqueEntity(fields={"slug"})
  */
 class BoArticle extends DataEntity
 {
