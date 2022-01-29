@@ -168,7 +168,9 @@
                                             <div class="cat">
                                                 <span>{{ article.category.name }}</span>
                                             </div>
-                                            <img src="{{ asset("articles/" ~ article.file) }}">
+                                            {% if article.fileFile %}
+                                                <img src="{{ asset(article.fileFile) }}">
+                                            {% endif %}
                                         </div>
                                         <div class="article">
                                             <div class="name">

@@ -21,7 +21,7 @@ class AppController extends AbstractController
      */
     public function index(BoArticleRepository $articleRepository, AcTestimonialRepository $testimonialRepository, SerializerInterface $serializer): Response
     {
-        $articles = $articleRepository->findBy([], ['createdAt' => 'ASC']);
+        $articles = $articleRepository->findBy(['isPublished' => true, "visibleBy" => BoArticle::VISIBILITY_ALL], ["createdAt" => "ASC", "updatedAt" => "ASC"]);
 
         $temoignagesAll = $testimonialRepository->findAll();
         $temoignages = [];

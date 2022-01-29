@@ -19,7 +19,7 @@ export class ArticlesItem extends Component {
                             <div className="cat">
                                 <span>{elem.category.name}</span>
                             </div>
-                            <img src={'articles/' + elem.file} alt="illustration article"/>
+                            {elem.fileFile && <img src={elem.fileFile} alt="illustration article"/>}
                         </div>
                         <div className="article">
                             <div className="name">

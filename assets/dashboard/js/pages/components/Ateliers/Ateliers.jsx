@@ -11,6 +11,8 @@ import { AteliersList }  from "./AteliersList";
 import { AtelierUpdate } from "./AtelierUpdate";
 import { AtelierCreate } from "./AtelierCreate";
 
+const SORTER = Sort.compareName;
+
 export class Ateliers extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +24,8 @@ export class Ateliers extends Component {
             data: null,
             currentData: null,
             element: null,
-            perPage: 10
+            perPage: 10,
+            sorter: SORTER
         }
 
         this.page = React.createRef();
@@ -34,13 +37,13 @@ export class Ateliers extends Component {
         this.handleDeleteGroup = this.handleDeleteGroup.bind(this);
     }
 
-    componentDidMount() { Formulaire.axiosGetDataPagination(this, Routing.generate('api_ateliers_index'), Sort.compareName, this.state.perPage) }
+    componentDidMount() { Formulaire.axiosGetDataPagination(this, Routing.generate('api_ateliers_index'), SORTER, this.state.perPage) }
 
     handleUpdateData = (data) => { this.setState({ currentData: data })  }
 
     handleUpdateList = (element, newContext=null) => {
         const { data, context, perPage } = this.state
-        Formulaire.updateDataPagination(this, Sort.compareName, newContext, context, data, element, perPage);
+        Formulaire.updateDataPagination(Sort.compareName, newContext, context, data, element, perPage);
     }
 
     handleChangeContext = (context, element=null) => {

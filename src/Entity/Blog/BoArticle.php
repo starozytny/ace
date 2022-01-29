@@ -324,9 +324,9 @@ class BoArticle extends DataEntity
      * @return string
      * @Groups({"visitor:read"})
      */
-    public function getFileFile(): string
+    public function getFileFile(): ?string
     {
-        return $this->file ? "/" . self::FOLDER_ARTICLES ."/" . $this->file : "https://robohash.org/" . $this->id . "?size=64x64";
+        return $this->file ? "/" . self::FOLDER_ARTICLES ."/" . $this->file : null;
     }
 
     /**
