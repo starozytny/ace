@@ -53,7 +53,7 @@ class BoArticle extends DataEntity
     private $file;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      * @Gedmo\Slug(updatable=true, fields={"title"})
      * @Groups({"visitor:read", "admin:write"})
      */
